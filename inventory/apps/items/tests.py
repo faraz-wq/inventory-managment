@@ -143,7 +143,7 @@ class ItemAPITestCase(TestCase):
         response = self.client.get(f'/api/items/{self.item.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], self.item.id)
-        self.assertIn('attributes', response.data)
+        self.assertIn('attribute_values', response.data)
 
     def test_create_item(self):
         """Test creating a new item"""
