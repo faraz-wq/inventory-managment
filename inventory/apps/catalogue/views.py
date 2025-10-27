@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+import django_filters
 
 from .models import ItemInfo, ItemAttribute
 from .serializers import (
@@ -17,6 +18,14 @@ from .serializers import (
 from apps.rbac.permissions import has_permission
 
 
+class ItemAttributeFilter(django_filters.FilterSet):
+    item_id = django_filters.NumberFilter(field_name='item__id')
+    item_category = django_filters.CharFilter(field_name='item__category')
+    
+    class Meta:
+        model = ItemAttribute
+        fields = ['datatype']
+
 class ItemAttributeViewSet(viewsets.ModelViewSet):
     """
     ViewSet for managing Item Attribute Definitions
@@ -25,7 +34,7 @@ class ItemAttributeViewSet(viewsets.ModelViewSet):
     serializer_class = ItemAttributeSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
-    filterset_fields = ['datatype', 'item__id', 'item__category']
+    filterset_class = ItemAttributeFilter  # Use custom filterset instead of filterset_fields
     search_fields = ['key', 'item__item_name']
     ordering_fields = ['id', 'key', 'item__item_name']
     ordering = ['item', 'key']

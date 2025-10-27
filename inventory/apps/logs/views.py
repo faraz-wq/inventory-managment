@@ -29,6 +29,10 @@ class LogViewSet(viewsets.ReadOnlyModelViewSet):
         Non-admin users can only see their own logs
         Admins can see all logs
         """
+        # Handle schema generation - this prevents the AnonymousUser error
+        if getattr(self, 'swagger_fake_view', False):
+            return Log.objects.none()
+        
         user = self.request.user
         if user.is_superuser or user.is_staff:
             return Log.objects.select_related('user').all()

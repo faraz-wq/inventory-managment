@@ -25,11 +25,11 @@ class ItemInfoSerializer(serializers.ModelSerializer):
         return obj.items.count()
 
 class ItemAttributeSerializer(serializers.ModelSerializer):
-    item_name = serializers.CharField(source='item.item_name', read_only=True)
+    item_name = serializers.CharField(source='item_info.item_name', read_only=True)
     
     class Meta:
         model = ItemAttribute
-        fields = ['id', 'item', 'item_name', 'key', 'datatype']
+        fields = ['id', 'item_info', 'item_name', 'key', 'datatype']
         read_only_fields = ['id']
 
 class ItemInfoDetailSerializer(ItemInfoSerializer):

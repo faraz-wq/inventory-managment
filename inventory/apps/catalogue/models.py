@@ -58,7 +58,7 @@ class ItemAttribute(models.Model):
     class Meta:
         db_table = 'item_attributes'
         ordering = ['item_info', 'key']
-
+    
     def __str__(self):
-        return f"{self.item.id} - {self.key}: {self.value}"
+        return f"{self.item_info.id} - {self.key}" 
 
