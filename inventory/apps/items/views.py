@@ -114,6 +114,8 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['patch'], url_path='attributes/(?P<attr_id>[^/.]+)')
     def update_attribute(self, request, pk=None, attr_id=None):
+        print("PATCH update_attribute called for attr_id:", attr_id)
+
         item = self.get_object()
         try:
             attribute = item.attribute_values.get(id=attr_id)

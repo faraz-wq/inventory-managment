@@ -47,7 +47,7 @@ class ItemSerializer(serializers.ModelSerializer):
     """
     Serializer for Item model
     """
-    attributes = ItemAttributeValueSerializer(many=True, read_only=True, source='attribute_values')
+    attribute_values = ItemAttributeValueSerializer(many=True, read_only=True)
     iteminfo_name = serializers.CharField(source='iteminfo.item_name', read_only=True)
     dept_name = serializers.CharField(source='dept.org_shortname', read_only=True)
     geocode_name = serializers.CharField(source='geocode.village_name', read_only=True)
@@ -62,7 +62,7 @@ class ItemSerializer(serializers.ModelSerializer):
             'geocode', 'geocode_name', 'iteminfo', 'iteminfo_name',
             'dept', 'dept_name', 'user', 'user_name',
             'created_by', 'created_by_name', 'verified_by', 'verified_by_name',
-            'latitude', 'longitude', 'created_at', 'updated_at', 'attributes'
+            'latitude', 'longitude', 'created_at', 'updated_at', 'attribute_values'
         ]
         read_only_fields = ['created_at', 'updated_at', 'created_by', 'verified_by']
 
@@ -111,13 +111,21 @@ class ItemCreateSerializer(serializers.ModelSerializer):
         attributes_data = validated_data.pop('attribute_values', [])
         created_by = self.context['request'].user
 
-        # Use ModelSerializer's create() to handle fields properly
         item = super().create({**validated_data, 'created_by': created_by})
 
         for attr_data in attributes_data:
-            ItemAttributeValue.objects.create(item=item, **attr_data)
+            item_attribute = attr_data.get('item_attribute')
+            if isinstance(item_attribute, dict):
+                item_attribute = ItemAttribute.objects.get(id=item_attribute.get('id'))
+
+            ItemAttributeValue.objects.create(
+                item=item,
+                item_attribute=item_attribute,
+                value=attr_data.get('value')
+            )
 
         return item
+
 
 
 class ItemVerifySerializer(serializers.Serializer):
