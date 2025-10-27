@@ -54,7 +54,7 @@ class CatalogueAPITestCase(TestCase):
         )
         self.user.save()
 
-        # Create permissions for catalogue with names to match error messages
+        # Create permissions for catalogue with names matching has_permission identifiers
         self.view_permission = Permission.objects.create(
             name="view_catalogue",
             description="View Catalogue Items"
@@ -112,7 +112,7 @@ class CatalogueAPITestCase(TestCase):
 
     def test_list_item_info(self):
         """Test listing all item_info (catalogue)"""
-        response = self.client.get('/api/catalogue/iteminfo/')
+        response = self.client.get('/api/catalogue/')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreaterEqual(len(response.data['results']), 1)
@@ -121,7 +121,7 @@ class CatalogueAPITestCase(TestCase):
         """Test retrieving a specific item_info"""
         print(f"Item ID: {self.item_info.id}")  # Debug
         print(f"Item exists: {ItemInfo.objects.filter(id=self.item_info.id).exists()}")  # Debug
-        response = self.client.get(f'/api/catalogue/iteminfo/{self.item_info.id}/')
+        response = self.client.get(f'/api/catalogue/{self.item_info.id}/')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['item_name'], self.item_info.item_name)
@@ -135,7 +135,7 @@ class CatalogueAPITestCase(TestCase):
             "resource_type": "Asset",
             "perishability": "Non-Perishable"
         }
-        response = self.client.post('/api/catalogue/iteminfo/', data, format='json')
+        response = self.client.post('/api/catalogue/', data, format='json')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(ItemInfo.objects.count(), 2)
@@ -143,7 +143,7 @@ class CatalogueAPITestCase(TestCase):
     def test_update_item_info(self):
         """Test updating an item_info"""
         data = {"item_name": "Updated Item"}
-        response = self.client.patch(f'/api/catalogue/iteminfo/{self.item_info.id}/', data, format='json')
+        response = self.client.patch(f'/api/catalogue/{self.item_info.id}/', data, format='json')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.item_info.refresh_from_db()
@@ -151,7 +151,7 @@ class CatalogueAPITestCase(TestCase):
 
     def test_delete_item_info(self):
         """Test deleting an item_info"""
-        response = self.client.delete(f'/api/catalogue/iteminfo/{self.item_info.id}/')
+        response = self.client.delete(f'/api/catalogue/{self.item_info.id}/')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(ItemInfo.objects.count(), 0)
@@ -165,14 +165,14 @@ class CatalogueAPITestCase(TestCase):
             resource_type="Asset",
             perishability="Non-Perishable"
         )
-        response = self.client.get('/api/catalogue/iteminfo/?category=Furniture')
+        response = self.client.get('/api/catalogue/?category=Furniture')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
 
     def test_filter_by_resource_type(self):
         """Test filtering item_info by resource type"""
-        response = self.client.get('/api/catalogue/iteminfo/?resource_type=Hardware')
+        response = self.client.get('/api/catalogue/?resource_type=Hardware')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreaterEqual(len(response.data['results']), 1)
@@ -186,7 +186,7 @@ class CatalogueAPITestCase(TestCase):
             resource_type="Consumable",
             perishability="Perishable"
         )
-        response = self.client.get('/api/catalogue/iteminfo/?perishability=Perishable')
+        response = self.client.get('/api/catalogue/?perishability=Perishable')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
@@ -200,7 +200,7 @@ class CatalogueAPITestCase(TestCase):
             resource_type="Hardware",
             perishability="Non-Perishable"
         )
-        response = self.client.get('/api/catalogue/iteminfo/?search=Computer')
+        response = self.client.get('/api/catalogue/?search=Computer')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
@@ -215,7 +215,7 @@ class CatalogueAPITestCase(TestCase):
             perishability="Non-Perishable",
             active=False
         )
-        response = self.client.get('/api/catalogue/iteminfo/?active=false')
+        response = self.client.get('/api/catalogue/?active=false')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
@@ -236,7 +236,7 @@ class CatalogueAPITestCase(TestCase):
             resource_type="Other",
             perishability="Non-Perishable"
         )
-        response = self.client.get('/api/catalogue/iteminfo/?ordering=item_name')
+        response = self.client.get('/api/catalogue/?ordering=item_name')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'][0]['item_name'], "Alpha Item")
@@ -253,7 +253,7 @@ class CatalogueAPITestCase(TestCase):
             "activity_name": "Office Setup",
             "active": True
         }
-        response = self.client.post('/api/catalogue/iteminfo/', data, format='json')
+        response = self.client.post('/api/catalogue/', data, format='json')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['tags'], "office, equipment, furniture")
@@ -282,7 +282,7 @@ class CatalogueAPITestCase(TestCase):
             key="color",
             datatype="string"
         )
-        response = self.client.get(f'/api/catalogue/attributes/?item__id={another_item.id}')
+        response = self.client.get(f'/api/catalogue/attributes/?item_id={another_item.id}')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
@@ -312,14 +312,14 @@ class CatalogueAPITestCase(TestCase):
             "item_code": "TI001",  # Same code as existing
             "category": "Other"
         }
-        response = self.client.post('/api/catalogue/iteminfo/', data, format='json')
+        response = self.client.post('/api/catalogue/', data, format='json')
         print(response.content)  # Debug
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_unauthenticated_access_denied(self):
         """Test that unauthenticated users cannot access catalogue"""
         self.client.logout()  # Ensure unauthenticated
-        response = self.client.get('/api/catalogue/iteminfo/')
+        response = self.client.get('/api/catalogue/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         response = self.client.get('/api/catalogue/attributes/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

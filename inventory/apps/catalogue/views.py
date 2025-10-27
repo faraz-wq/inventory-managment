@@ -47,17 +47,9 @@ class ItemAttributeViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
-    @has_permission("view_catalogue")
-    def retrieve(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
-
     @has_permission("update_catalogue")
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
-
-    @has_permission("update_catalogue")
-    def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(request, *args, **kwargs)
 
     @has_permission("delete_catalogue")
     def destroy(self, request, *args, **kwargs):

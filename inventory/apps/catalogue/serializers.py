@@ -31,6 +31,13 @@ class ItemAttributeSerializer(serializers.ModelSerializer):
         model = ItemAttribute
         fields = ['id', 'item_info', 'item_name', 'key', 'datatype']
         read_only_fields = ['id']
+        validators = [
+            serializers.UniqueTogetherValidator(
+                queryset=ItemAttribute.objects.all(),
+                fields=('item_info', 'key'),
+                message="Attribute key must be unique for this item."
+            )
+        ]
 
 class ItemInfoDetailSerializer(ItemInfoSerializer):
     # Include attributes in detail view
