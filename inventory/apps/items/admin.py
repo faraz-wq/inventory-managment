@@ -1,13 +1,13 @@
-"""
-Items Admin Configuration
-"""
+# items/admin.py - CORRECTED
 from django.contrib import admin
-from .models import Item, ItemAttribute
+from .models import Item, ItemAttributeValue  # Import the correct model
 
 
-class ItemAttributeInline(admin.TabularInline):
-    model = ItemAttribute
+class ItemAttributeValueInline(admin.TabularInline):
+    model = ItemAttributeValue
     extra = 1
+    # Optional: make it more user-friendly
+    autocomplete_fields = ['item_attribute']
 
 
 @admin.register(Item)
@@ -23,7 +23,7 @@ class ItemAdmin(admin.ModelAdmin):
     ]
     ordering = ['-created_at']
     readonly_fields = ['created_at', 'updated_at']
-    inlines = [ItemAttributeInline]
+    inlines = [ItemAttributeValueInline]  # Use the corrected inline
 
     fieldsets = (
         ('Item Information', {
@@ -42,8 +42,9 @@ class ItemAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(ItemAttribute)
-class ItemAttributeAdmin(admin.ModelAdmin):
-    list_display = ['id', 'item', 'key', 'value', 'datatype']
-    list_filter = ['datatype']
-    search_fields = ['item__iteminfo__item_name', 'key', 'value']
+# This should probably be in catalogue/admin.py, not items/admin.py
+@admin.register(ItemAttributeValue)  # Register the correct model
+class ItemAttributeValueAdmin(admin.ModelAdmin):
+    list_display = ['id', 'item', 'item_attribute', 'value']
+    list_filter = ['item_attribute__datatype']
+    search_fields = ['item__iteminfo__item_name', 'item_attribute__key', 'value']

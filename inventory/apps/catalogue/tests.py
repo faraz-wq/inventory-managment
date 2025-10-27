@@ -7,7 +7,7 @@ from rest_framework.test import APIClient
 from rest_framework import status
 from apps.departments.models import Department
 from apps.locations.models import District, Mandal, Village
-from apps.catalogue.models import ItemInfo
+from apps.catalogue.models import ItemInfo, ItemAttribute
 
 User = get_user_model()
 
@@ -55,113 +55,120 @@ class CatalogueAPITestCase(TestCase):
             location=self.village
         )
 
-        # Create test item info
+        # Create test item_info info
         self.item_info = ItemInfo.objects.create(
-            item_name="Test Item",
+            item_name="Test item_info",
             item_code="TI001",
             category="Electronics",
             resource_type="Hardware",
             perishability="Non-Perishable"
         )
 
+        # Create test item_info attribute
+        self.item_attribute = ItemAttribute.objects.create(
+            item_info=self.item_info,
+            key="ram",
+            datatype="string"
+        )
+
     def test_list_item_info(self):
-        """Test listing all item info (catalogue)"""
+        """Test listing all item_info info (catalogue)"""
         self.client.force_authenticate(user=self.user)
 
-        response = self.client.get('/api/catalogue/')
+        response = self.client.get('/api/catalogue/iteminfo/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreaterEqual(len(response.data['results']), 1)
 
     def test_retrieve_item_info(self):
-        """Test retrieving a specific item info"""
+        """Test retrieving a specific item_info info"""
         self.client.force_authenticate(user=self.user)
 
-        response = self.client.get(f'/api/catalogue/{self.item_info.id}/')
+        response = self.client.get(f'/api/catalogue/iteminfo/{self.item_info.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['item_name'], self.item_info.item_name)
 
     def test_create_item_info(self):
-        """Test creating a new item info"""
+        """Test creating a new item_info info"""
         self.client.force_authenticate(user=self.user)
 
         data = {
-            "item_name": "New Item",
+            "item_name": "New item_info",
             "item_code": "NI001",
             "category": "Furniture",
             "resource_type": "Asset",
             "perishability": "Non-Perishable"
         }
 
-        response = self.client.post('/api/catalogue/', data)
+        response = self.client.post('/api/catalogue/iteminfo/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(ItemInfo.objects.count(), 2)
 
     def test_update_item_info(self):
-        """Test updating an item info"""
+        """Test updating an item_info info"""
         self.client.force_authenticate(user=self.user)
 
-        data = {"item_name": "Updated Item"}
+        data = {"item_name": "Updated item_info"}
         response = self.client.patch(
-            f'/api/catalogue/{self.item_info.id}/',
+            f'/api/catalogue/iteminfo/{self.item_info.id}/',
             data
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.item_info.refresh_from_db()
-        self.assertEqual(self.item_info.item_name, "Updated Item")
+        self.assertEqual(self.item_info.item_name, "Updated item_info")
 
     def test_delete_item_info(self):
-        """Test deleting an item info"""
+        """Test deleting an item_info info"""
         self.client.force_authenticate(user=self.user)
 
-        response = self.client.delete(f'/api/catalogue/{self.item_info.id}/')
+        response = self.client.delete(f'/api/catalogue/iteminfo/{self.item_info.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(ItemInfo.objects.count(), 0)
 
     def test_filter_by_category(self):
-        """Test filtering item info by category"""
+        """Test filtering item_info info by category"""
         self.client.force_authenticate(user=self.user)
 
-        # Create item with different category
+        # Create item_info with different category
         ItemInfo.objects.create(
-            item_name="Furniture Item",
+            item_name="Furniture item_info",
             item_code="FI001",
             category="Furniture",
             resource_type="Asset",
             perishability="Non-Perishable"
         )
 
-        response = self.client.get('/api/catalogue/?category=Furniture')
+        response = self.client.get('/api/catalogue/iteminfo/?category=Furniture')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
 
     def test_filter_by_resource_type(self):
-        """Test filtering item info by resource type"""
+        """Test filtering item_info info by resource type"""
         self.client.force_authenticate(user=self.user)
 
-        response = self.client.get('/api/catalogue/?resource_type=Hardware')
+        response = self.client.get('/api/catalogue/iteminfo/?resource_type=Hardware')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreaterEqual(len(response.data['results']), 1)
 
     def test_filter_by_perishability(self):
-        """Test filtering item info by perishability"""
+        """Test filtering item_info info by perishability"""
         self.client.force_authenticate(user=self.user)
 
-        # Create perishable item
+        # Create perishable item_info
         ItemInfo.objects.create(
-            item_name="Perishable Item",
+            item_name="Perishable item_info",
             item_code="PI001",
             category="Food",
             resource_type="Consumable",
             perishability="Perishable"
         )
 
-        response = self.client.get('/api/catalogue/?perishability=Perishable')
+        response = self.client.get('/api/catalogue/iteminfo/?perishability=Perishable')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
 
     def test_search_item_info(self):
-        """Test searching item info"""
+        """Test searching item_info info"""
         self.client.force_authenticate(user=self.user)
 
         ItemInfo.objects.create(
@@ -172,17 +179,17 @@ class CatalogueAPITestCase(TestCase):
             perishability="Non-Perishable"
         )
 
-        response = self.client.get('/api/catalogue/?search=Computer')
+        response = self.client.get('/api/catalogue/iteminfo/?search=Computer')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
 
     def test_filter_by_active_status(self):
-        """Test filtering item info by active status"""
+        """Test filtering item_info info by active status"""
         self.client.force_authenticate(user=self.user)
 
-        # Create inactive item
+        # Create inactive item_info
         ItemInfo.objects.create(
-            item_name="Inactive Item",
+            item_name="Inactive item_info",
             item_code="II001",
             category="Other",
             resource_type="Other",
@@ -190,40 +197,40 @@ class CatalogueAPITestCase(TestCase):
             active=False
         )
 
-        response = self.client.get('/api/catalogue/?active=false')
+        response = self.client.get('/api/catalogue/iteminfo/?active=false')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
 
     def test_ordering_by_name(self):
-        """Test ordering item info by name"""
+        """Test ordering item_info info by name"""
         self.client.force_authenticate(user=self.user)
 
         # Create additional items
         ItemInfo.objects.create(
-            item_name="Alpha Item",
+            item_name="Alpha item_info",
             item_code="AI001",
             category="Other",
             resource_type="Other",
             perishability="Non-Perishable"
         )
         ItemInfo.objects.create(
-            item_name="Beta Item",
+            item_name="Beta item_info",
             item_code="BI001",
             category="Other",
             resource_type="Other",
             perishability="Non-Perishable"
         )
 
-        response = self.client.get('/api/catalogue/?ordering=item_name')
+        response = self.client.get('/api/catalogue/iteminfo/?ordering=item_name')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['results'][0]['item_name'], "Alpha Item")
+        self.assertEqual(response.data['results'][0]['item_name'], "Alpha item_info")
 
     def test_create_item_info_with_all_fields(self):
-        """Test creating item info with all fields"""
+        """Test creating item_info info with all fields"""
         self.client.force_authenticate(user=self.user)
 
         data = {
-            "item_name": "Complete Item",
+            "item_name": "Complete item_info",
             "item_code": "CI001",
             "category": "Office",
             "resource_type": "Equipment",
@@ -233,11 +240,89 @@ class CatalogueAPITestCase(TestCase):
             "active": True
         }
 
-        response = self.client.post('/api/catalogue/', data)
+        response = self.client.post('/api/catalogue/iteminfo/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['tags'], "office, equipment, furniture")
 
     def test_unauthenticated_access_denied(self):
         """Test that unauthenticated users cannot access catalogue"""
-        response = self.client.get('/api/catalogue/')
+        response = self.client.get('/api/catalogue/iteminfo/')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_filter_attributes_by_datatype(self):
+        """Test filtering attributes by datatype"""
+        self.client.force_authenticate(user=self.user)
+
+        # Create attribute with different datatype
+        ItemAttribute.objects.create(
+            item_info=self.item_info,
+            key="quantity",
+            datatype="number"
+        )
+
+        response = self.client.get('/api/catalogue/attributes/?datatype=number')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+
+    def test_filter_attributes_by_item(self):
+        """Test filtering attributes by item_info info"""
+        self.client.force_authenticate(user=self.user)
+
+        # Create another item_info info
+        another_item = ItemInfo.objects.create(
+            item_name="Another item_info",
+            item_code="AI001",
+            category="Furniture"
+        )
+        ItemAttribute.objects.create(
+            item_info=another_item,
+            key="color",
+            datatype="string"
+        )
+
+        response = self.client.get(f'/api/catalogue/attributes/?item__id={another_item.id}')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+
+    def test_search_attributes(self):
+        """Test searching attributes"""
+        self.client.force_authenticate(user=self.user)
+
+        response = self.client.get('/api/catalogue/attributes/?search=ram')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 1)
+
+    # NEW: Validation Tests
+    def test_create_item_attribute_duplicate_key(self):
+        """Test cannot create duplicate attribute key for same item_info"""
+        self.client.force_authenticate(user=self.user)
+
+        data = {
+            "item_info": self.item_info.id,
+            "key": "ram",  # Same key as existing
+            "datatype": "string"
+        }
+
+        response = self.client.post('/api/catalogue/attributes/', data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_item_info_duplicate_code(self):
+        """Test cannot create item_info info with duplicate item_info code"""
+        self.client.force_authenticate(user=self.user)
+
+        data = {
+            "item_name": "Duplicate item_info",
+            "item_code": "TI001",  # Same code as existing
+            "category": "Other"
+        }
+
+        response = self.client.post('/api/catalogue/iteminfo/', data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_unauthenticated_access_denied(self):
+        """Test that unauthenticated users cannot access catalogue"""
+        response = self.client.get('/api/catalogue/iteminfo/')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+        response = self.client.get('/api/catalogue/attributes/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

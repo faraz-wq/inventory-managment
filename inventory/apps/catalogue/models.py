@@ -34,3 +34,31 @@ class ItemInfo(models.Model):
         if self.tags:
             return [tag.strip() for tag in self.tags.split(',')]
         return []
+
+class ItemAttribute(models.Model):
+    """
+    Dynamic key-value attributes for items
+    Allows flexible metadata storage for different item types
+    """
+    DATATYPE_CHOICES = [
+        ('string', 'String'),
+        ('number', 'Number'),
+        ('boolean', 'Boolean'),
+        ('date', 'Date'),
+        ('json', 'JSON'),
+    ]
+
+    item_info = models.ForeignKey(
+        ItemInfo,
+        on_delete=models.CASCADE,
+        related_name='attributes'
+    )
+    key = models.CharField(max_length=100)
+    datatype = models.CharField(max_length=20, choices=DATATYPE_CHOICES, default='string')
+    class Meta:
+        db_table = 'item_attributes'
+        ordering = ['item_info', 'key']
+
+    def __str__(self):
+        return f"{self.item.id} - {self.key}: {self.value}"
+

@@ -2,23 +2,52 @@
 Item Serializers
 """
 from rest_framework import serializers
-from .models import Item, ItemAttribute
+from .models import Item, ItemAttributeValue   
+from apps.catalogue.models import ItemAttribute 
 
 
-class ItemAttributeSerializer(serializers.ModelSerializer):
+class ItemAttributeValueSerializer(serializers.ModelSerializer):
     """
-    Serializer for ItemAttribute model
+    Serializer for ItemAttributeValue model (actual attribute values)
     """
+    key = serializers.CharField(source='item_attribute.key', read_only=True)
+    datatype = serializers.CharField(source='item_attribute.datatype', read_only=True)
+    
     class Meta:
-        model = ItemAttribute
-        fields = ['id', 'key', 'value', 'datatype']
+        model = ItemAttributeValue
+        fields = ['id', 'item_attribute', 'key', 'value', 'datatype']
+        read_only_fields = ['id', 'key', 'datatype']
+
+    def validate(self, data):
+        """
+        Validate value based on datatype
+        """
+        item_attribute = data.get('item_attribute')
+        value = data.get('value')
+        
+        if item_attribute and value:
+            # Basic datatype validation
+            if item_attribute.datatype == 'number':
+                try:
+                    float(value)
+                except ValueError:
+                    raise serializers.ValidationError(
+                        f"Value must be a number for attribute {item_attribute.key}"
+                    )
+            elif item_attribute.datatype == 'boolean':
+                if value.lower() not in ['true', 'false', '1', '0']:
+                    raise serializers.ValidationError(
+                        f"Value must be boolean (true/false) for attribute {item_attribute.key}"
+                    )
+        
+        return data
 
 
 class ItemSerializer(serializers.ModelSerializer):
     """
     Serializer for Item model
     """
-    attributes = ItemAttributeSerializer(many=True, read_only=True)
+    attributes = ItemAttributeValueSerializer(many=True, read_only=True, source='attribute_values')
     iteminfo_name = serializers.CharField(source='iteminfo.item_name', read_only=True)
     dept_name = serializers.CharField(source='dept.org_shortname', read_only=True)
     geocode_name = serializers.CharField(source='geocode.village_name', read_only=True)
@@ -56,13 +85,13 @@ class ItemCreateSerializer(serializers.ModelSerializer):
     """
     Serializer for creating items
     """
-    attributes = ItemAttributeSerializer(many=True, required=False)
+    attribute_values = ItemAttributeValueSerializer(many=True, required=False)
 
     class Meta:
         model = Item
         fields = [
             'photo', 'eol_date', 'operational_notes', 'geocode',
-            'iteminfo', 'dept', 'user', 'latitude', 'longitude', 'attributes'
+            'iteminfo', 'dept', 'user', 'latitude', 'longitude', 'attribute_values'
         ]
 
     def validate(self, data):
@@ -76,19 +105,17 @@ class ItemCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "Both latitude and longitude must be provided together for geolocation"
             )
-
         return data
 
     def create(self, validated_data):
-        attributes_data = validated_data.pop('attributes', [])
+        attributes_data = validated_data.pop('attribute_values', [])
         created_by = self.context['request'].user
 
-        # Create the item
-        item = Item.objects.create(created_by=created_by, **validated_data)
+        # Use ModelSerializer's create() to handle fields properly
+        item = super().create({**validated_data, 'created_by': created_by})
 
-        # Create attributes
         for attr_data in attributes_data:
-            ItemAttribute.objects.create(item=item, **attr_data)
+            ItemAttributeValue.objects.create(item=item, **attr_data)
 
         return item
 
@@ -105,7 +132,7 @@ class ItemVerifySerializer(serializers.Serializer):
         Validate status transitions
         """
         item = self.context.get('item')
-        if item.status == 'available' and value == 'verified':
+        if item and item.status == 'available' and value == 'verified':
             raise serializers.ValidationError(
                 "Cannot transition from 'available' back to 'verified'"
             )

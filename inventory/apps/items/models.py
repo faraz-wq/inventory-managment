@@ -76,31 +76,27 @@ class Item(models.Model):
         return f"{self.iteminfo.item_name} - {self.status}"
 
 
-class ItemAttribute(models.Model):
+class ItemAttributeValue(models.Model):
     """
-    Dynamic key-value attributes for items
+    Dynamic value for attributes of items
     Allows flexible metadata storage for different item types
     """
-    DATATYPE_CHOICES = [
-        ('string', 'String'),
-        ('number', 'Number'),
-        ('boolean', 'Boolean'),
-        ('date', 'Date'),
-        ('json', 'JSON'),
-    ]
 
     item = models.ForeignKey(
         Item,
         on_delete=models.CASCADE,
-        related_name='attributes'
+        related_name='attribute_values'
     )
-    key = models.CharField(max_length=100)
+    item_attribute = models.ForeignKey(
+        'catalogue.ItemAttribute',
+        on_delete=models.CASCADE,
+        related_name='item_values'
+    )
     value = models.TextField()
-    datatype = models.CharField(max_length=20, choices=DATATYPE_CHOICES, default='string')
 
     class Meta:
-        db_table = 'item_attributes'
-        ordering = ['item', 'key']
+        db_table = 'item_attribute_values'
+        ordering = ['item', 'item_attribute']
 
     def __str__(self):
-        return f"{self.item.id} - {self.key}: {self.value}"
+        return f"{self.item.id} - {self.item_attribute.key}: {self.value}"

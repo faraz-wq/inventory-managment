@@ -1,5 +1,5 @@
 """
-Item Views
+Item Views - CORRECTED
 """
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -8,11 +8,11 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
-from .models import Item, ItemAttribute
+from .models import Item, ItemAttributeValue  # ← CORRECTED IMPORT
 from .serializers import (
     ItemSerializer,
     ItemCreateSerializer,
-    ItemAttributeSerializer,
+    ItemAttributeValueSerializer,  # This should serialize ItemAttributeValue
     ItemVerifySerializer
 )
 from apps.rbac.permissions import has_permission
@@ -24,7 +24,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     """
     queryset = Item.objects.select_related(
         'iteminfo', 'dept', 'geocode', 'user', 'created_by', 'verified_by'
-    ).prefetch_related('attributes').all()
+    ).prefetch_related('attribute_values').all()  # 'attributes' refers to ItemAttributeValue via related_name
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = [
@@ -50,7 +50,6 @@ class ItemViewSet(viewsets.ModelViewSet):
 
     @has_permission("create_items")
     def create(self, request, *args, **kwargs):
-        """Create item - requires create_items permission"""
         return super().create(request, *args, **kwargs)
 
     @has_permission("view_items")
@@ -97,73 +96,53 @@ class ItemViewSet(viewsets.ModelViewSet):
             return Response(ItemSerializer(item).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=['get'], url_path='attributes')
-    def list_attributes(self, request, pk=None):
-        """
-        List all attributes for an item
-        GET /api/items/{id}/attributes/
-        """
+    @action(detail=True, methods=['get', 'post'], url_path='attributes')
+    def attributes(self, request, pk=None):
         item = self.get_object()
-        attributes = item.attributes.all()
-        serializer = ItemAttributeSerializer(attributes, many=True)
-        return Response(serializer.data)
 
-    @action(detail=True, methods=['post'], url_path='attributes')
-    def add_attribute(self, request, pk=None):
-        """
-        Add an attribute to an item
-        POST /api/items/{id}/attributes/
-        Body: {"key": "color", "value": "red", "datatype": "string"}
-        """
-        item = self.get_object()
-        serializer = ItemAttributeSerializer(data=request.data)
+        if request.method == 'GET':
+            attrs = item.attribute_values.all()
+            serializer = ItemAttributeValueSerializer(attrs, many=True)
+            return Response(serializer.data)
 
-        if serializer.is_valid():
-            serializer.save(item=item)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        elif request.method == 'POST':
+            serializer = ItemAttributeValueSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(item=item)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['patch'], url_path='attributes/(?P<attr_id>[^/.]+)')
     def update_attribute(self, request, pk=None, attr_id=None):
-        """
-        Update an item attribute
-        PATCH /api/items/{id}/attributes/{attr_id}/
-        Body: {"value": "blue"}
-        """
         item = self.get_object()
         try:
-            attribute = ItemAttribute.objects.get(id=attr_id, item=item)
-            serializer = ItemAttributeSerializer(
-                attribute,
-                data=request.data,
-                partial=True
+            attribute = item.attribute_values.get(id=attr_id)
+            serializer = ItemAttributeValueSerializer(
+                attribute, data=request.data, partial=True
             )
-
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except ItemAttribute.DoesNotExist:
-            return Response(
-                {'error': 'Attribute not found'},
-                status=status.HTTP_404_NOT_FOUND
-            )
+        except ItemAttributeValue.DoesNotExist:
+            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
     @action(detail=True, methods=['delete'], url_path='attributes/(?P<attr_id>[^/.]+)')
     def delete_attribute(self, request, pk=None, attr_id=None):
         """
-        Delete an item attribute
+        Delete an item attribute value
         DELETE /api/items/{id}/attributes/{attr_id}/
         """
         item = self.get_object()
         try:
-            attribute = ItemAttribute.objects.get(id=attr_id, item=item)
+            # CORRECTED: Use ItemAttributeValue, not ItemAttribute
+            attribute = ItemAttributeValue.objects.get(id=attr_id, item=item)
             attribute.delete()
             return Response(
                 {'message': 'Attribute deleted successfully'},
                 status=status.HTTP_204_NO_CONTENT
             )
-        except ItemAttribute.DoesNotExist:
+        except ItemAttributeValue.DoesNotExist:  # CORRECTED exception
             return Response(
                 {'error': 'Attribute not found'},
                 status=status.HTTP_404_NOT_FOUND
