@@ -19,25 +19,21 @@ from apps.rbac.permissions import has_permission
 
 
 class ItemAttributeFilter(django_filters.FilterSet):
-    item_id = django_filters.NumberFilter(field_name='item__id')
-    item_category = django_filters.CharFilter(field_name='item__category')
-    
+    item_info_id = django_filters.NumberFilter(field_name='item_info__id')
+    item_info_category = django_filters.CharFilter(field_name='item_info__category', lookup_expr='iexact')
+
     class Meta:
         model = ItemAttribute
-        fields = ['datatype']
+        fields = ['datatype', 'item_info_id', 'item_info_category']
 
 class ItemAttributeViewSet(viewsets.ModelViewSet):
     """
     ViewSet for managing Item Attribute Definitions
     """
-    queryset = ItemAttribute.objects.select_related('item').all()
     serializer_class = ItemAttributeSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_class = ItemAttributeFilter  # Use custom filterset instead of filterset_fields
-    search_fields = ['key', 'item__item_name']
-    ordering_fields = ['id', 'key', 'item__item_name']
-    ordering = ['item', 'key']
 
     @has_permission("view_catalogue")
     def list(self, request, *args, **kwargs):

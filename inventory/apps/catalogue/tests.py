@@ -49,8 +49,9 @@ class CatalogueAPITestCase(TestCase):
 
         self.client.force_authenticate(user=self.user)
 
-    # ========= VALID TESTS =========
-
+    # -------------------------------------------------
+    # ItemInfo CRUD
+    # -------------------------------------------------
     def test_list_item_info(self):
         response = self.client.get('/api/catalogue/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -87,6 +88,9 @@ class CatalogueAPITestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(ItemInfo.objects.filter(id=self.item_info.id).exists())
 
+    # -------------------------------------------------
+    # Filtering / Search / Validation
+    # -------------------------------------------------
     def test_filter_by_category(self):
         ItemInfo.objects.create(item_code="F001", item_name="Chair", category="Furniture")
         response = self.client.get('/api/catalogue/?category=Furniture')
@@ -103,24 +107,22 @@ class CatalogueAPITestCase(TestCase):
         response = self.client.post('/api/catalogue/', data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_create_item_attribute_via_action(self):
-        payload = {
-            "item_info": self.item_info.id,   # <-- required field
-            "key": "cpu",
-            "datatype": "string"
-        }
-        url = f'/api/catalogue/{self.item_info.id}/attributes/'   # <-- no trailing slash
-        response = self.client.post(url, payload, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data['key'], "cpu")
-
+    # -------------------------------------------------
+    # Attribute actions (GET/POST on /attributes/, PATCH/DELETE on /attributes/<id>/)
+    # -------------------------------------------------
     def test_list_attributes_via_action(self):
         url = f'/api/catalogue/{self.item_info.id}/attributes/'
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data), 1)               # ← NOT paginated
         self.assertEqual(response.data[0]['key'], "ram")
 
+    def test_create_item_attribute_via_action(self):
+        payload = {"item_info": self.item_info.id, "key": "cpu", "datatype": "string"}
+        url = f'/api/catalogue/{self.item_info.id}/attributes/'
+        response = self.client.post(url, payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['key'], "cpu")
 
     def test_update_attribute_via_action(self):
         payload = {"key": "memory"}
@@ -130,7 +132,6 @@ class CatalogueAPITestCase(TestCase):
         self.item_attribute.refresh_from_db()
         self.assertEqual(self.item_attribute.key, "memory")
 
-
     def test_delete_attribute_via_action(self):
         url = f'/api/catalogue/{self.item_info.id}/attributes/{self.item_attribute.id}/'
         response = self.client.delete(url)
@@ -138,10 +139,15 @@ class CatalogueAPITestCase(TestCase):
         self.assertFalse(ItemAttribute.objects.filter(id=self.item_attribute.id).exists())
 
     def test_duplicate_attribute_key_fails(self):
-        data = {"key": "ram", "datatype": "string"}
-        response = self.client.post(f'/api/catalogue/{self.item_info.id}/attributes/', data, format='json')
+        data = {"item_info": self.item_info.id, "key": "ram", "datatype": "string"}
+        response = self.client.post(
+            f'/api/catalogue/{self.item_info.id}/attributes/', data, format='json'
+        )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
+    # -------------------------------------------------
+    # Permissions
+    # -------------------------------------------------
     def test_unauthenticated_access_denied(self):
         self.client.logout()
         response = self.client.get('/api/catalogue/')
