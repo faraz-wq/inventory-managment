@@ -97,77 +97,62 @@ class ItemInfoViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
 
-    @action(detail=True, methods=['get'], url_path='attributes')
-    def list_attributes(self, request, pk=None):
+    @action(
+        detail=True,
+        methods=['get', 'post'],
+        url_path='attributes'
+    )
+    @has_permission("update_catalogue")  # Only applies to POST
+    def attributes(self, request, pk=None):
         """
-        List all attribute definitions for an item type
-        GET /api/catalogue/iteminfo/{id}/attributes/
-        """
-        item_info = self.get_object()
-        attributes = item_info.attributes.all()
-        serializer = ItemAttributeSerializer(attributes, many=True)
-        return Response(serializer.data)
-
-    @action(detail=True, methods=['post'], url_path='attributes')
-    @has_permission("update_catalogue")
-    def add_attribute(self, request, pk=None):
-        """
-        Add an attribute definition to an item type
-        POST /api/catalogue/iteminfo/{id}/attributes/
-        Body: {"key": "ram", "datatype": "string"}
+        Handle both:
+        - GET  /api/catalogue/<id>/attributes/     → list attributes
+        - POST /api/catalogue/<id>/attributes/     → add attribute
         """
         item_info = self.get_object()
-        serializer = ItemAttributeSerializer(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save(item=item_info)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        if request.method == 'GET':
+            # List attributes
+            attributes = item_info.attributes.all()
+            serializer = ItemAttributeSerializer(attributes, many=True)
+            return Response(serializer.data)
 
-    @action(detail=True, methods=['patch'], url_path='attributes/(?P<attr_id>[^/.]+)')
-    @has_permission("update_catalogue")
-    def update_attribute(self, request, pk=None, attr_id=None):
+        elif request.method == 'POST':
+            # Create attribute
+            serializer = ItemAttributeSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(item_info=item_info)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(
+            detail=True,
+            methods=['patch', 'delete'],
+            url_path=r'attributes/(?P<attr_id>\d+)'
+        )
+    def attribute_detail(self, request, pk=None, attr_id=None):
         """
-        Update an attribute definition
-        PATCH /api/catalogue/iteminfo/{id}/attributes/{attr_id}/
-        Body: {"key": "memory", "datatype": "string"}
+        PATCH  /api/catalogue/<id>/attributes/<attr_id>/   → update
+        DELETE /api/catalogue/<id>/attributes/<attr_id>/   → delete
         """
         item_info = self.get_object()
+
         try:
-            attribute = ItemAttribute.objects.get(id=attr_id, item=item_info)
-            serializer = ItemAttributeSerializer(
-                attribute,
-                data=request.data,
-                partial=True
+            attr = ItemAttribute.objects.get(id=attr_id, item_info=item_info)
+        except ItemAttribute.DoesNotExist:
+            return Response(
+                {'error': 'Attribute not found'}, status=status.HTTP_404_NOT_FOUND
             )
 
+        if request.method == 'PATCH':
+            serializer = ItemAttributeSerializer(
+                attr, data=request.data, partial=True
+            )
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except ItemAttribute.DoesNotExist:
-            return Response(
-                {'error': 'Attribute definition not found'},
-                status=status.HTTP_404_NOT_FOUND
-            )
 
-    @action(detail=True, methods=['delete'], url_path='attributes/(?P<attr_id>[^/.]+)')
-    @has_permission("delete_catalogue")
-    def delete_attribute(self, request, pk=None, attr_id=None):
-        """
-        Delete an attribute definition
-        DELETE /api/catalogue/iteminfo/{id}/attributes/{attr_id}/
-        """
-        item_info = self.get_object()
-        try:
-            attribute = ItemAttribute.objects.get(id=attr_id, item=item_info)
-            attribute.delete()
-            return Response(
-                {'message': 'Attribute definition deleted successfully'},
-                status=status.HTTP_204_NO_CONTENT
-            )
-        except ItemAttribute.DoesNotExist:
-            return Response(
-                {'error': 'Attribute definition not found'},
-                status=status.HTTP_404_NOT_FOUND
-            )
+        # DELETE
+        attr.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
