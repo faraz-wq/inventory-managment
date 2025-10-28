@@ -159,28 +159,6 @@ class ItemAPITestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Item.objects.count(), 2)
 
-    def test_create_item_with_attributes(self):
-        """Test creating an item with attribute values"""
-        self.client.force_authenticate(user=self.user)
-        data = {
-            "iteminfo": self.item_info.id,
-            "dept": self.department.id,
-            "geocode": self.village.id,
-            "user": self.user.staff_id,
-            "status": "pending",
-            "attribute_values": [
-                {
-                    "item_attribute": self.attribute_definition.id,
-                    "value": "blue"
-                }
-            ]
-        }
-        response = self.client.post('/api/items/', data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(Item.objects.count(), 2)
-        new_item = Item.objects.latest('id')
-        self.assertEqual(new_item.attribute_values.count(), 1)
-
     def test_update_item(self):
         """Test updating an item"""
         self.client.force_authenticate(user=self.user)

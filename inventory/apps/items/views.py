@@ -112,40 +112,37 @@ class ItemViewSet(viewsets.ModelViewSet):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=['patch'], url_path='attributes/(?P<attr_id>[^/.]+)')
-    def update_attribute(self, request, pk=None, attr_id=None):
-        print("PATCH update_attribute called for attr_id:", attr_id)
+    @action(
+        detail=True,
+        methods=['patch', 'delete'],
+        url_path=r'attributes/(?P<attr_id>\d+)'
+    )
+    @has_permission("update_items")
+    def attribute_value_detail(self, request, pk=None, attr_id=None):
+        """
+        Handle:
+        - PATCH  /api/items/<id>/attributes/<attr_id>/   → update value
+        - DELETE /api/items/<id>/attributes/<attr_id>/   → delete value
+        """
+        item_info = self.get_object()
 
-        item = self.get_object()
         try:
-            attribute = item.attribute_values.get(id=attr_id)
+            attr_value = ItemAttributeValue.objects.get(id=attr_id, item=item_info)
+        except ItemAttributeValue.DoesNotExist:
+            return Response(
+                {'error': 'Attribute value not found'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        if request.method == 'PATCH':
             serializer = ItemAttributeValueSerializer(
-                attribute, data=request.data, partial=True
+                attr_value, data=request.data, partial=True
             )
             if serializer.is_valid():
                 serializer.save()
                 return Response(serializer.data)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except ItemAttributeValue.DoesNotExist:
-            return Response({'error': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
-    @action(detail=True, methods=['delete'], url_path='attributes/(?P<attr_id>[^/.]+)')
-    def delete_attribute(self, request, pk=None, attr_id=None):
-        """
-        Delete an item attribute value
-        DELETE /api/items/{id}/attributes/{attr_id}/
-        """
-        item = self.get_object()
-        try:
-            # CORRECTED: Use ItemAttributeValue, not ItemAttribute
-            attribute = ItemAttributeValue.objects.get(id=attr_id, item=item)
-            attribute.delete()
-            return Response(
-                {'message': 'Attribute deleted successfully'},
-                status=status.HTTP_204_NO_CONTENT
-            )
-        except ItemAttributeValue.DoesNotExist:  # CORRECTED exception
-            return Response(
-                {'error': 'Attribute not found'},
-                status=status.HTTP_404_NOT_FOUND
-            )
+        # DELETE
+        attr_value.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
