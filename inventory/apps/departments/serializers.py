@@ -6,18 +6,13 @@ from .models import Department, DepartmentContact
 
 
 class DepartmentContactSerializer(serializers.ModelSerializer):
-    """
-    Serializer for DepartmentContact model
-    """
     class Meta:
         model = DepartmentContact
         fields = ['id', 'contact_type', 'contact_value']
+        swagger_schema_name = 'DepartmentContact'   # exact component name
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
-    """
-    Serializer for Department model with nested contacts
-    """
     contacts = DepartmentContactSerializer(many=True, read_only=True)
     contact_count = serializers.SerializerMethodField()
 
@@ -29,16 +24,13 @@ class DepartmentSerializer(serializers.ModelSerializer):
             'contact_person_designation', 'contact_person_address',
             'pin_code', 'active', 'contacts', 'contact_count'
         ]
+        swagger_schema_name = 'Department'          # exact component name
 
     def get_contact_count(self, obj):
-        """Count of contacts for this department"""
         return obj.contacts.count()
 
 
 class DepartmentCreateSerializer(serializers.ModelSerializer):
-    """
-    Serializer for creating departments
-    """
     class Meta:
         model = Department
         fields = [
@@ -47,3 +39,4 @@ class DepartmentCreateSerializer(serializers.ModelSerializer):
             'contact_person_designation', 'contact_person_address',
             'pin_code', 'active'
         ]
+        swagger_schema_name = 'DepartmentCreate'    # distinguishes create payload

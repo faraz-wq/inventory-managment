@@ -8,11 +8,14 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
 from .models import Role, Permission, RolePermission
 from .serializers import (
     RoleSerializer,
     PermissionSerializer,
-    AssignPermissionSerializer
+    AssignPermissionSerializer,
 )
 
 
@@ -28,18 +31,71 @@ class RoleViewSet(viewsets.ModelViewSet):
     ordering_fields = ['id', 'name']
     ordering = ['name']
 
+    # ------------------------------------------------------------------
+    # Standard CRUD
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        operation_summary='List roles',
+        tags=['RBAC – Roles'],
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Create a role',
+        request_body=RoleSerializer,
+        responses={201: RoleSerializer},
+        tags=['RBAC – Roles'],
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Retrieve a role (includes permissions)',
+        responses={200: RoleSerializer},
+        tags=['RBAC – Roles'],
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Update a role',
+        request_body=RoleSerializer,
+        responses={200: RoleSerializer},
+        tags=['RBAC – Roles'],
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Partial update of a role',
+        request_body=RoleSerializer,
+        responses={200: RoleSerializer},
+        tags=['RBAC – Roles'],
+    )
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Delete a role',
+        tags=['RBAC – Roles'],
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)
+
+    # ------------------------------------------------------------------
+    # Assign permission
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        operation_summary='Assign a permission to a role',
+        request_body=AssignPermissionSerializer,
+        responses={201: openapi.Response('Permission assigned')},
+        tags=['RBAC – Role Permissions'],
+    )
     @action(detail=True, methods=['post'], url_path='assign-permission')
     def assign_permission(self, request, pk=None):
-        """
-        Assign a permission to this role
-        POST /api/rbac/roles/{id}/assign-permission/
-        Body: {"permission_id": 1}
-        """
         role = self.get_object()
-        serializer = AssignPermissionSerializer(
-            data=request.data,
-            context={'role': role}
-        )
+        serializer = AssignPermissionSerializer(data=request.data, context={'role': role})
 
         if serializer.is_valid():
             serializer.save()
@@ -49,18 +105,26 @@ class RoleViewSet(viewsets.ModelViewSet):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    @action(detail=True, methods=['delete'], url_path='remove-permission/(?P<permission_id>[^/.]+)')
+    # ------------------------------------------------------------------
+    # Remove permission
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        operation_summary='Remove a permission from a role',
+        manual_parameters=[
+            openapi.Parameter(
+                'permission_id', openapi.IN_PATH,
+                description='ID of the permission to remove',
+                type=openapi.TYPE_INTEGER, required=True
+            )
+        ],
+        responses={204: openapi.Response('Permission removed')},
+        tags=['RBAC – Role Permissions'],
+    )
+    @action(detail=True, methods=['delete'], url_path=r'remove-permission/(?P<permission_id>\d+)')
     def remove_permission(self, request, pk=None, permission_id=None):
-        """
-        Remove a permission from this role
-        DELETE /api/rbac/roles/{id}/remove-permission/{permission_id}/
-        """
         role = self.get_object()
         try:
-            role_permission = RolePermission.objects.get(
-                role=role,
-                permission_id=permission_id
-            )
+            role_permission = RolePermission.objects.get(role=role, permission_id=permission_id)
             role_permission.delete()
             return Response(
                 {'message': 'Permission removed successfully'},
@@ -72,12 +136,16 @@ class RoleViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+    # ------------------------------------------------------------------
+    # List permissions
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        operation_summary='List all permissions assigned to a role',
+        responses={200: PermissionSerializer(many=True)},
+        tags=['RBAC – Role Permissions'],
+    )
     @action(detail=True, methods=['get'], url_path='permissions')
     def list_permissions(self, request, pk=None):
-        """
-        List all permissions for this role
-        GET /api/rbac/roles/{id}/permissions/
-        """
         role = self.get_object()
         role_permissions = RolePermission.objects.filter(role=role).select_related('permission')
         permissions = [rp.permission for rp in role_permissions]
@@ -96,3 +164,52 @@ class PermissionViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description']
     ordering_fields = ['id', 'name']
     ordering = ['name']
+
+    @swagger_auto_schema(
+        operation_summary='List permissions',
+        tags=['RBAC – Permissions'],
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Create a permission',
+        request_body=PermissionSerializer,
+        responses={201: PermissionSerializer},
+        tags=['RBAC – Permissions'],
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Retrieve a permission',
+        responses={200: PermissionSerializer},
+        tags=['RBAC – Permissions'],
+    )
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Update a permission',
+        request_body=PermissionSerializer,
+        responses={200: PermissionSerializer},
+        tags=['RBAC – Permissions'],
+    )
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Partial update of a permission',
+        request_body=PermissionSerializer,
+        responses={200: PermissionSerializer},
+        tags=['RBAC – Permissions'],
+    )
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    @swagger_auto_schema(
+        operation_summary='Delete a permission',
+        tags=['RBAC – Permissions'],
+    )
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)

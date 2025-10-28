@@ -6,9 +6,6 @@ from .models import Log
 
 
 class LogSerializer(serializers.ModelSerializer):
-    """
-    Serializer for Log model
-    """
     user_name = serializers.CharField(source='user.name', read_only=True)
     user_email = serializers.CharField(source='user.email', read_only=True)
 
@@ -19,3 +16,4 @@ class LogSerializer(serializers.ModelSerializer):
             'subject_id', 'action', 'status', 'metadata', 'created_at'
         ]
         read_only_fields = ['id', 'created_at']
+        swagger_schema_name = 'Log'   # exact component name in Swagger

@@ -1,5 +1,5 @@
 """
-Item Views - CORRECTED
+Item Views
 """
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
@@ -8,23 +8,23 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
-from .models import Item, ItemAttributeValue  # ← CORRECTED IMPORT
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+
+from .models import Item, ItemAttributeValue
 from .serializers import (
     ItemSerializer,
     ItemCreateSerializer,
-    ItemAttributeValueSerializer,  # This should serialize ItemAttributeValue
-    ItemVerifySerializer
+    ItemAttributeValueSerializer,
+    ItemVerifySerializer,
 )
 from apps.rbac.permissions import has_permission
 
 
 class ItemViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet for managing Items
-    """
     queryset = Item.objects.select_related(
         'iteminfo', 'dept', 'geocode', 'user', 'created_by', 'verified_by'
-    ).prefetch_related('attribute_values').all()  # 'attributes' refers to ItemAttributeValue via related_name
+    ).prefetch_related('attribute_values').all()
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = [
@@ -39,52 +39,80 @@ class ItemViewSet(viewsets.ModelViewSet):
     ordering = ['-created_at']
 
     def get_serializer_class(self):
-        if self.action == 'create':
-            return ItemCreateSerializer
-        return ItemSerializer
+        return ItemCreateSerializer if self.action == 'create' else ItemSerializer
 
+    # ------------------------------------------------------------------
+    # Standard CRUD
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        operation_summary='List items',
+        tags=['Items'],
+    )
     @has_permission("view_items")
     def list(self, request, *args, **kwargs):
-        """List items - requires view_items permission"""
         return super().list(request, *args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Create a new item',
+        request_body=ItemCreateSerializer,
+        responses={201: ItemSerializer},
+        tags=['Items'],
+    )
     @has_permission("create_items")
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Retrieve an item (includes attribute values)',
+        responses={200: ItemSerializer},
+        tags=['Items'],
+    )
     @has_permission("view_items")
     def retrieve(self, request, *args, **kwargs):
-        """Retrieve item - requires view_items permission"""
         return super().retrieve(request, *args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Full update of an item',
+        request_body=ItemCreateSerializer,
+        responses={200: ItemSerializer},
+        tags=['Items'],
+    )
     @has_permission("update_items")
     def update(self, request, *args, **kwargs):
-        """Update item - requires update_items permission"""
         return super().update(request, *args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Partial update of an item',
+        request_body=ItemCreateSerializer,
+        responses={200: ItemSerializer},
+        tags=['Items'],
+    )
     @has_permission("update_items")
     def partial_update(self, request, *args, **kwargs):
-        """Partial update item - requires update_items permission"""
         return super().partial_update(request, *args, **kwargs)
 
+    @swagger_auto_schema(
+        operation_summary='Delete an item',
+        tags=['Items'],
+    )
     @has_permission("delete_items")
     def destroy(self, request, *args, **kwargs):
-        """Delete item - requires delete_items permission"""
         return super().destroy(request, *args, **kwargs)
 
+    # ------------------------------------------------------------------
+    # Verify item
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        operation_summary='Verify an item (set status to verified/available)',
+        request_body=ItemVerifySerializer,
+        responses={200: ItemSerializer},
+        tags=['Items – Verification'],
+    )
     @action(detail=True, methods=['patch'], url_path='verify')
     @has_permission("verify_items")
     def verify_item(self, request, pk=None):
-        """
-        Verify an item
-        PATCH /api/items/{id}/verify/
-        Body: {"status": "verified", "operational_notes": "..."}
-        """
         item = self.get_object()
-        serializer = ItemVerifySerializer(
-            data=request.data,
-            context={'item': item}
-        )
+        serializer = ItemVerifySerializer(data=request.data, context={'item': item})
 
         if serializer.is_valid():
             item.status = serializer.validated_data['status']
@@ -92,26 +120,72 @@ class ItemViewSet(viewsets.ModelViewSet):
                 item.operational_notes = serializer.validated_data['operational_notes']
             item.verified_by = request.user
             item.save()
-
             return Response(ItemSerializer(item).data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    # ------------------------------------------------------------------
+    # Attributes – GET / POST (same URL)
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        method='get',
+        operation_summary='List all attribute values of an item',
+        responses={200: ItemAttributeValueSerializer(many=True)},
+        tags=['Items – Attributes'],
+    )
+    @swagger_auto_schema(
+        method='post',
+        operation_summary='Add a new attribute value to an item',
+        request_body=ItemAttributeValueSerializer,
+        responses={201: ItemAttributeValueSerializer},
+        tags=['Items – Attributes'],
+    )
     @action(detail=True, methods=['get', 'post'], url_path='attributes')
+    @has_permission("update_items")
     def attributes(self, request, pk=None):
         item = self.get_object()
 
         if request.method == 'GET':
             attrs = item.attribute_values.all()
-            serializer = ItemAttributeValueSerializer(attrs, many=True)
-            return Response(serializer.data)
+            ser = ItemAttributeValueSerializer(attrs, many=True)
+            return Response(ser.data)
 
-        elif request.method == 'POST':
-            serializer = ItemAttributeValueSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save(item=item)
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # POST
+        ser = ItemAttributeValueSerializer(data=request.data)
+        if ser.is_valid():
+            ser.save(item=item)
+            return Response(ser.data, status=status.HTTP_201_CREATED)
+        return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    # ------------------------------------------------------------------
+    # Attribute value – PATCH / DELETE
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        method='patch',
+        operation_summary='Update an attribute value',
+        request_body=ItemAttributeValueSerializer,
+        responses={200: ItemAttributeValueSerializer},
+        manual_parameters=[
+            openapi.Parameter(
+                'attr_id', openapi.IN_PATH,
+                description='Primary key of the ItemAttributeValue',
+                type=openapi.TYPE_INTEGER, required=True
+            )
+        ],
+        tags=['Items – Attributes'],
+    )
+    @swagger_auto_schema(
+        method='delete',
+        operation_summary='Delete an attribute value',
+        responses={204: openapi.Response('Deleted')},
+        manual_parameters=[
+            openapi.Parameter(
+                'attr_id', openapi.IN_PATH,
+                description='Primary key of the ItemAttributeValue',
+                type=openapi.TYPE_INTEGER, required=True
+            )
+        ],
+        tags=['Items – Attributes'],
+    )
     @action(
         detail=True,
         methods=['patch', 'delete'],
@@ -119,29 +193,22 @@ class ItemViewSet(viewsets.ModelViewSet):
     )
     @has_permission("update_items")
     def attribute_value_detail(self, request, pk=None, attr_id=None):
-        """
-        Handle:
-        - PATCH  /api/items/<id>/attributes/<attr_id>/   → update value
-        - DELETE /api/items/<id>/attributes/<attr_id>/   → delete value
-        """
-        item_info = self.get_object()
+        item = self.get_object()
 
         try:
-            attr_value = ItemAttributeValue.objects.get(id=attr_id, item=item_info)
+            attr_value = ItemAttributeValue.objects.get(id=attr_id, item=item)
         except ItemAttributeValue.DoesNotExist:
             return Response(
-                {'error': 'Attribute value not found'}, 
+                {'error': 'Attribute value not found'},
                 status=status.HTTP_404_NOT_FOUND
             )
 
         if request.method == 'PATCH':
-            serializer = ItemAttributeValueSerializer(
-                attr_value, data=request.data, partial=True
-            )
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            ser = ItemAttributeValueSerializer(attr_value, data=request.data, partial=True)
+            if ser.is_valid():
+                ser.save()
+                return Response(ser.data)
+            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
 
         # DELETE
         attr_value.delete()
