@@ -5,12 +5,16 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import AllowAny
+from rest_framework.generics import GenericAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from django.contrib.auth import get_user_model
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+
+from apps.rbac.permissions import has_permission
 
 from .models import UserRole
 from .serializers import (
@@ -195,3 +199,67 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'message': 'Role removed successfully'}, status=status.HTTP_204_NO_CONTENT)
         except UserRole.DoesNotExist:
             return Response({'error': 'Role not found for this user'}, status=status.HTTP_404_NOT_FOUND)
+
+    # ------------------------------------------------------------------
+    # Verification (RBAC-protected)
+    # ------------------------------------------------------------------
+    @swagger_auto_schema(
+        operation_summary='Verify or reject a user (RBAC: verify_users)',
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'action': openapi.Schema(type=openapi.TYPE_STRING, description='accept or reject', enum=['accept', 'reject']),
+                'remarks': openapi.Schema(type=openapi.TYPE_STRING, description='Optional remarks about verification')
+            },
+            required=['action']
+        ),
+        responses={200: UserSerializer},
+        tags=['Users – Verification'],
+    )
+    @action(detail=True, methods=['post'], url_path='verify')
+    @has_permission('verify_users')
+    def verify(self, request, pk=None):
+        """Accept or reject a user's verification (requires verify_users permission).
+
+        Body parameters:
+        - action: 'accept' or 'reject' (required)
+        - remarks: optional string
+        """
+        user = self.get_object()
+        action_value = (request.data.get('action') or '').strip().lower()
+        if action_value not in ('accept', 'reject'):
+            return Response({'error': 'Invalid action. Use "accept" or "reject"'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Optional: capture remarks (not persisted here) for future logging
+        remarks = request.data.get('remarks')
+
+        if action_value == 'accept':
+            user.verified_status = 'verified'
+        else:
+            user.verified_status = 'rejected'
+
+        user.save()
+
+        return Response({'message': f'User {action_value}ed successfully', 'user': UserSerializer(user).data}, status=status.HTTP_200_OK)
+
+
+class RegisterView(GenericAPIView):
+    """
+    Public user registration endpoint.
+    Uses the existing UserCreateSerializer to create a new user.
+    """
+    serializer_class = UserCreateSerializer
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_summary='Register a new user',
+        request_body=UserCreateSerializer,
+        responses={201: UserSerializer},
+        tags=['Users – Authentication'],
+    )
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            return Response(UserSerializer(user).data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

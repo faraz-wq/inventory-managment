@@ -69,7 +69,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         related_name='users'
     )
 
-    cfms_ref = models.CharField(max_length=100, blank=True, null=True)
+    cfms_ref = models.CharField(max_length=100, blank=True, null=True, unique=True)
     verified_status = models.CharField(
         max_length=20,
         choices=VERIFICATION_STATUS_CHOICES,

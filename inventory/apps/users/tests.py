@@ -255,3 +255,84 @@ class UserAPITestCase(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn('access', response.data)
+
+    def test_public_registration(self):
+        """Test that anonymous users can register via the public register endpoint"""
+        # Ensure user does not already exist
+        self.assertFalse(User.objects.filter(email='public@test.com').exists())
+
+        data = {
+            "name": "Public User",
+            "email": "public@test.com",
+            "password": "publicpass123",
+            "phone_no": "+91-9000000000",
+            "dept": self.department.id,
+            "location": self.village.id
+        }
+
+        response = self.client.post('/api/auth/register/', data)
+        # Depending on implementation this may return 201 or 200; expect created
+        self.assertIn(response.status_code, (status.HTTP_200_OK, status.HTTP_201_CREATED))
+
+        # Verify user created
+        self.assertTrue(User.objects.filter(email='public@test.com').exists())
+
+        # Verify the new user can obtain JWT tokens
+        login_data = {"email": "public@test.com", "password": "publicpass123"}
+        token_response = self.client.post('/api/auth/token/', login_data)
+        self.assertEqual(token_response.status_code, status.HTTP_200_OK)
+        self.assertIn('access', token_response.data)
+        self.assertIn('refresh', token_response.data)
+
+    def test_verify_accept_and_reject(self):
+        """Test that a user with verify permission can accept and reject another user"""
+        # Create permission and role for verifier
+        verify_perm = Permission.objects.create(name='verify_users', description='Can verify users')
+        verifier_role = Role.objects.create(name='District Verifier', description='Verifier role')
+        # Assign permission to role
+        from apps.rbac.models import RolePermission
+        RolePermission.objects.create(role=verifier_role, permission=verify_perm)
+
+        # Create a verifier user
+        verifier = User.objects.create_user(
+            email='verifier@test.com',
+            password='verifier123',
+            name='Verifier User',
+            phone_no='+91-9000000001',
+            dept=self.department,
+            location=self.village
+        )
+        # Assign role to verifier
+        UserRole.objects.create(user=verifier, role=verifier_role)
+
+        # Create a target user with pending status
+        target = User.objects.create_user(
+            email='target@test.com',
+            password='target123',
+            name='Target User',
+            phone_no='+91-9000000002',
+            dept=self.department,
+            location=self.village,
+            verified_status='pending'
+        )
+
+        # Authenticate as verifier
+        self.client.force_authenticate(user=verifier)
+
+        # Accept action
+        accept_data = {'action': 'accept', 'remarks': 'All good'}
+        accept_resp = self.client.post(f'/api/users/{target.staff_id}/verify/', accept_data)
+        self.assertEqual(accept_resp.status_code, status.HTTP_200_OK)
+        target.refresh_from_db()
+        self.assertEqual(target.verified_status, 'verified')
+
+        # Set back to pending to test reject
+        target.verified_status = 'pending'
+        target.save()
+
+        # Reject action
+        reject_data = {'action': 'reject', 'remarks': 'Missing documents'}
+        reject_resp = self.client.post(f'/api/users/{target.staff_id}/verify/', reject_data)
+        self.assertEqual(reject_resp.status_code, status.HTTP_200_OK)
+        target.refresh_from_db()
+        self.assertEqual(target.verified_status, 'rejected')

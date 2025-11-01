@@ -15,9 +15,13 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-produc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
-
-
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'violeta-pseudoelectoral-earlene.ngrok-free.dev',  # Add your public ngrok URL here
+    'lovable.dev',
+    '.lovable.dev',  # Allow all subdomains of lovable.dev
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -188,8 +192,32 @@ SIMPLE_JWT = {
 }
 
 # CORS Configuration
-CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL', default=True, cast=bool)
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='http://localhost:3000', cast=Csv())
+
+DEFAULT_CORS_ALLOWED_ORIGINS = [
+    "https://lovable.dev",
+    "https://*.lovable.dev",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://violeta-pseudoelectoral-earlene.ngrok-free.dev",
+    "http://violeta-pseudoelectoral-earlene.ngrok-free.dev",
+]
+
+CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL', default=False, cast=bool)
+
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    default=",".join(DEFAULT_CORS_ALLOWED_ORIGINS),
+    cast=Csv()
+)
+
+CORS_ALLOW_CREDENTIALS = True  
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://lovable.dev",
+    "https://*.lovable.dev",
+    "https://violeta-pseudoelectoral-earlene.ngrok-free.dev",
+    "http://violeta-pseudoelectoral-earlene.ngrok-free.dev",
+]
 
 CORS_ALLOW_METHODS = [
     'DELETE',
