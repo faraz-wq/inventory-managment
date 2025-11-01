@@ -18,9 +18,10 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'violeta-pseudoelectoral-earlene.ngrok-free.dev',  # Add your public ngrok URL here
+    'violeta-pseudoelectoral-earlene.ngrok-free.dev',
+    'preview--verimana-admin-77336.lovable.app',
     'lovable.dev',
-    '.lovable.dev',  # Allow all subdomains of lovable.dev
+    '*.lovable.dev',  # Allow all subdomains of lovable.dev
 ]
 # Application definition
 
@@ -193,30 +194,27 @@ SIMPLE_JWT = {
 
 # CORS Configuration
 
-DEFAULT_CORS_ALLOWED_ORIGINS = [
-    "https://lovable.dev",
-    "https://*.lovable.dev",
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "https://violeta-pseudoelectoral-earlene.ngrok-free.dev",
-    "http://violeta-pseudoelectoral-earlene.ngrok-free.dev",
-]
-
-CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL', default=False, cast=bool)
-
-CORS_ALLOWED_ORIGINS = config(
-    'CORS_ALLOWED_ORIGINS',
-    default=",".join(DEFAULT_CORS_ALLOWED_ORIGINS),
-    cast=Csv()
-)
-
 CORS_ALLOW_CREDENTIALS = True  
+
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "https://lovable.dev",
+    "http://violeta-pseudoelectoral-earlene.ngrok-free.dev",
+    "https://violeta-pseudoelectoral-earlene.ngrok-free.dev",
+    "https://preview--verimana-admin-77336.lovable.app",
+    'http://preview--verimana-admin-77336.lovable.app',
+    "http://localhost:5173",
+]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.lovable\.dev$"  # allow all subdomains
+]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://lovable.dev",
     "https://*.lovable.dev",
     "https://violeta-pseudoelectoral-earlene.ngrok-free.dev",
     "http://violeta-pseudoelectoral-earlene.ngrok-free.dev",
+    'https://preview--verimana-admin-77336.lovable.app',
 ]
 
 CORS_ALLOW_METHODS = [
@@ -251,4 +249,8 @@ SWAGGER_SETTINGS = {
     },
     'USE_SESSION_AUTH': False,
     'JSON_EDITOR': True,
+    'DEFAULT_API_URL': 'https://violeta-pseudoelectoral-earlene.ngrok-free.dev',  # <-- ADD THIS
+    'SUPPORTED_SUBMIT_METHODS': [
+        'get', 'post', 'put', 'patch', 'delete'
+    ],
 }
