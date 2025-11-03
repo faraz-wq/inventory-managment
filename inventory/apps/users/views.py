@@ -32,7 +32,7 @@ User = get_user_model()
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.select_related('dept', 'location').all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]  # Base: must be logged in
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['active', 'verified_status', 'dept', 'location']
     search_fields = ['name', 'email', 'phone_no', 'cfms_ref']
@@ -46,33 +46,29 @@ class UserViewSet(viewsets.ModelViewSet):
             return UserUpdateSerializer
         return UserSerializer
 
-    def get_permissions(self):
-        if self.action in ['list', 'create', 'destroy']:
-            return [IsAuthenticated(), IsAdminUser()]
-        return [IsAuthenticated()]
-
     def get_queryset(self):
-        # Prevent AnonymousUser error in schema generation
         if getattr(self, 'swagger_fake_view', False):
             return User.objects.none()
         return super().get_queryset()
 
     # ------------------------------------------------------------------
-    # Standard CRUD
+    # Standard CRUD - Now RBAC controlled
     # ------------------------------------------------------------------
     @swagger_auto_schema(
-        operation_summary='List users (admin only)',
+        operation_summary='List users',
         tags=['Users'],
     )
+    @has_permission('view_users')  # Replace IsAdminUser
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_summary='Create a user (admin only)',
+        operation_summary='Create a user',
         request_body=UserCreateSerializer,
         responses={201: UserSerializer},
         tags=['Users'],
     )
+    @has_permission('create_users')  # Granular
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
@@ -85,11 +81,12 @@ class UserViewSet(viewsets.ModelViewSet):
         return super().retrieve(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_summary='Update a user (admin only)',
+        operation_summary='Update a user',
         request_body=UserUpdateSerializer,
         responses={200: UserSerializer},
         tags=['Users'],
     )
+    @has_permission('update_users')
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
 
@@ -99,18 +96,20 @@ class UserViewSet(viewsets.ModelViewSet):
         responses={200: UserSerializer},
         tags=['Users'],
     )
+    @has_permission('update_users')
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
 
     @swagger_auto_schema(
-        operation_summary='Delete a user (admin only)',
+        operation_summary='Delete a user',
         tags=['Users'],
     )
+    @has_permission('delete_users')
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
 
     # ------------------------------------------------------------------
-    # Current user profile
+    # Current user profile (no admin required)
     # ------------------------------------------------------------------
     @swagger_auto_schema(
         operation_summary='Get current user profile',
@@ -160,6 +159,7 @@ class UserViewSet(viewsets.ModelViewSet):
         tags=['Users – Roles'],
     )
     @action(detail=True, methods=['get'], url_path='roles')
+    @has_permission('view_user_roles')
     def list_roles(self, request, pk=None):
         user = self.get_object()
         user_roles = UserRole.objects.filter(user=user).select_related('role')
@@ -168,12 +168,13 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @swagger_auto_schema(
-        operation_summary='Assign a role to a user (admin only)',
+        operation_summary='Assign a role to a user',
         request_body=AssignRoleSerializer,
         responses={201: openapi.Response('Role assigned')},
         tags=['Users – Roles'],
     )
-    @action(detail=True, methods=['post'], url_path='assign-role', permission_classes=[IsAdminUser])
+    @action(detail=True, methods=['post'], url_path='assign-role')
+    @has_permission('assign_user_roles')  # Replace IsAdminUser
     def assign_role(self, request, pk=None):
         user = self.get_object()
         serializer = AssignRoleSerializer(data=request.data, context={'user': user})
@@ -183,14 +184,15 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema(
-        operation_summary='Remove a role from a user (admin only)',
+        operation_summary='Remove a role from a user',
         manual_parameters=[
             openapi.Parameter('role_id', openapi.IN_PATH, type=openapi.TYPE_INTEGER, required=True)
         ],
         responses={204: openapi.Response('Role removed')},
         tags=['Users – Roles'],
     )
-    @action(detail=True, methods=['delete'], url_path=r'remove-role/(?P<role_id>\d+)', permission_classes=[IsAdminUser])
+    @action(detail=True, methods=['delete'], url_path=r'remove-role/(?P<role_id>\d+)')
+    @has_permission('assign_user_roles')  # Same permission for remove
     def remove_role(self, request, pk=None, role_id=None):
         user = self.get_object()
         try:
@@ -201,15 +203,15 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'error': 'Role not found for this user'}, status=status.HTTP_404_NOT_FOUND)
 
     # ------------------------------------------------------------------
-    # Verification (RBAC-protected)
+    # Verification
     # ------------------------------------------------------------------
     @swagger_auto_schema(
-        operation_summary='Verify or reject a user (RBAC: verify_users)',
+        operation_summary='Verify or reject a user',
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
             properties={
-                'action': openapi.Schema(type=openapi.TYPE_STRING, description='accept or reject', enum=['accept', 'reject']),
-                'remarks': openapi.Schema(type=openapi.TYPE_STRING, description='Optional remarks about verification')
+                'action': openapi.Schema(type=openapi.TYPE_STRING, enum=['accept', 'reject']),
+                'remarks': openapi.Schema(type=openapi.TYPE_STRING)
             },
             required=['action']
         ),
@@ -219,29 +221,18 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'], url_path='verify')
     @has_permission('verify_users')
     def verify(self, request, pk=None):
-        """Accept or reject a user's verification (requires verify_users permission).
-
-        Body parameters:
-        - action: 'accept' or 'reject' (required)
-        - remarks: optional string
-        """
         user = self.get_object()
         action_value = (request.data.get('action') or '').strip().lower()
         if action_value not in ('accept', 'reject'):
-            return Response({'error': 'Invalid action. Use "accept" or "reject"'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Invalid action. Use "accept" or "reject"'}, status=400)
 
-        # Optional: capture remarks (not persisted here) for future logging
-        remarks = request.data.get('remarks')
-
-        if action_value == 'accept':
-            user.verified_status = 'verified'
-        else:
-            user.verified_status = 'rejected'
-
+        user.verified_status = 'verified' if action_value == 'accept' else 'rejected'
         user.save()
 
-        return Response({'message': f'User {action_value}ed successfully', 'user': UserSerializer(user).data}, status=status.HTTP_200_OK)
-
+        return Response({
+            'message': f'User {action_value}ed successfully',
+            'user': UserSerializer(user).data
+        }, status=200)
 
 class RegisterView(GenericAPIView):
     """

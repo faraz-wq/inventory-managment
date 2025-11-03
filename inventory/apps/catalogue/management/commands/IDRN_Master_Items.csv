@@ -1,0 +1,370 @@
+```csv
+S.No,Item Code,Item Name,Activity Name,Resource Type,Category Name
+1,101,Gas Cutters,SEARCH AND RESCUE,Equipment,Cutters
+2,102,Cold Cutters,SEARCH AND RESCUE,Equipment,Cutters
+3,103,Bolt Cutters (Shears),SEARCH AND RESCUE,Equipment,Cutters
+4,110,Cutters- Hydraulic,SEARCH AND RESCUE,Equipment,Cutters
+5,111,Cutters-Battery,SEARCH AND RESCUE,Equipment,Cutters
+6,355,Steel Cutter/Grinder,SEARCH AND RESCUE,Equipment,Cutters
+7,104,Electric Drill,SEARCH AND RESCUE,Equipment,Cutters
+8,105,Circular Saw with Diamond Blade(Electric),SEARCH AND RESCUE,Equipment,Cutters
+9,106,Chipping Hammer,SEARCH AND RESCUE,Equipment,Cutters
+10,107,Chain Saw-Diamond,SEARCH AND RESCUE,Equipment,Cutters
+11,108,Chain Saw-Bullet,SEARCH AND RESCUE,Equipment,Cutters
+12,109,Pneumatic Chisel,SEARCH AND RESCUE,Equipment,Cutters
+13,112,Spreaders-Hydraulic,SEARCH AND RESCUE,Equipment,Spreaders
+14,113,Spreaders-Battery,SEARCH AND RESCUE,Equipment,Spreaders
+15,114,Air Lifting bags (Different capacity)/Tools,SEARCH AND RESCUE,Equipment,Lifting Equipment
+16,115,Jack with 5 ton lift,SEARCH AND RESCUE,Equipment,Lifting Equipment
+17,116,Iron shod levers 10 ft. Long,SEARCH AND RESCUE,Equipment,Lifting Equipment
+18,117,Sledge hammer,SEARCH AND RESCUE,Equipment,Light Equipment
+19,118,Heavy Axe,SEARCH AND RESCUE,Equipment,Light Equipment
+20,119,Two handled cross cut-saw,SEARCH AND RESCUE,Equipment,Light Equipment
+21,120,Chain tackle,SEARCH AND RESCUE,Equipment,Light Equipment
+22,121,Single sheave snatch block,SEARCH AND RESCUE,Equipment,Light Equipment
+23,122,Smoke Blower and Exhauster,SEARCH AND RESCUE,Equipment,Light Equipment
+24,123,Set of rope tackle (3 sheave - 2 sheave),SEARCH AND RESCUE,Equipment,Light Equipment
+25,124,Gloves-Rubber Tested up to 25000 volt,SEARCH AND RESCUE,Equipment,Light Equipment
+26,125,Stretcher harness (set),SEARCH AND RESCUE,Equipment,Light Equipment
+27,126,Scaffold poles for sheer legs,SEARCH AND RESCUE,Equipment,Light Equipment
+28,127,Jumping Cushions,SEARCH AND RESCUE,Equipment,Light Equipment
+29,128,Rescue Rams,SEARCH AND RESCUE,Equipment,Light Equipment
+30,129,Glass remover (Punch Mark),SEARCH AND RESCUE,Equipment,Light Equipment
+31,130,Crescent/adjustable wrenches,SEARCH AND RESCUE,Equipment,Light Equipment
+32,131,Slotted Screwdrivers,SEARCH AND RESCUE,Equipment,Light Equipment
+33,132,Traps 4 X 4 meters,SEARCH AND RESCUE,Equipment,Light Equipment
+34,133,Blankets,SEARCH AND RESCUE,Equipment,Light Equipment
+35,134,Lifting tackle - 3 ton,SEARCH AND RESCUE,Equipment,Light Equipment
+36,135,Chains - 6 feet (3 ton lift),SEARCH AND RESCUE,Equipment,Light Equipment
+37,136,Aspects Blanket,SEARCH AND RESCUE,Equipment,Light Equipment
+38,137,Soaking kit,SEARCH AND RESCUE,Equipment,Light Equipment
+39,330,Shovel,SEARCH AND RESCUE,Equipment,Light Equipment
+40,331,Spade,SEARCH AND RESCUE,Equipment,Light Equipment
+41,332,Crow bar,SEARCH AND RESCUE,Equipment,Light Equipment
+42,333,Heavy Block of Fulcrum,SEARCH AND RESCUE,Equipment,Light Equipment
+43,334,Helmet,SEARCH AND RESCUE,Equipment,Light Equipment
+44,335,Basket,SEARCH AND RESCUE,Equipment,Light Equipment
+45,336,Pick axe,SEARCH AND RESCUE,Equipment,Light Equipment
+46,337,Axe,SEARCH AND RESCUE,Equipment,Light Equipment
+47,338,Door breaker,SEARCH AND RESCUE,Equipment,Light Equipment
+48,339,Hacksaw,SEARCH AND RESCUE,Equipment,Light Equipment
+49,340,Knife Salvage,SEARCH AND RESCUE,Equipment,Light Equipment
+50,341,Ceiling hook,SEARCH AND RESCUE,Equipment,Light Equipment
+51,343,Public Address System,SEARCH AND RESCUE,Equipment,Light Equipment
+52,354,Hand Tool Set,SEARCH AND RESCUE,Equipment,Light Equipment
+53,356,B.A.Set,SEARCH AND RESCUE,Equipment,Light Equipment
+54,357,Rope,SEARCH AND RESCUE,Equipment,Light Equipment
+55,358,Bucket,SEARCH AND RESCUE,Equipment,Light Equipment
+56,359,Matok,SEARCH AND RESCUE,Equipment,Light Equipment
+57,360,Hose/hose fitting,SEARCH AND RESCUE,Equipment,Light Equipment
+58,138,Inflatable Light Tower,SEARCH AND RESCUE,Equipment,Lighting arrangements
+59,139,Light Mast,SEARCH AND RESCUE,Equipment,Lighting arrangements
+60,140,Search light,SEARCH AND RESCUE,Equipment,Lighting arrangements
+61,141,Electric Generator,SEARCH AND RESCUE,Equipment,Lighting arrangements
+62,344,Electric Torch,SEARCH AND RESCUE,Equipment,Lighting arrangements
+63,345,Lanterns,SEARCH AND RESCUE,Equipment,Lighting arrangements
+64,346,Telescopic Pneumatic Mast (Light),SEARCH AND RESCUE,Equipment,Lighting arrangements
+65,142,Trucks - Aerial Lift,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+66,143,Bulldozers wheeled/chain,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+67,144,Dumper,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+68,145,Earth movers,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+69,146,Cranes - Heavy Duty Fork type,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+70,147,Tipper - Heavy Duty,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+71,148,Recovery Vans Beam Type,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+72,149,Snow Beaters Wheeled,SEARCH AND RESCUE,Equipment,Heavy Engineering Equipment
+73,150,Search and Rescue Teams for Collapsed Structures,SEARCH AND RESCUE,Skilled Human Resource,
+74,151,Search and Rescue Teams with canines,SEARCH AND RESCUE,Skilled Human Resource,
+75,152,Rescue back boards,FLOOD RESCUE,Equipment,Specialized flood/Rescue Equipment
+76,153,Diving suit,FLOOD RESCUE,Equipment,Specialized flood/Rescue Equipment
+77,154,Under water BA set,FLOOD RESCUE,Equipment,Specialized flood/Rescue Equipment
+78,155,Lifebuoy,FLOOD RESCUE,Equipment,Specialized flood/Rescue Equipment
+79,156,Life Jackets,FLOOD RESCUE,Equipment,Specialized flood/Rescue Equipment
+80,157,Basket Stretcher,FLOOD RESCUE,Equipment,Specialized flood/Rescue Equipment
+81,158,Pneumatic Rope Launcher,FLOOD RESCUE,Equipment,Specialized flood/Rescue Equipment
+82,159,Inflatable boat (12 persons),FLOOD RESCUE,Equipment,Rescue boats
+83,160,Fiber boat (12 persons),FLOOD RESCUE,Equipment,Rescue boats
+84,161,Motor Boats,FLOOD RESCUE,Equipment,Rescue boats
+85,162,Motor Launch,FLOOD RESCUE,Equipment,Rescue boats
+86,163,Country Boats,FLOOD RESCUE,Equipment,Rescue boats
+87,164,Divers Teams,FLOOD RESCUE,Skilled Human Resource,
+88,165,Search and Rescue Teams for Flood,FLOOD RESCUE,Skilled Human Resource,
+89,367,Scuba Divers,FLOOD RESCUE,Skilled Human Resource,
+90,166,Suit - fire entry,FIRE FIGHTING,Equipment,Protective Equipment –specialized
+91,167,Suit - fire proximity,FIRE FIGHTING,Equipment,Protective Equipment –specialized
+92,168,Suit - fire approach,FIRE FIGHTING,Equipment,Protective Equipment –specialized
+93,169,Suit – NBC,FIRE FIGHTING,Equipment,Protective Equipment –specialized
+94,170,Clothing - Chemical protective (A B C),FIRE FIGHTING,Equipment,Protective Equipment –specialized
+95,361,Fire Proof Sheet,FIRE FIGHTING,Equipment,Protective Equipment –specialized
+96,171,Breathing Apparatus - self contained,FIRE FIGHTING,Equipment,Breathing Apparatus set
+97,172,Breathing Apparatus – Compressor,FIRE FIGHTING,Equipment,Breathing Apparatus set
+98,342,Pump,FIRE FIGHTING,Equipment,Pumps
+99,173,Pump - high pressure portable,FIRE FIGHTING,Equipment,Pumps
+100,174,Pump – floating,FIRE FIGHTING,Equipment,Pumps
+101,366,Drainage Pumps,FIRE FIGHTING,Equipment,Pumps
+102,365,Air Compressor,FIRE FIGHTING,Equipment,Pumps
+103,175,Extension Ladder,FIRE FIGHTING,Equipment,Ladder
+104,328,Rope ladder,FIRE FIGHTING,Equipment,Ladder
+105,329,Aluminum ladder,FIRE FIGHTING,Equipment,Ladder
+106,176,ABC Type,FIRE FIGHTING,Equipment,Fire Extinguishers
+107,177,CO2 Type,FIRE FIGHTING,Equipment,Fire Extinguishers
+108,178,Foam Type,FIRE FIGHTING,Equipment,Fire Extinguishers
+109,179,DCP Type,FIRE FIGHTING,Equipment,Fire Extinguishers
+110,180,Halons Type,FIRE FIGHTING,Equipment,Fire Extinguishers
+111,181,Fire Tender,FIRE FIGHTING,Equipment,Fire/rescue tenders
+112,182,Foam Tender,FIRE FIGHTING,Equipment,Fire/rescue tenders
+113,183,Rescue Tender,FIRE FIGHTING,Equipment,Fire/rescue tenders
+114,184,Control Van,FIRE FIGHTING,Equipment,Fire/rescue tenders
+115,185,Hydraulic Platform,FIRE FIGHTING,Equipment,Fire/rescue tenders
+116,186,Turn Table Ladder,FIRE FIGHTING,Equipment,Fire/rescue tenders
+117,187,DCP Tender,FIRE FIGHTING,Equipment,Fire/rescue tenders
+118,188,Hazmat Van,FIRE FIGHTING,Equipment,Fire/rescue tenders
+119,189,B.A. Van,FIRE FIGHTING,Equipment,Fire/rescue tenders
+120,193,Fire Fighting Team (For Oil Installation),FIRE FIGHTING,Skilled Human Resource,Fire Fighting Team
+121,194,Fire Fighting Team (For High Rise Buildings),FIRE FIGHTING,Skilled Human Resource,Fire Fighting Team
+122,195,Fire Fighting Team (For Ports),FIRE FIGHTING,Skilled Human Resource,Fire Fighting Team
+123,196,Fire Fighting Team (For Aviation),FIRE FIGHTING,Skilled Human Resource,Fire Fighting Team
+124,197,Fire Fighting Team (For Mines),FIRE FIGHTING,Skilled Human Resource,Fire Fighting Team
+125,198,Fire Fighting Team (For Thermal Power Plant),FIRE FIGHTING,Skilled Human Resource,Fire Fighting Team
+126,199,Fire Fighting Team (For Nuclear Power Plant),FIRE FIGHTING,Skilled Human Resource,Fire Fighting Team
+127,190,Fire Fighting Foam,FIRE FIGHTING,Critical supplies,
+128,191,Dry Chemical Powder,FIRE FIGHTING,Critical supplies,
+129,192,Halons,FIRE FIGHTING,Critical supplies,
+130,200,Spine boards,HEALTH SERVICES,Equipment,Health Equipment
+131,201,Stretcher normal,HEALTH SERVICES,Equipment,Health Equipment
+132,202,Stretcher medical evacuation,HEALTH SERVICES,Equipment,Health Equipment
+133,203,Incubators for adults,HEALTH SERVICES,Equipment,Health Equipment
+134,204,Incubators for children,HEALTH SERVICES,Equipment,Health Equipment
+135,205,First aid kits,HEALTH SERVICES,Equipment,Health Equipment
+136,206,CT scan,HEALTH SERVICES,Equipment,Health Equipment
+137,207,MRI,HEALTH SERVICES,Equipment,Health Equipment
+138,208,Portable oxygen cylinders,HEALTH SERVICES,Equipment,Portable Equipment
+139,209,Portable ventilators,HEALTH SERVICES,Equipment,Portable Equipment
+140,210,Portable x-rays,HEALTH SERVICES,Equipment,Portable Equipment
+141,211,Portable ultrasound,HEALTH SERVICES,Equipment,Portable Equipment
+142,212,Portable ECG,HEALTH SERVICES,Equipment,Portable Equipment
+143,213,Portable suction unit,HEALTH SERVICES,Equipment,Portable Equipment
+144,214,Mechanical ventilators,HEALTH SERVICES,Equipment,Lifesaving Equipment
+145,215,Defibrillator,HEALTH SERVICES,Equipment,Lifesaving Equipment
+146,216,Mobile OT unit,HEALTH SERVICES,Equipment,Mobile units
+147,217,Mobile blood bank,HEALTH SERVICES,Equipment,Mobile units
+148,218,Mobile lab service,HEALTH SERVICES,Equipment,Mobile units
+149,219,Mobile hospital,HEALTH SERVICES,Equipment,Mobile units
+150,220,Mobile medical van,HEALTH SERVICES,Equipment,Mobile units
+151,221,Water filter,HEALTH SERVICES,Equipment,Hygiene
+152,222,Water tank,HEALTH SERVICES,Equipment,Hygiene
+153,223,Reservoirs treatment tank,HEALTH SERVICES,Equipment,Hygiene
+154,229,General physician,HEALTH SERVICES,Skilled Human Resource,
+155,230,Trauma specialist,HEALTH SERVICES,Skilled Human Resource,
+156,231,Surgeon,HEALTH SERVICES,Skilled Human Resource,
+157,232,Anesthetist,HEALTH SERVICES,Skilled Human Resource,
+158,233,Gynecologist,HEALTH SERVICES,Skilled Human Resource,
+159,234,Radiologist,HEALTH SERVICES,Skilled Human Resource,
+160,235,Paramedics,HEALTH SERVICES,Skilled Human Resource,
+161,236,Lab technicians,HEALTH SERVICES,Skilled Human Resource,
+162,237,OT assistants,HEALTH SERVICES,Skilled Human Resource,
+163,238,Medical first responders,HEALTH SERVICES,Skilled Human Resource,
+164,224,Bronchodilators,HEALTH SERVICES,Critical supplies,
+165,225,Vaccines,HEALTH SERVICES,Critical supplies,
+166,226,Anti snake venom,HEALTH SERVICES,Critical supplies,
+167,227,Chlorine tablets,HEALTH SERVICES,Critical supplies,
+168,228,Halogen tablets,HEALTH SERVICES,Critical supplies,
+169,239,Tent 80 Kgs,SHELTERS,Equipment,Tents
+170,240,Tent 40 Lbs,SHELTERS,Equipment,Tents
+171,241,Tent MK-III Private,SHELTERS,Equipment,Tents
+172,242,Tent Store,SHELTERS,Equipment,Tents
+173,243,Tent extendable 4 meters,SHELTERS,Equipment,Tents
+174,244,Tent extendable 2meters,SHELTERS,Equipment,Tents
+175,245,Tent Arctic,SHELTERS,Equipment,Tents
+176,246,Tarpaulin,SHELTERS,Equipment,Sheets
+177,247,Plastic Sheet,SHELTERS,Equipment,Sheets
+178,248,Polythene Sheet,SHELTERS,Equipment,Sheets
+179,249,Corrugated Galvanized Iron sheet,SHELTERS,Equipment,Sheets
+180,250,Polypropylene Corrugated Unifold shelter,SHELTERS,Equipment,Pre-fab shelters
+181,251,FRP Shutter,SHELTERS,Equipment,Pre-fab shelters
+182,347,Office building,SHELTERS,Equipment,Shelters/Rehabilitation Centers
+183,348,Yuva Mandal Bhawan,SHELTERS,Equipment,Shelters/Rehabilitation Centers
+184,349,Mahila Mandal Bhawan,SHELTERS,Equipment,Shelters/Rehabilitation Centers
+185,350,Panchayat bhawan,SHELTERS,Equipment,Shelters/Rehabilitation Centers
+186,351,School,SHELTERS,Equipment,Shelters/Rehabilitation Centers
+187,252,Four wheel drive vehicle,TRANSPORTATION,Equipment,Light vehicles
+188,253,Matador,TRANSPORTATION,Equipment,Light vehicles
+189,362,Motor Cycle,TRANSPORTATION,Equipment,Light vehicles
+190,254,Truck,TRANSPORTATION,Equipment,Medium vehicle
+191,255,RTV,TRANSPORTATION,Equipment,Medium vehicle
+192,256,Mini Bus,TRANSPORTATION,Equipment,Medium vehicle
+193,257,Bus,TRANSPORTATION,Equipment,Heavy vehicle
+194,258,Tractor,TRANSPORTATION,Equipment,Heavy vehicle
+195,259,Trailer,TRANSPORTATION,Equipment,Heavy vehicle
+196,260,Heavy Truck,TRANSPORTATION,Equipment,Heavy vehicle
+197,353,Jumper,TRANSPORTATION,Equipment,Heavy vehicle
+198,363,Loader,TRANSPORTATION,Equipment,Heavy vehicle
+199,261,Light Ambulance Van,TRANSPORTATION,Equipment,Special vehicles
+200,262,Medium Ambulance Van,TRANSPORTATION,Equipment,Special vehicles
+201,263,Equipment Toeing Tender,TRANSPORTATION,Equipment,Special vehicles
+202,264,Mobilization Truck,TRANSPORTATION,Equipment,Special vehicles
+203,265,Water Tanker - Medium capacity,TRANSPORTATION,Equipment,Special vehicles
+204,266,Water Tanker - Large capacity,TRANSPORTATION,Equipment,Special vehicles
+205,364,Road Roller,TRANSPORTATION,Equipment,Special vehicles
+206,267,VHF Sets Static,TELE COMMUNICATION,Equipment,Wireless system
+207,268,VHF Sets Mobile,TELE COMMUNICATION,Equipment,Wireless system
+208,269,UHF Sets Static,TELE COMMUNICATION,Equipment,Wireless system
+209,270,UHF Sets Mobile,TELE COMMUNICATION,Equipment,Wireless system
+210,271,Walkie Talkie Sets,TELE COMMUNICATION,Equipment,Wireless system
+211,272,HF Sets Static,TELE COMMUNICATION,Equipment,Wireless system
+212,273,Mini-M3,TELE COMMUNICATION,Equipment,Sat phones
+213,274,V-SAT,TELE COMMUNICATION,Equipment,Sat phones
+214,275,INMARSAT,TELE COMMUNICATION,Equipment,Sat phones
+215,276,Mobile Phone GSM,TELE COMMUNICATION,Equipment,Mobile phones
+216,277,Mobile Phone CDMA,TELE COMMUNICATION,Equipment,Mobile phones
+217,278,GPS Hand Sets,TELE COMMUNICATION,Equipment,GPS
+218,279,Video Phone Set,TELE COMMUNICATION,Equipment,Video system
+219,280,Video Camera Digital,TELE COMMUNICATION,Equipment,Video system
+220,281,Video Camera Beta,TELE COMMUNICATION,Equipment,Video system
+221,282,Camera Digital,TELE COMMUNICATION,Equipment,Video system
+222,283,Video Camera DVD,TELE COMMUNICATION,Equipment,Video system
+223,284,Ham Radio Operators,TELE COMMUNICATION,Skilled Human Resource,
+224,285,Air Sampler - battery operated,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+225,286,NBC face mask,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+226,287,Body bags,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+227,288,C.D Kit danger make,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+228,289,Monitor - for chemical agents,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+229,290,Capping kit - for chlorine leak,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+230,291,Containers of AFFF,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+231,292,Containers of soda ash and hydroxide,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+232,293,Monitor - for contamination,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+233,294,Decontamination gears,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+234,295,Direct reading dosimeter,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+235,296,Distress signal unit,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+236,297,Emergency response guide book,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+237,298,First aid kit as per MFR,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+238,299,First aid kit NBC type A,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+239,300,First aid kit NBC type B,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+240,301,Flame ionization detector,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+241,302,GM survey meter,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+242,303,High visibility vest,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+243,304,Leak storing device,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+244,305,Leak tester for B.A set,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+245,306,LEL Meter,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+246,307,Mini rad meter,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+247,308,Multi gas detector with cut gum bottle,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+248,309,Non sparking brush brooms shovels,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+249,310,Non sparking tool,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+250,311,PH meter,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+251,312,PH tester,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+252,313,Pipe squeezer,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+253,314,Plastic drums,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+254,315,Detector kit - for poison in water,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+255,316,Portable alpha monitor,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+256,317,Portable decontamination apparatus,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+257,318,Safety line with chemical resistant,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+258,319,Safety touch,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+259,320,Teletector,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+260,321,TLD,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+261,322,Traffic cones,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+262,323,Ultra violet photo ionization detector,NUCLEAR BIOLOGICAL AND CHEMICAL,Equipment,NBC specialized Equipment
+263,326,Search and Rescue Teams for NBC Disasters,NUCLEAR BIOLOGICAL AND CHEMICAL,Skilled Human Resource,
+264,372,Health Workers,NUCLEAR BIOLOGICAL AND CHEMICAL,Skilled Human Resource,
+265,373,Driver- LMV,NUCLEAR BIOLOGICAL AND CHEMICAL,Skilled Human Resource,
+266,374,Driver- HMV,NUCLEAR BIOLOGICAL AND CHEMICAL,Skilled Human Resource,
+267,375,Labour,NUCLEAR BIOLOGICAL AND CHEMICAL,Skilled Human Resource,
+268,324,Decontamination solution,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+269,325,Iodate tablets,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+270,368,Mask,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+271,369,Hand Gloves,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+272,370,Sanitizer Spray,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+273,371,Sprayer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+274,376,PPE Kits,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+275,377,HOOD with garment,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+276,378,N95 Mask,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+277,379,Surgical Masks,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+278,380,Boot Cover,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+279,381,Surgical Gloves,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+280,382,Face Shield,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+281,383,Goggles,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+282,384,Ventilator Adult,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+283,385,Ventilator Paediatric,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+284,386,Water-Resistant Gown,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+285,387,Scrub,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+286,388,Apron,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+287,389,Gum Boots,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+288,390,Heavy-Duty Gloves,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+289,391,Surgical Cap,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+290,393,Oxygen Cylinder Type B,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+291,394,Oxygen Cylinder Type-D,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+292,395,Body bag,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+293,396,Hospital capacity,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+294,397,Bed with oxygen support,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+295,398,Bed with ventilators,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+296,399,Oxygen generator plants,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+297,400,Remdesivir,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+298,401,Oxygen cans,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+299,402,Oxymeter,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+300,403,Oxygen Concentrator,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+301,404,Nebulizer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+302,405,Plasma Therapy,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+303,406,Gloves,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+304,407,Shoe covers,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+305,408,Hand Sanitizer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+306,409,Temperature gun,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+307,410,Thermometer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+308,411,Pulse Oximeter,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+309,412,Disinfectant Spray,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+310,413,Surgical equipments,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+311,414,RT-PCR device,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+312,415,Oxygen supplier,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+313,416,Infrared thermometer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+314,417,Digital thermometer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+315,418,Ultrasound scan,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+316,419,Blood gas analyse,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+317,420,Freezer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+318,421,Medical gas cylinder,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+319,422,Infusion pump,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+320,423,Radiographic mobile digital equipment,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+321,424,Bubble humidifier,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+322,425,Tubing,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+323,426,Flow splitter,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+324,427,Flowmeter,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+325,428,Thorpe tube,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+326,429,Venturi mask,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+327,430,Laryngeal mask airway,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+328,431,Lubricating jelly,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+329,432,Non-heated bubble humidifier,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+330,433,Colourimetric end-tidal CO2 (EtCO2 ) detector,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+331,434,Non-invasive ventilator,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+332,435,Invasive ventilator,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+333,436,Laryngoscope,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+334,437,Video-laryngoscope,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+335,438,Electro-conductive gel,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+336,439,Portable ultrasound scanner,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+337,440,Oxygen therapy,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+338,441,ICU beds,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+339,442,Patient monitor,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+340,443,Videolaryngoscope,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+341,444,Respirator,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+342,445,Surgical gowns,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+343,446,ORS,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+344,447,CoVID test centres,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+345,448,Vaccination centres,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+346,449,Steamer,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+347,450,Ambulance with Oxygen support and other critical facilities,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+348,451,Ambulance Attendants and Drivers,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+349,452,Tocilizumab,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+350,453,COVID Vaccines,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+351,454,COVID Specific Medicines,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+352,455,Oxygen Regulators and other support equipments to use oxygen Beds (with and without oxygen support),NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+353,456,Trained Doctors and Nursing Staff for COVID,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+354,467,Thermal Scanner,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+355,457,Isolation,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+356,458,Quarantine Wards,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+357,459,Mobile Isolation Units,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+358,460,Wheel Chairs with the Oxygen Support and IV support stand,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+359,461,Wheel Chairs,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+360,462,Aerosol Fumigators,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+361,463,HFO Cannula,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+362,464,Blood Fractionation Units,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+363,465,Computerized Tomography Scans,NUCLEAR BIOLOGICAL AND CHEMICAL,Critical supplies,
+364,392,Aapda Mitra,,Skilled Human Resource,
+365,468,Ex-Army personnel,,Skilled Human Resource,
+366,469,Ex-CAPFs personnel,,Skilled Human Resource,
+367,466,DG Sets,,Equipment,Portable Equipment
+```

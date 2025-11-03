@@ -9,7 +9,7 @@ class District(models.Model):
     Represents a district (top-level administrative division)
     """
     district_name = models.CharField(max_length=255)
-    district_code_ap = models.CharField(max_length=50, unique=True)
+    district_code_ap = models.CharField(max_length=50,  blank=True, null=True)
     district_code_ind = models.CharField(max_length=50, blank=True, null=True)
     is_active = models.BooleanField(default=True)
 
@@ -26,7 +26,7 @@ class Mandal(models.Model):
     Represents a mandal (subdivision within a district)
     """
     mandal_name = models.CharField(max_length=255)
-    mandal_code_ap = models.CharField(max_length=50, unique=True)
+    mandal_code_ap = models.CharField(max_length=50,  blank=True, null=True)
     mandal_code_ind = models.CharField(max_length=50, blank=True, null=True)
     district = models.ForeignKey(
         District,
@@ -48,7 +48,7 @@ class Village(models.Model):
     Represents a village (lowest-level administrative division)
     """
     village_name = models.CharField(max_length=255)
-    village_code_ap = models.CharField(max_length=50, unique=True)
+    village_code_ap = models.CharField(max_length=50,  blank=True, null=True)
     village_code_ind = models.CharField(max_length=50, blank=True, null=True)
     mandal = models.ForeignKey(
         Mandal,

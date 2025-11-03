@@ -1,0 +1,94 @@
+ID,ORG_CODE,ORG_SHORTNAME,ORG_TYPE,ORG_NAME,REPORT_ORG
+35,AGC02,AGR,HOD,Agriculture,AGC01
+36,AGC03,HOR,HOD,Horticulture,AGC01
+37,AGC04,SER,HOD,Sericulture,AGC01
+38,AGC05,MAR,HOD,Marketing,AGC01
+39,AGC06,CPN,HOD,Cooperation and Cooperative Societies,AGC01
+40,AHF02,ANI,HOD,Animal Husbandry,AHF01
+41,AHF03,FIS,HOD,Fisheries,AHF01
+42,BCW02,BWF,HOD,BC Welfare,BCW01
+43,EFS02,FOR,HOD,Forest (PCCF),EFS01
+44,EHE02,TEC,HOD,Technical Education,SEI01
+45,EHE03,COL,HOD,Collegiate Education,EHE01
+46,EHE04,ARC,HOD,State Archives,EHE01
+47,EHE05,INT,HOD,Intermediate Education,ESE01
+48,EHE06,MAN,HOD,Oriental Manscripts,EHE01
+120,EHE08,NCC,HOD,National Cadet Corps,EHE01
+49,ENE02,ELS,HOD,Electrical Safety,ENE01
+50,ENE04,POR,HOD,State Ports,INI01
+51,ESE02,SCH,HOD,School Education,ESE01
+52,ESE08,PUB,HOD,Publication,ESE01
+53,ESE09,ADE,HOD,Adult Education,ESE01
+54,ESE10,LIB,HOD,Public Libraries,ESE01
+55,FCS02,CIS,HOD,Civil Supplies,FCS01
+56,FCS03,LEM,HOD,Legal Metrology,FCS01
+57,FIN02,TRA,HOD,Treasuries & Accounts,FIN01
+58,FIN03,AUD,HOD,State Audit,FIN01
+59,FIN04,GLI,HOD,Government Life Insurance,FIN01
+60,FIN05,PAO,HOD,Pay and Accounts Office,FIN01
+61,FIN08,WAC,HOD,Works Accounts,FIN01
+1748,FIN09,ARI,HOD,Andhra Pradesh State Directorate of Revenue Intelligence (APSDRI),FIN01
+62,GAD02,IPR,HOD,Information and Public Relations,GAD01
+63,GAD05,ACB,HOD,Anti Corruption Bureau,GAD01
+64,GAD06,PRO,HOD,Protocol,GAD01
+65,GAD10,VAE,HOD,Vigilance and Enforcement Wing,GAD01
+66,GAD11,APB,HOD,Andhra Pradesh Bhavan New Delhi,GAD01
+67,GAD18,TRN,HOD,Translations,GAD01
+1782,GAD20,SEH,HOD,Special Enforcement Bureau,GAD01
+1761,GWS02,GSW,HOD,Gram Volunteers / Ward Volunteers and Village Secretariats / Ward Secretariats,GWS01
+68,HMF02,MED,HOD,Medical Education,HMF01
+69,HMF03,HEA,HOD,Public Health,HMF01
+70,HMF04,FAM,HOD,Family Welfare,HMF01
+71,HMF05,IPM,HOD,Institute of Preventive medicine (IPM) & Food Safety,HMF01
+72,HMF06,AYU,HOD,Ayush,HMF01
+73,HMF07,DRG,HOD,Drugs Control Administration,HMF01
+1797,HMF08,DSH,HOD,Directorate of Secondary Health,HMF01
+74,HOM02,DGP,HOD,Police (DGP),HOM01
+75,HOM03,PCS,HOD,Prisons & Correctional Services,HOM01
+76,HOM04,PRI,HOD,Printing and Stationery,HOM01
+77,HOM05,FIR,HOD,Fire Services,HOM01
+78,HOM06,SAI,HOD,Sainik Welfare,HOM01
+79,HOM12,SPF,HOD,Special Protection Force,HOM01
+1811,HOM21,EAG,HOD,Elite Anti-Narcotics Group for Law Enforcement(EAGLE),HOM01
+80,ICD02,CAD,HOD,Command Area Development Authority (CADA),ICD01
+81,ICD03,GRW,HOD,Ground Water,ICD01
+82,ICD05,IRR,HOD,Water Resources (E-in-C),ICD01
+83,ICD33,RAR,HOD,Resettlement and Rehabilitation,ICD01
+84,INC02,ICE,HOD,"Industries, Commerce and Export Promotion",INC01
+85,INC03,HAT,HOD,Handlooms & Textiles,INC01
+86,INC04,MAG,HOD,Mines and Geology,INC01
+87,INC05,SAC,HOD,Sugar and Cane,INC01
+88,ITC02,ESD,HOD,Electronics Delivery Services,ITC01
+89,LAE02,EAT,HOD,Employment and Training,SEI01
+90,LAE03,LAB,HOD,Labour,LAE01
+91,LAE05,FAC,HOD,Factories,LAE01
+92,LAE18,IMS,HOD,Insurance Medical Services,LAE01
+93,LAE19,BOI,HOD,Boilers,LAE01
+725,LAW03,PRS,HOD,Prosecutions,HOM01
+95,MAU02,MUA,HOD,Municipal Administration,MAU01
+96,MAU03,TCP,HOD,Town and Country Planning,MAU01
+97,MAU04,PHE,HOD,Public Health Engineering,MAU01
+634,MNW02,MNC,HOD,AP State Minorities Commission,MNW01
+98,MNW03,MTW,HOD,Minorities Welfare,MNW01
+99,PLG02,ECS,HOD,Economics and Statistics,PLG01
+100,PRR02,PAR,HOD,Panchayati Raj,PRR01
+101,PRR03,PRE,HOD,Panchayati Raj Engineering,PRR01
+102,PRR05,RDT,HOD,Rural Development,PRR01
+103,PRR06,RWS,HOD,Rural Water Supply Engineering,PRR01
+104,REV02,LAN,HOD,Revenue (CCLA),REV01
+105,REV03,CTX,HOD,Commercial Taxes,REV01
+106,REV04,PEX,HOD,Prohibition and Excise,REV01
+107,REV05,SLR,HOD,Survey Settlements and Land Records,REV01
+108,REV07,END,HOD,Endowment,REV01
+109,REV08,REG,HOD,Registration and Stamps,REV01
+111,SOW02,SCW,HOD,Social Welfare,SOW01
+112,TBW02,TRW,HOD,Tribal Welfare,TBW01
+113,TBW03,TWE,HOD,Tribal Welfare Engineering,TBW01
+115,TRB02,RAB,HOD,Roads and Buildings (E-in-C),TRB01
+114,TRB03,TRP,HOD,Transport,TRB01
+1738,TRB14,PTD,HOD,Public Transport Department,TRB01
+116,WDC02,WCW,HOD,Women Development and Child Welfare,WDC01
+117,WDC03,DAS,HOD,"Differently Abled, Senior Citizens & Transgender",WDC01
+118,WDC04,JWC,HOD,Juvenile Welfare & Correctional Services,WDC01
+119,YTC04,YOU,HOD,Youth Services,YTC01
+121,YTC07,MUS,HOD,Archaeology and Museums,YTC01

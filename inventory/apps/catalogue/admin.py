@@ -10,7 +10,7 @@ class ItemAttributeInline(admin.TabularInline):
 
 @admin.register(ItemInfo)
 class ItemInfoAdmin(admin.ModelAdmin):
-    list_display = ['item_code', 'item_name', 'category', 'active']
+    list_display = ['id','item_code', 'item_name', 'category', 'active']
     list_filter = ['category', 'resource_type', 'active']
     search_fields = ['item_code', 'item_name', 'tags']
     inlines = [ItemAttributeInline]  # This is where ItemAttribute belongs!

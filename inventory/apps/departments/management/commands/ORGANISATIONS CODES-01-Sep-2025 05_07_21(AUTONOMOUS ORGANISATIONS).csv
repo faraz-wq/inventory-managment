@@ -1,0 +1,624 @@
+ID,ORG_CODE,ORG_SHORTNAME,ORG_TYPE,ORG_NAME,REPORT_ORG
+145,AG001,ASK,AO,"Agricultural Technology Management Agency (ATMA), Srikakulam",AGC01
+146,AG002,AVZ,AO,"Agricultural Technology Management Agency (ATMA), Vizianagaram",AGC01
+147,AG003,AVS,AO,"Agricultural Technology Management Agency (ATMA), Visakhapatnam",AGC01
+148,AG004,AEG,AO,"Agricultural Technology Management Agency (ATMA), East Godavari",AGC01
+149,AG005,AWG,AO,"Agricultural Technology Management Agency (ATMA), West Godavari",AGC01
+150,AG006,AKR,AO,"Agricultural Technology Management Agency (ATMA), Krishna",AGC01
+151,AG007,AGN,AO,"Agricultural Technology Management Agency (ATMA), Guntur",AGC01
+152,AG008,APR,AO,"Agricultural Technology Management Agency (ATMA), Prakasam",AGC01
+153,AG009,ANL,AO,"Agricultural Technology Management Agency (ATMA), SPR Nellore",AGC01
+154,AG010,ACT,AO,"Agricultural Technology Management Agency (ATMA), Chittoor",AGC01
+155,AG011,AKD,AO,"Agricultural Technology Management Agency (ATMA), YSR Kadapa",AGC01
+156,AG012,AAP,AO,"Agricultural Technology Management Agency (ATMA), Anantapuramu",AGC01
+157,AG013,AKN,AO,"Agricultural Technology Management Agency (ATMA), Kurnool",AGC01
+158,AG101,MAV,AO,"Agriculture Market Committee, Amadalavalasa",AGC05
+159,AG102,MPD,AO,"Agriculture Market Committee, Ponduru",AGC05
+160,AG103,MRJ,AO,"Agriculture Market Committee, Rajam",AGC05
+161,AG104,MPK,AO,"Agriculture Market Committee, Palakonda",AGC05
+162,AG105,MHM,AO,"Agriculture Market Committee, Hiramandalam",AGC05
+163,AG106,MPP,AO,"Agriculture Market Committee, Pathapatnam",AGC05
+164,AG107,MNP,AO,"Agriculture Market Committee, Narasannapeta",AGC05
+165,AG108,MKT,AO,"Agriculture Market Committee, Kotabommali",AGC05
+166,AG109,MPS,AO,"Agriculture Market Committee, Palasa",AGC05
+167,AG110,MKC,AO,"Agriculture Market Committee, Kanchili",AGC05
+168,AG111,MIP,AO,"Agriculture Market Committee, Ichapuram",AGC05
+169,AG112,MJM,AO,"Agriculture Market Committee, Jalumuru (New)",AGC05
+170,AG113,MER,AO,"Agriculture Market Committee, Etcherla (New)",AGC05
+171,AG114,MVZ,AO,"Agriculture Market Committee, Vizianagaram",AGC05
+172,AG115,MPV,AO,"Agriculture Market Committee, Parvathipuram",AGC05
+173,AG116,MBB,AO,"Agriculture Market Committee, Bobbili",AGC05
+174,AG117,MSL,AO,"Agriculture Market Committee, Saluru",AGC05
+175,AG118,MGJ,AO,"Agriculture Market Committee, Gajapathinagaram",AGC05
+176,AG119,MCP,AO,"Agriculture Market Committee, Cheepurupalli",AGC05
+177,AG120,MKV,AO,"Agriculture Market Committee, Kothavalasa",AGC05
+178,AG121,MKR,AO,"Agriculture Market Committee, Kurupam",AGC05
+179,AG122,MPU,AO,"Agriculture Market Committee, Pusapatirega",AGC05
+180,AG123,MVS,AO,"Agriculture Market Committee, Visakhapatnam",AGC05
+181,AG124,MAP,AO,"Agriculture Market Committee, Anakapalli",AGC05
+182,AG125,MNS,AO,"Agriculture Market Committee, Narsipatnam",AGC05
+183,AG126,MBM,AO,"Agriculture Market Committee, Bheemunipatnam",AGC05
+184,AG127,MYM,AO,"Agriculture Market Committee, Yelamanchili",AGC05
+185,AG128,MPR,AO,"Agriculture Market Committee, Paderu",AGC05
+186,AG129,MCT,AO,"Agriculture Market Committee, Chintapalli",AGC05
+187,AG130,MCD,AO,"Agriculture Market Committee, Chodavaram",AGC05
+188,AG131,MAL,AO,"Agriculture Market Committee, Alamuru",AGC05
+189,AG132,MKO,AO,"Agriculture Market Committee, Kothapeta",AGC05
+190,AG133,MAT,AO,"Agriculture Market Committee, Anaparthy ",AGC05
+191,AG134,MAB,AO,"Agriculture Market Committee, Ambajipeta ",AGC05
+192,AG135,MRM,AO,"Agriculture Market Committee, Rajahmundry ",AGC05
+193,AG136,MTR,AO,"Agriculture Market Committee, Tallarevu",AGC05
+194,AG137,MRP,AO,"Agriculture Market Committee, Ramachandra Puram ",AGC05
+195,AG138,MAW,AO,"Agriculture Market Committee, Allavaram",AGC05
+196,AG139,MRZ,AO,"Agriculture Market Committee, Razole",AGC05
+197,AG140,MMR,AO,"Agriculture Market Committee, Mummidivaram ",AGC05
+198,AG141,MTU,AO,"Agriculture Market Committee, Tuni",AGC05
+199,AG142,MPI,AO,"Agriculture Market Committee, Pithapuram ",AGC05
+200,AG143,MSM,AO,"Agriculture Market Committee, Sampara (HQ) Nadakuduru",AGC05
+201,AG144,MSK,AO,"Agriculture Market Committee, Samalkot",AGC05
+202,AG145,MPE,AO,"Agriculture Market Committee, Peddapuram ",AGC05
+203,AG146,MNM,AO,"Agriculture Market Committee, Nagaram",AGC05
+204,AG147,MPA,AO,"Agriculture Market Committee, Prathipadu",AGC05
+205,AG148,MJP,AO,"Agriculture Market Committee, Jaggampeta",AGC05
+206,AG149,MND,AO,"Agriculture Market Committee, Mandapeta",AGC05
+207,AG150,MKD,AO,"Agriculture Market Committee, Kakinada ",AGC05
+208,AG151,MAH,AO,"Agriculture Market Committee, Achanta",AGC05
+209,AG152,MAK,AO,"Agriculture Market Committee, Akividu",AGC05
+210,AG153,MAI,AO,"Agriculture Market Committee, Attili",AGC05
+211,AG154,MBD,AO,"Agriculture Market Committee, Bhimadole",AGC05
+212,AG155,MBV,AO,"Agriculture Market Committee, Bhimavaram",AGC05
+213,AG156,MCL,AO,"Agriculture Market Committee, Chintalapudi",AGC05
+214,AG157,MDD,AO,"Agriculture Market Committee, Denduluru",AGC05
+215,AG158,MEL,AO,"Agriculture Market Committee, Eluru",AGC05
+216,AG159,MGP,AO,"Agriculture Market Committee, Gopalapuram",AGC05
+217,AG160,MKW,AO,"Agriculture Market Committee, Kovvuru",AGC05
+218,AG161,MNR,AO,"Agriculture Market Committee, Narasapuram",AGC05
+219,AG162,MPC,AO,"Agriculture Market Committee, Palakole",AGC05
+220,AG163,MPG,AO,"Agriculture Market Committee, Penugonda",AGC05
+221,AG164,MPO,AO,"Agriculture Market Committee, Polavaram",AGC05
+222,AG165,MTD,AO,"Agriculture Market Committee, Tadepalligudem",AGC05
+223,AG166,MTN,AO,"Agriculture Market Committee, Tanuku",AGC05
+224,AG167,MUD,AO,"Agriculture Market Committee, Undi ",AGC05
+225,AG168,MUG,AO,"Agriculture Market Committee, Unguturu",AGC05
+226,AG169,MKK,AO,"Agriculture Market Committee, Kaikaluru",AGC05
+227,AG170,MGD,AO,"Agriculture Market Committee, Gudivada",AGC05
+228,AG171,MMC,AO,"Agriculture Market Committee, Machilipatnam",AGC05
+229,AG172,MVJ,AO,"Agriculture Market Committee, Vijayawada",AGC05
+230,AG173,MDV,AO,"Agriculture Market Committee, Divi",AGC05
+231,AG174,MGN,AO,"Agriculture Market Committee, Gannavaram",AGC05
+232,AG175,MMV,AO,"Agriculture Market Committee, Movva",AGC05
+233,AG176,MTV,AO,"Agriculture Market Committee, Tiruvuru",AGC05
+234,AG177,MVU,AO,"Agriculture Market Committee, Vuyyuru",AGC05
+235,AG178,MNZ,AO,"Agriculture Market Committee, Nuzvid",AGC05
+236,AG179,MPM,AO,"Agriculture Market Committee, Pamarru",AGC05
+237,AG180,MML,AO,"Agriculture Market Committee, Malleswaram",AGC05
+238,AG181,MNA,AO,"Agriculture Market Committee, Nandigama",AGC05
+239,AG182,MJG,AO,"Agriculture Market Committee, Jaggaiahpet",AGC05
+240,AG183,MMY,AO,"Agriculture Market Committee, Mylavaram",AGC05
+241,AG184,MKA,AO,"Agriculture Market Committee, Kanchikacherla",AGC05
+242,AG185,MKL,AO,"Agriculture Market Committee, Kalidindi",AGC05
+243,AG186,MPN,AO,"Agriculture Market Committee, Pedana",AGC05
+244,AG187,MPH,AO,"Agriculture Market Committee, Penamaluru (HQ) Kankipadu ",AGC05
+245,AG188,GTR,AO,"Agriculture Market Committee, Guntur",AGC05
+246,AG189,MTL,AO,"Agriculture Market Committee, Tenali",AGC05
+247,AG190,MRL,AO,"Agriculture Market Committee, Repalle",AGC05
+248,AG191,MNT,AO,"Agriculture Market Committee, Narasaraopet",AGC05
+249,AG192,MCK,AO,"Agriculture Market Committee, Chilakaluripet",AGC05
+250,AG193,MST,AO,"Agriculture Market Committee, Sattenapalli",AGC05
+251,AG194,MPQ,AO,"Agriculture Market Committee, Piduguralla",AGC05
+252,AG195,MPY,AO,"Agriculture Market Committee, Ponnur",AGC05
+253,AG196,MEM,AO,"Agriculture Market Committee, Emani (HQ) Duggirala",AGC05
+254,AG197,MBP,AO,"Agriculture Market Committee, Bapatla",AGC05
+255,AG198,MVK,AO,"Agriculture Market Committee, Vinukonda",AGC05
+256,AG199,MMG,AO,"Agriculture Market Committee, Mangalagiri",AGC05
+257,AG200,MTK,AO,"Agriculture Market Committee, Tadikonda",AGC05
+258,AG201,MKQ,AO,"Agriculture Market Committee, Krosur",AGC05
+259,AG202,MCR,AO,"Agriculture Market Committee, Macherla",AGC05
+260,AG203,MIR,AO,"Agriculture Market Committee, Ipur",AGC05
+261,AG204,MRO,AO,"Agriculture Market Committee, Rompicherla",AGC05
+262,AG205,MKU,AO,"Agriculture Market Committee, Kuchinapudi",AGC05
+263,AG206,MPW,AO,"Agriculture Market Committee, Phirangipuram",AGC05
+264,AG207,MRX,AO,"Agriculture Market Committee, Rajupalem",AGC05
+265,AG208,MVM,AO,"Agriculture Market Committee, Vemuru (New)",AGC05
+266,AG209,MOG,AO,"Agriculture Market Committee, Ongole",AGC05
+267,AG210,MPZ,AO,"Agriculture Market Committee, Parchur",AGC05
+268,AG211,MMT,AO,"Agriculture Market Committee, Martur",AGC05
+269,AG212,MAD,AO,"Agriculture Market Committee, Addanki",AGC05
+270,AG213,MDR,AO,"Agriculture Market Committee, Darsi",AGC05
+271,AG214,MMP,AO,"Agriculture Market Committee, Markapur",AGC05
+272,AG215,MCA,AO,"Agriculture Market Committee, Chirala",AGC05
+273,AG216,MKX,AO,"Agriculture Market Committee, Kandukur",AGC05
+274,AG217,MGI,AO,"Agriculture Market Committee, Giddalur",AGC05
+275,AG218,MCB,AO,"Agriculture Market Committee, Cumbum",AGC05
+276,AG219,MKG,AO,"Agriculture Market Committee, Kanigiri",AGC05
+277,AG220,MKP,AO,"Agriculture Market Committee, Kondapi (HQ) Singarayakonda",AGC05
+278,AG221,MMD,AO,"Agriculture Market Committee, Maddipadu",AGC05
+279,AG222,MPX,AO,"Agriculture Market Committee, Podili",AGC05
+280,AG223,MYG,AO,"Agriculture Market Committee, Yerragondapalem",AGC05
+281,AG224,MNL,AO,"Agriculture Market Committee, Nellore",AGC05
+282,AG225,MKF,AO,"Agriculture Market Committee, Kovur",AGC05
+283,AG226,MKH,AO,"Agriculture Market Committee, Kavali",AGC05
+284,AG227,MSP,AO,"Agriculture Market Committee, Sullurpet",AGC05
+285,AG228,MNU,AO,"Agriculture Market Committee, Naidupet",AGC05
+286,AG229,MGU,AO,"Agriculture Market Committee, Gudur",AGC05
+287,AG230,MVD,AO,"Agriculture Market Committee, Vakadu",AGC05
+288,AG231,MRU,AO,"Agriculture Market Committee, Rapur",AGC05
+289,AG232,MAQ,AO,"Agriculture Market Committee, Atmakur",AGC05
+290,AG233,MUR,AO,"Agriculture Market Committee, Udayagiri",AGC05
+291,AG234,MVG,AO,"Agriculture Market Committee, Venkatagiri",AGC05
+292,AG235,MCU,AO,"Agriculture Market Committee, Chittoor",AGC05
+293,AG236,MSH,AO,"Agriculture Market Committee, Srikalahasti",AGC05
+294,AG237,MPJ,AO,"Agriculture Market Committee, Punganur",AGC05
+295,AG238,MVP,AO,"Agriculture Market Committee, Valmikipuram ",AGC05
+296,AG239,MPF,AO,"Agriculture Market Committee, Piler",AGC05
+297,AG240,MTT,AO,"Agriculture Market Committee, Thottambedu",AGC05
+298,AG241,MPT,AO,"Agriculture Market Committee, Puttur",AGC05
+299,AG242,MLN,AO,"Agriculture Market Committee, Palamaner",AGC05
+300,AG243,MMK,AO,"Agriculture Market Committee, Mulakala Cheruvu",AGC05
+301,AG244,MLA,AO,"Agriculture Market Committee, Pakala",AGC05
+302,AG245,MTC,AO,"Agriculture Market Committee, Thiruchanur",AGC05
+303,AG246,MSV,AO,"Agriculture Market Committee, Satyavedu (HQ) Nagalapuram",AGC05
+304,AG247,MBL,AO,"Agriculture Market Committee, Bangarupalem",AGC05
+305,AG248,MNI,AO,"Agriculture Market Committee, Nagari",AGC05
+306,AG249,MSO,AO,"Agriculture Market Committee, Somala",AGC05
+307,AG250,MKM,AO,"Agriculture Market Committee, Kuppam",AGC05
+308,AG251,MVR,AO,"Agriculture Market Committee, Vepanjeri",AGC05
+309,AG252,MRA,AO,"Agriculture Market Committee, Rompicherla",AGC05
+310,AG253,MKZ,AO,"Agriculture Market Committee, Kadapa",AGC05
+311,AG254,MRT,AO,"Agriculture Market Committee, Proddatur",AGC05
+312,AG255,MRW,AO,"Agriculture Market Committee, Railway Kodur",AGC05
+313,AG256,MBE,AO,"Agriculture Market Committee, Badvel",AGC05
+314,AG257,MJL,AO,"Agriculture Market Committee, Jammalamadugu",AGC05
+315,AG258,MLD,AO,"Agriculture Market Committee, Pulivendula",AGC05
+316,AG259,MMQ,AO,"Agriculture Market Committee, Mydukur",AGC05
+317,AG260,MRE,AO,"Agriculture Market Committee, Rajampeta",AGC05
+318,AG261,MKE,AO,"Agriculture Market Committee, Kamalapuram",AGC05
+319,AG262,MRY,AO,"Agriculture Market Committee, Rayachoti",AGC05
+320,AG263,MLR,AO,"Agriculture Market Committee, Lakkireddipalli",AGC05
+321,AG264,MSD,AO,"Agriculture Market Committee, Siddavatam",AGC05
+322,AG265,MAM,AO,"Agriculture Market Committee, Anantapur",AGC05
+323,AG266,MDH,AO,"Agriculture Market Committee, Dharmavaram",AGC05
+324,AG267,MGO,AO,"Agriculture Market Committee, Gooty",AGC05
+325,AG268,MGT,AO,"Agriculture Market Committee, Guntakal",AGC05
+326,AG269,MHN,AO,"Agriculture Market Committee, Hindupur",AGC05
+327,AG270,MKI,AO,"Agriculture Market Committee, Kadiri",AGC05
+328,AG271,MKY,AO,"Agriculture Market Committee, Kalyanadurg",AGC05
+329,AG272,MMS,AO,"Agriculture Market Committee, Madakasira",AGC05
+330,AG273,MNK,AO,"Agriculture Market Committee, Penukonda",AGC05
+331,AG274,MRD,AO,"Agriculture Market Committee, Rayadurg",AGC05
+332,AG275,MTP,AO,"Agriculture Market Committee, Tadipatri",AGC05
+333,AG276,MTA,AO,"Agriculture Market Committee, Tanakallu",AGC05
+334,AG277,MUK,AO,"Agriculture Market Committee, Uravakonda",AGC05
+335,AG278,MKN,AO,"Agriculture Market Committee, Kurnool",AGC05
+336,AG279,MAO,AO,"Agriculture Market Committee, Adoni",AGC05
+337,AG280,MNY,AO,"Agriculture Market Committee, Nandyal",AGC05
+338,AG281,MYN,AO,"Agriculture Market Committee, Yemmiganur",AGC05
+339,AG282,MAA,AO,"Agriculture Market Committee, Allagadda",AGC05
+340,AG283,MDO,AO,"Agriculture Market Committee, Dhone",AGC05
+341,AG284,MNN,AO,"Agriculture Market Committee, Nandikotkur",AGC05
+342,AG285,MAX,AO,"Agriculture Market Committee, Atmakur",AGC05
+343,AG286,MBG,AO,"Agriculture Market Committee, Banaganapalli",AGC05
+344,AG287,MKB,AO,"Agriculture Market Committee, Koilkuntla",AGC05
+345,AG288,MAZ,AO,"Agriculture Market Committee, Alur",AGC05
+346,AG289,MTO,AO,"Agriculture Market Committee, Pattikonda",AGC05
+1755,AG290,AMP,AO,"Agricultural Market Committee, Pendurthi",AGC05
+1756,AG291,AMA,AO,"Agricultural Market Committee, Arakuvalley",AGC05
+1757,AG292,AMM,AO,"Agricultural Market Committee, Madugula",AGC05
+1758,AG293,AMR,AO,"Agricultural Market Committee, Payakaraopeta",AGC05
+347,AGC51,SED,AO,AP State Seeds Development Corporation (AP SEEDS),AGC01
+348,AGC52,AIC,AO,AP State Agro Industries Corporation (AP AGROS),AGC01
+349,AGC53,SCA,AO,AP State Seeds Certification Agency ?,AGC01
+350,AGC54,SSC,AO,Federation of Sericulturists and Silk Weavers Cooperative Societies Federation (SERIFED),AGC01
+351,AGC55,CJF,AO,AP State Cooperative Joint Farming and Labour Contract Societies Federation,AGC01
+352,AGC56,OSF,AO,AP State Cooperative Oil Seeds Growers Federation (OILFED),AGC01
+353,AGC57,MFD,AO,AP State Cooperative Marketing Federation (MARKFED),AGC01
+354,AGC58,WAR,AO,AP State Warehousing Corporation,AGC01
+355,AGC59,RYS,AO,Rythu Sadhikara Samstha (Company),AGC01
+356,AGC60,RSK,AO,RESCO Kuppam,AGC01
+357,AGC61,RSP,AO,RESCO Chepurupalli,AGC01
+358,AGC62,RKK,AO,RESCO Kasimkota,AGC01
+359,AGC63,AMT,AO,State Agricultural Management & Extension Training Institute,AGC01
+723,AGC66,HCU,AO,Dr. YSR Horticultural University,AGC01
+1733,AGC67,DCB,AO,The AP State Co Operative Bank Ltd,AGC06
+1751,AGC68,NGU,AO,Acharya N.G.Ranga Agricultural University(ANGRAU),AGC01
+361,AHF51,DAI,AO,AP Dairy Development Cooperative Federation (AP DIARY),AHF01
+362,AHF52,SHE,AO,AP State Sheep & Goat Development Co-operative Federation,AHF01
+363,AHF53,LDA,AO,AP Livestock Development Agency ?,AHF01
+364,AHF54,ARL,AO,AP Centre for Advanced Research on Livestock (APCARL),AHF01
+365,AHF55,FCF,AO,AP State Fishermen Cooperative Societies Federation Ltd,AHF01
+366,AHF56,AVC,AO,AP Veterinary Council,AHF01
+1744,AHF57,VVU,AO,Sri Venkateswara Veterinary University,AHF01
+1770,AHF58,AFU,AO,AP Fisheries University,AHF01
+1803,AHF59,PVAC,AO,AP Para Veterinary and Allied Council,AHF01
+367,BCW51,BCF,AO,AP BC Cooperative Finance Corporation,BCW01
+368,BCW52,BAL,AO,"AP Krishna Balija, Poosala Cooperative Societies Federation Ltd",BCW01
+369,BCW53,UPP,AO,AP Sagara (Uppara) Cooperative Societies Federation Ltd,BCW01
+370,BCW54,VAD,AO,AP Vaddera Cooperative Societies Federation Ltd,BCW01
+371,BCW55,VAL,AO,AP Valmiki/Boya Cooperative Societies Federation Ltd,BCW01
+372,BCW56,BHA,AO,AP Bhattaraja Cooperative Societies Federation Ltd,BCW01
+373,BCW57,NAY,AO,AP Nayee Brahmins Cooperative Societies Federation Ltd,BCW01
+374,BCW58,WAS,AO,AP Washermen Cooperative Societies Federation Ltd,BCW01
+375,BCW59,BCC,AO,AP Commission for Backward Classes,BCW01
+376,BCW60,BSC,AO,BC Study Circle,BCW01
+377,BCW61,AMF,AO,AP Medara Finance Corporation Ltd,BCW01
+378,BCW62,VSW,AO,AP State Viswabrahmins Co-operative Corporation Ltd,BCW01
+379,BCW63,KUM,AO,"AP State Kummari, Shalivahana Co-operative Societies",BCW01
+380,BCW64,TTF,AO,AP Toddy Tappers Co-Operative Societies Federation Ltd,BCW01
+381,BCW65,BCR,AO,MJPAPBBCW Residential Education Society,BCW01
+1736,BCW66,EBC,AO,AP State Economically Backward Classes Welfare and Development Corporation Ltd (APSEBCWDC),BCW01
+382,EFS51,FDC,AO,AP Forests Development Corporation,EFS01
+383,EFS52,BIO,AO,AP Biodiversity Board,EFS01
+384,EFS53,PCB,AO,AP Pollution Control Board,EFS01
+385,EFS54,FOA,AO,AP Forest Academy,EFS01
+386,EFS55,EPT,AO,Environment Protection Training and Research Institute,EFS01
+387,EFS56,NAR,AO,Centre for forest and natural resources management studies (CEFNARM),EFS01
+388,EFS57,RSA,AO,AP State Remote Sensing Application Centre,EFS01
+389,EFS58,NGC,AO,National Green Corps,EFS01
+390,EFS59,COS,AO,AP State Council of Science & Technology (APCOST),EFS01
+1743,EFS60,KGC,AO,AP Mission for Clean Krishna Godavari Canals,EFS01
+1760,EFS61,EMC,AO,AP  Environment Management Corporation,EFS01
+391,EHE51,ADU,AO,Andhra University,EHE73
+392,EHE52,SVU,AO,Sri Venkateswara University,EHE73
+393,EHE53,ANU,AO,Nagarjuna University,EHE73
+394,EHE54,KDU,AO,Sri Krishna Devaraya University,EHE73
+395,EHE55,BRU,AO,Dr. B.R. Ambedkar Open University,EHE01
+396,EHE56,PMV,AO,Sri Padmavathi Mahila Viswa Vidyalayam,EHE73
+397,EHE57,POT,AO,Potti Sriramulu Telugu University,EHE01
+398,EHE58,PTU,AO,Dravidian University,EHE73
+399,EHE59,BRL,AO,"Sir C.P Brown Memorial Library, Kadapa",ESE01
+400,EHE60,NNU,AO,Adikavi Nannaya University,EHE73
+401,EHE61,RKT,AO,Rajiv Gandhi University of Knowledge Technologies,EHE73
+402,EHE62,YVU,AO,Yogi Vemana University,EHE73
+403,EHE63,AMU,AO,"Ambedkar University, Srikakulam",EHE01
+404,EHE64,KRU,AO,"Krishna University, Machilipatnam",EHE73
+405,EHE65,RAU,AO,"Rayalaseema University, Kurnool",EHE73
+406,EHE66,VKU,AO,"Vikramasimhapuri University, Nellore",EHE73
+407,EHE67,URU,AO,Urdu University,EHE73
+408,EHE68,TLU,AO,Telugu University,EHE01
+409,EHE69,SCI,AO,AP Science Academy,EHE01
+410,EHE70,JNK,AO,"Jawharlal Nehru Technological University, Kakinada",EHE73
+411,EHE71,JNA,AO,"Jawharlal Nehru Technological University, Ananthapur",EHE73
+412,EHE72,FCI,AO,"Food Crafts Institute, Visakhapatnam",ESE01
+413,EHE73,CHE,AO,AP State Council for Higher Education,EHE01
+414,EHE74,TET,AO,State Board of Technical Education and Training,EHE01
+1740,EHE75,RSV,AO,Rashtriya Sanskrit Vidyapeetha,EHE01
+1762,EHE76,HRC,AO,AP Higher Education Regulatory and Monitoring Commission,EHE01
+1763,EHE77,AFA,AO,Dr. YSR Architecture and Fine Arts University,EHE73
+1769,EHE78,TAI,AO,Telugu and Sanskrit Akademi,EHE01
+1789,EHE79,JNV,AO,"Jawharlal Nehru Technological University, Gurajada Vizianagaram",EHE73
+1804,EHE80,AKU,AO,Andhra Kesari University,EHE01
+415,ENE51,TNC,AO,AP Transco,ENE01
+416,ENE52,GEN,AO,AP Genco,ENE01
+417,ENE53,SPD,AO,AP Southern Power Distribution Co Ltd (SPDCL),ENE01
+418,ENE54,NED,AO,New & Renewable Energy Development Corporation of AP Ltd (NEDCAP),ENE01
+419,ENE55,EPD,AO,AP Eastern Power Distribution Co Ltd (EPDCL),ENE01
+421,ENE57,PFC,AO,AP Power Finance Corporation Ltd,ENE01
+424,ENE60,ACL,AO,AP Aviation Corporation Ltd,INI01
+425,ENE61,ECM,AO,AP State Energy Conservation Mission Society,ENE01
+427,ENE63,GDC,AO,AP Gas Distribution Corporation Ltd,INI01
+430,ENE66,SPC,AO,AP Solar Power Corporation,ENE01
+431,ENE67,EDC,AO,AP State Energy Efficiency Devlopment Corporation Ltd,ENE01
+1766,ENE70,CPD,AO,AP Central Power Distribution Co Ltd (CPDCL),ENE01
+1778,ENE71,GEC,AO,AP Green Energy Corporation Limited,ENE01
+432,ESE13,SSA,AO,Samagra Shiksha,ESE01
+433,ESE51,BIE,AO,Board of Intermediate Education,ESE01
+434,ESE52,WID,AO,AP Education and Welfare Infrastructure Development Corporation (APEWIDC),ESE01
+435,ESE53,REI,AO,AP Residential Educational Institutions Society,ESE01
+436,ESE54,CLI,AO,State Central Library,ESE01
+437,ESE55,SCE,AO,State Council of Eduction Research and Training (SCERT),ESE01
+1781,ESE56,TBP,AO,A.P. Government Text Book Press,ESE01
+1801,EWS51,BRW,AO,AP Brahmin Welfare Corporation,EWS01
+1807,EWS52,AVW,AO,AP State Arya Vysya Welfare and Development Corporation,EWS01
+1808,EWS53,RDW,AO,AP Reddy Welfare and Development Corporation,EWS01
+1809,EWS54,KMW,AO,AP Kamma Welfare and Development Corporation,EWS01
+441,FCS04,CDR,AO,State Consumer Disputes Redressal Commission,FCS01
+442,FCS51,CSC,AO,AP State Civil Supplies Corporation,FCS01
+443,FCS52,SBZ,AO,AP State Cooperative Consumers Federation (SUPER BAZAR),FCS01
+444,FCS53,AFC,AO,AP State Food Commission,FCS01
+445,FIN51,CFS,AO,AP Centre for Financial Systems and Services,FIN01
+1771,FIN52,GIC,AO,AP General Insurance Corporation Ltd,FIN01
+1806,FIN53,FSC,AO,AP State Financial Services Corporation Ltd,FIN01
+446,GAD03,PSC,AO,AP Public Service Commission,GAD01
+447,GAD04,TDP,AO,Tribunal for Disciplinary Proceedings,GAD01
+448,GAD08,LOK,AO,AP Lokayukta and Upa lokayukta,GAD01
+449,GAD12,VGC,AO,AP Vigilance Commission,GAD01
+450,GAD13,HRD,AO,AP Human Resources Development Institute,GAD01
+452,GAD17,AAT,AO,AP Administrative Tribunal,GAD01
+453,GAD19,INF,AO,AP Information Commission,GAD01
+454,GAD51,EDB,AO,AP Economic Development Board,INC01
+455,GAD52,HRC,AO,AP Human Rights Commission,GAD01
+456,GAD53,NRT,AO,AP NRT Society,GAD01
+457,GAD54,FLM,AO,"AP State Film, TV and Theatre Development Corporation Ltd",GAD01
+458,GAD55,PRA,AO,AP Press Academy,GAD01
+1752,GAD58,OSC,AO,AP Corporation for Outsourced Services (APCOS),GAD01
+726,GAD59,ADC,AO,AP Digital Corporation Ltd,GAD01
+460,HMF52,MHI,AO,"AP Health, Medical Housing and Infrastructure Development Corporation",HMF01
+461,HMF53,VTR,AO,Dr.Nandamuri Taraka Rama Rao Vaidya Seva Trust,HMF01
+462,HMF54,AID,AO,AP State Aids Control Society,HMF01
+463,HMF55,ARO,AO,AP Medical and Aromatic Plants Board,HMF01
+464,HMF56,PRM,AO,AP Para Medical Board,HMF01
+465,HMF57,YOG,AO,AP Yogadhyayana Parishad,HMF01
+466,HMF58,UHS,AO,Dr. NTR University of Health Sciences,HMF01
+684,HMF59,VIM,AO,Sri Venkateswara Institute of Medical Sciences,HMF01
+1734,HMF60,AMZ,AO,AP MedTech Zone Pvt Ltd,INC01
+1768,HMF61,MER,AO,AP Medical Education and Research Corporation,HMF01
+1819,HMF62,PMC,AO,AP Pharmacy Council,HMF01
+467,HOM10,FRT,AO,AP Fire services and Civil Defence Training Institute,HOM01
+468,HOM51,PLH,AO,AP State Police Housing Corporation,HOM01
+1799,HOM52,PCA,AO,State Police Complaints Authority,HOM01
+469,HOU02,WSH,AO,AP Weaker Sections Housing Programme,HOU01
+470,HOU51,HBO,AO,AP Rural Housing Board (APRHB),HOU01
+471,HOU52,HSC,AO,AP Cooperative Housing Societies Federation Ltd,HOU01
+1795,HOU53,SHC,AO,AP State Housing Corporation Ltd,HOU01
+472,ICD51,IRC,AO,AP State Irrigation Development Corporation,ICD01
+473,ICD52,WRD,AO,AP Water Resources Development Corporation,ICD01
+474,ICD53,WAL,AO,"Water and Land Management, Training and Research Institute (WALMTARI)",ICD01
+475,INC51,SFC,AO,AP State Finance Corporation (APSFC),INC01
+476,INC52,IIC,AO,AP Industrial Infrastructure Corporation (APIIC),INC01
+477,INC53,IDC,AO,AP Industrial Development Corporation (APIDC),INC01
+478,INC54,TPC,AO,AP Trade Promotion Corporation (APTPC),INC01
+479,INC55,HDC,AO,AP Handicrafts Development Corporation (LEPAKSHI),INC01
+480,INC56,APC,AO,AP State Handloom Weavers Cooperative Society Ltd (APCO),INC01
+481,INC57,KVI,AO,AP Khadi Village Industries Board (APKVIB),INC01
+482,INC58,MDC,AO,AP Mineral Development Corporation,INC01
+484,INC60,LID,AO,Leather Industries Development Corporation of AP (LIDCAP),SOW01
+485,INC61,ILC,AO,Krishnapatnam International Leather Complex (KPILC),INC01
+486,INC62,API,AO,AP Invest,INC01
+1732,INC63,CDS,AO,The Chodavaram Co Operative Sugars Ltd,INC05
+1737,INC64,APM,AO,"AP Micro, Small and Medium Enterprises Development Corporation",INC01
+1741,INC65,YSC,AO,Y.S.R. Steel Corporation Limited,INC01
+1785,INC66,MTZ,AO,Andhra Pradesh Med Tech Zone Ltd,INC01
+1787,INC67,NKI,AO,NICDIT Krishnapatnam Industrial City Development Limited (NKICDL),INC01
+1802,INC68,VAP,AO,Vizag Apparel Park for Export,INC01
+1793,INC69,FPS,AO,AP Food Processing Society,INC01
+1750,INI51,ECD,AO,AP Economic Cities Promotion and Development Corporation Ltd (APEDCO),INI01
+1791,INI52,MID,AO,AP Maritime Infrastructure Development Corporation Limited (APMIDCL),INI01
+423,INI53,ADL,AO,AP Airports Development Corporation Ltd (APADCL),INI01
+420,INI54,ICP,AO,Infrastructure Corporation of AP (INCAP),INI01
+428,INI55,APT,AO,AP Towers Limited,INI01
+429,INI56,SCC,AO,AP Science City,INI01
+422,INI57,FIB,AO,AP State Fibernet Ltd,INI01
+731,INI58,APD,AO,AP Drones Corporation Pvt Ltd,INI01
+426,INI59,GIC,AO,AP Gas Infrastructure Corporation Ltd,INI01
+487,ITC51,ATS,AO,AP Technology Services Ltd,ITC01
+488,ITC52,EPA,AO,e-Pragati Authority,ITC01
+489,ITC53,AIS,AO,AP Innovation Society,ITC01
+490,ITC54,EIA,AO,AP Electronics and IT Agency,ITC01
+491,ITC55,ITA,AO,AP IT academy,ITC01
+492,ITC56,NET,AO,Society for AP Network (SAPNET),ITC01
+493,ITC57,CDD,AO,The AP  Core Digital Data Autority(Effective Delivery E-Service),ITC01
+494,LAE10,LCG,AO,"Labour Court, Guntur",LAE01
+495,LAE11,LCV,AO,"Labour Court-cum-Industrial Tribunal, Visakhapatnam",LAE01
+496,LAE12,LCA,AO,"Labour Court, Ananthapur",LAE01
+498,LAE52,CWW,AO,AP Building & Other Construction Workers Welfare Board,LAE01
+499,LAE53,LWB,AO,AP State Labour Welfare Board,LAE01
+500,LAW02,HCA,AO,High court of AP,LAW01
+502,LAW04,AGO,AO,The Advocate General's office,LAW01
+504,MA002,ADK,AO,Addanki Municipality,MAU01
+505,MA003,ALG,AO,Allagadda Municipality,MAU01
+506,MA004,AML,AO,Amalapuram Municipality,MAU01
+507,MA005,AMD,AO,Amudalavalasa Municipality,MAU01
+508,MA006,AND,AO,Adoni Municipality,MAU01
+509,MA007,ATP,AO,Anantapur Municipal Corporation,MAU01
+510,MA008,ATK,AO,Atmakur Kurnool Municipality,MAU01
+511,MA009,ATN,AO,Atmakur Nellore Municipality,MAU01
+512,MA010,BPP,AO,Bapatla Municipality,MAU01
+513,MA011,BVR,AO,Bhimavaram Municipality,MAU01
+514,MA012,BOB,AO,Bobbili Municipality,MAU01
+515,MA013,BUD,AO,Budwel Municipality,MAU01
+516,MA014,CKY,AO,Cheemakurthy Municipality,MAU01
+517,MA015,CHI,AO,Chittoor Municipal Corporation,MAU01
+518,MA016,CLP,AO,Chilakaluripet Municipality,MAU01
+519,MA017,CRL,AO,Chirala Municipality,MAU01
+520,MA018,DHA,AO,Dharmavaram Municipality,MAU01
+521,MA019,DHO,AO,Dhone Municipality,MAU01
+522,MA020,ELU,AO,Eluru Municipal Corporation,MAU01
+523,MA021,GID,AO,Giddalur Municipality,MAU01
+524,MA022,GLP,AO,Gollaprolu Municipality,MAU01
+525,MA023,GOO,AO,Gooty Municipality,MAU01
+526,MA024,GTL,AO,Guntakal Municipality,MAU01
+527,MA025,GUD,AO,Gudivada Municipality,MAU01
+528,MA026,GDK,AO,Gudur Kurnool Municipality,MAU01
+529,MA027,GDN,AO,Gudur Nellore Municipality,MAU01
+530,MA028,GUN,AO,Guntur Municipal Corporation,MAU01
+531,MA029,HIN,AO,Hindupur Municipality,MAU01
+532,MA030,ICH,AO,Ichapuram Municipality,MAU01
+533,MA031,JAG,AO,Jaggaiahpet Municipality,MAU01
+534,MA032,JAM,AO,Jammalamadugu Municipality,MAU01
+535,MA033,JAN,AO,Jangareddygudem Municipality,MAU01
+536,MA034,KAD,AO,Kadiri Municipality,MAU01
+537,MA035,KAK,AO,Kakinada Municipal Corporation,MAU01
+538,MA036,KAL,AO,Kalyanadurgam Municipality,MAU01
+539,MA037,KAN,AO,Kanigiri Municipality,MAU01
+540,MA038,KAV,AO,Kavali Municipality,MAU01
+541,MA039,KDP,AO,Kadapa Municipal Corporation,MAU01
+542,MA040,KDR,AO,Kandukur Municipality,MAU01
+543,MA041,KOV,AO,Kovvur Municipality,MAU01
+544,MA042,KUR,AO,Kurnool Municipal Corporation,MAU01
+545,MA043,MAC,AO,Machilipatnam Municipality,MAU01
+546,MA044,MPL,AO,Madanapalle Municipality,MAU01
+547,MA045,MDK,AO,Madakasira Municipality,MAU01
+548,MA046,MNG,AO,Mangalagiri Municipality,MAU01
+549,MA047,MRK,AO,Markapur Municipality,MAU01
+550,MA048,MCH,AO,Macherla Municipality,MAU01
+551,MA049,MDT,AO,Mandapet Municipality,MAU01
+552,MA050,MMM,AO,Mummidivaram Municipality,MAU01
+553,MA051,MYD,AO,Mydukur Municipality,MAU01
+554,MA052,NAI,AO,Naidupet Municipality,MAU01
+555,MA053,NAN,AO,Nandigama Municipality,MAU01
+556,MA054,NDI,AO,Nandikotkur Municipality,MAU01
+557,MA055,NDV,AO,Nidadavole Municipality,MAU01
+558,MA056,NDY,AO,Nandyal Municipality,MAU01
+559,MA057,NGR,AO,Nagari Municipality,MAU01
+560,MA058,NLM,AO,Nellimarla Municipality,MAU01
+561,MA059,NLR,AO,Nellore Municipal Corporation,MAU01
+562,MA060,NPT,AO,Narasaraopet Municipality,MAU01
+563,MA061,NRS,AO,Narasapur Municipality,MAU01
+564,MA062,NSP,AO,Narsipatnam Municipality,MAU01
+565,MA063,NZV,AO,Nuzividu Municipality,MAU01
+566,MA064,ONG,AO,Ongole Municipal Corporation,MAU01
+567,MA065,PAL,AO,Palakonda Municipality,MAU01
+568,MA066,PVM,AO,Parvathipuram Municipality,MAU01
+569,MA067,PDG,AO,Piduguralla Municipality,MAU01
+570,MA068,PDM,AO,Peddapuram Municipality,MAU01
+571,MA069,PED,AO,Pedana Municipality,MAU01
+572,MA070,PIT,AO,Pithapuram Municipality,MAU01
+573,MA071,PKB,AO,Palasakasibugga Municipality,MAU01
+574,MA072,PKL,AO,Palakol Municipality,MAU01
+575,MA073,PLM,AO,Palamaner Municipality,MAU01
+576,MA074,PLV,AO,Pulivendula Municipality,MAU01
+577,MA075,PMD,AO,Pamidi Municipality,MAU01
+578,MA076,PON,AO,Ponnur Municipality,MAU01
+579,MA077,PDR,AO,Proddatur Municipality,MAU01
+580,MA078,PTY,AO,Puttaparthy Municipality,MAU01
+581,MA079,PUN,AO,Punganur Municipality,MAU01
+582,MA080,PUT,AO,Puttur Municipality,MAU01
+583,MA081,REP,AO,Repalle Municipality,MAU01
+584,MA082,RJM,AO,Rajam Municipality,MAU01
+585,MA083,RPT,AO,Rajampet Municipality,MAU01
+586,MA084,RMV,AO,Rajamahendravaram Municipal Corporation,MAU01
+587,MA085,RCP,AO,Ramachandrapuram Municipality,MAU01
+588,MA086,RDG,AO,Rayadurg Municipality,MAU01
+589,MA087,RCT,AO,Rayachoty Municipality,MAU01
+590,MA088,SPL,AO,Sattenapalle Municipality,MAU01
+591,MA089,SRM,AO,Saluru Municipality,MAU01
+592,MA090,SKH,AO,Srikalahasti Municipality,MAU01
+593,MA091,SKL,AO,Srikakulam Municipal Corporation,MAU01
+594,MA092,SPT,AO,Sullurpeta Municipality,MAU01
+595,MA093,SMK,AO,Samalkot Municipality,MAU01
+596,MA094,TPR,AO,Tadipatri Municipality,MAU01
+597,MA095,TDL,AO,Tadepalli Municipality,MAU01
+598,MA096,TDG,AO,Tadepalligudem Municipality,MAU01
+599,MA097,TNL,AO,Tenali Municipality,MAU01
+600,MA098,TNK,AO,Tanuku Municipality,MAU01
+601,MA099,TPT,AO,Tirupati Municipal Corporation,MAU01
+602,MA100,TNI,AO,Tuni Municipality,MAU01
+603,MA101,TRV,AO,Tiruvuru Municipality,MAU01
+604,MA102,VNK,AO,Vinukonda Municipality,MAU01
+605,MA103,VIS,AO,Greater Visakhapatnam Municipal Corporation,MAU01
+606,MA104,VJN,AO,Vijayanagaram Municipality,MAU01
+607,MA105,VJW,AO,Vijayawada Municipal Corporation,MAU01
+608,MA106,VNG,AO,Venkatagiri Municipality,MAU01
+609,MA107,VYU,AO,Vuyyuru Municipality,MAU01
+610,MA108,YLS,AO,Yeleswaram Municipality,MAU01
+611,MA109,YMG,AO,Yemmiganur Municipality,MAU01
+612,MA110,YLM,AO,Yelamanchili Municipality,MAU01
+613,MA111,YRG,AO,Yerraguntla Municipality,MAU01
+1772,MA112,TGM,AO,YSR Tadigadapa Municipality,MAU01
+1773,MA113,ALM,AO,Alluru Municipality,MAU01
+1774,MA114,BKM,AO,B.Kothakota Municipality,MAU01
+1775,MA115,CPM,AO,Chintalapudi Municipality,MAU01
+1776,MA116,PLM,AO,Podili Municipality,MAU01
+1812,MA117,AKV,AO,Akiveedu Nagar Panchayat,MAU01
+1813,MA118,DPN,AO,Dachepalli Nagar Panchayat,MAU01
+1814,MA119,DRS,AO,Darsi Nagar Panchayat,MAU01
+1815,MA120,KPN,AO,Kamalapuram Nagar Panchayat,MAU01
+1816,MA121,KPM,AO,Kondapalli Municipality,MAU01
+1817,MA122,KUP,AO,Kuppam Municipality,MAU01
+614,MAU51,URF,AO,AP Urban Finance Infrastructure Development Corporation,MAU01
+616,MAU53,MEP,AO,Mission for Elimination of Poverty in Municipal Areas (MEPMA),MAU01
+617,MAU54,SAN,AO,Swachh Andhra Corporation?,MAU01
+618,MAU55,GRE,AO,AP Urban Greenery & Beautification Corporation,MAU01
+619,MAU56,UHB,AO,AP Housing Board,MAU01
+620,MAU57,TID,AO,AP Township and Infrastructure Development Corporation,MAU01
+621,MAU58,MRC,AO,Andhra Pradesh Metro Rail Corporation Limited,MAU01
+622,MAU59,ADC,AO,Amaravati Development Corporation,MAU01
+623,MAU60,VUD,AO,Visakhapatnam Urban Development Authority,MAU01
+624,MAU61,CRD,AO,Andhra Pradesh Capital Region Development Authority,MAU01
+625,MAU62,TUD,AO,Tirupati Urban Development Authority,MAU01
+626,MAU63,MDP,AO,AP Municipal Development Project,MAU01
+627,MAU64,SWA,AO,AP Rajeev Swagruha Corporation Ltd,MAU01
+628,MAU65,UIA,AO,AP Urban Infrastructure Asset Management Ltd,MAU01
+629,MAU66,AHU,AO,Anantapur Hindupur Urban Development Authority,MAU01
+630,MAU67,KDA,AO,Kakinada Urban Development Authority,MAU01
+631,MAU68,NUD,AO,Nellore Urban Development Authority,MAU01
+632,MAU69,MDA,AO,Machilipatnam Urban Development Authority,MAU01
+633,MAU70,RER,AO,Real Estate Regulatory Authority,MAU01
+1735,MAU71,EDA,AO,Eluru Urban Development Authority (EUDA),MAU01
+1747,MAU72,ASS,AO,Amaravati Smart and Sustainable City Corporation Ltd (ASSCCL),MAU01
+1759,MAU73,CUD,AO,Chittoor Urban Development Authority,MAU01
+1767,MAU74,OUD,AO,Ongole Urban Development Authority,MAU01
+1777,MAU75,SUD,AO,Srikakulam Urban Development Authority,MAU01
+1788,MAU76,RUD,AO,Rajamahendravaram Urban Development Authority,MAU01
+1790,MAU77,BUDA,AO,Bobbili Urban Development Authority,MAU01
+1792,MAU78,ADA,AO,Annamayya Urban Development Authority,MAU01
+1796,MAU79,KUD,AO,Kurnool urban Development Authority,MAU01
+1800,MAU80,PKM,AO,Palamaner Kuppam Madanapalle Urban Development Authority,MAU01
+635,MNW51,MFC,AO,AP State Minorities Finance Corporation Ltd,MNW01
+636,MNW52,CHR,AO,AP State Christian (Minorities) Finance Corporation,MNW01
+637,MNW53,WAK,AO,AP State Wakf Board,MNW01
+638,MNW54,WTR,AO,AP State Wakf Tribunal,MNW01
+639,MNW55,HAJ,AO,AP State Haj Committee,MNW01
+640,MNW56,URA,AO,AP Urdu Academy,MNW01
+641,MNW57,WCM,AO,Survey Commissioner of Wakfs,MNW01
+1731,MNW58,DMC,AO,AP Noorbasha/Doodekula Muslims Cooperative Societies Fedaration Ltd,MNW03
+642,PLG51,DPS,AO,AP State Development Planning Society (APSDPS),PLG01
+643,PLG52,ASC,AO,AP Space Application Centre (APSAC),ITC01
+644,PLG53,SPB,AO,AP State Planning Board,PLG01
+677,PLG54,SMR,AO,Swarna Andhra P4 Foundation,PLG01
+645,PR001,WMS,AO,"District Water Management Agency, Srikakulam",PRR05
+646,PR002,WVZ,AO,"District Water Management Agency, Vizianagaram",PRR05
+647,PR003,WMV,AO,"District Water Management Agency, Visakhapatnam",PRR05
+648,PR004,WME,AO,"District Water Management Agency, East Godavari",PRR05
+649,PR005,WMW,AO,"District Water Management Agency, West Godavari",PRR05
+650,PR006,WMK,AO,"District Water Management Agency, Krishna",PRR05
+651,PR007,WMG,AO,"District Water Management Agency, Guntur",PRR05
+652,PR008,WMP,AO,"District Water Management Agency, Prakasam",PRR05
+653,PR009,WMN,AO,"District Water Management Agency, SPR Nellore",PRR05
+654,PR010,WCT,AO,"District Water Management Agency, Chittoor",PRR05
+655,PR011,WKD,AO,"District Water Management Agency, YSR Kadapa",PRR05
+656,PR012,WKN,AO,"District Water Management Agency, Kurnool",PRR05
+657,PR013,WAT,AO,"District Water Management Agency, Anantapuramu",PRR05
+674,PRR07,IRD,AO,AP State Institute of Rural Development and Panchyat Raj(APSIRD & PR),GWS01
+672,PRR51,SEC,AO,State Election Commission,PRR01
+673,PRR52,SRE,AO,Society for Elimination of Rural Poverty,PRR01
+675,PRR54,SAA,AO,"Society for Social Audit, Accountability and Transparency",PRR01
+676,PRR55,DWS,AO,AP Drinking Water Supply Corporation,PRR01
+678,REV51,BCL,AO,AP Beverages Corporation Ltd,REV01
+679,REV52,TOD,AO,AP Toddy Tappers Cooperative Finance Corporation Ltd,REV01
+680,REV53,BRA,AO,AP Brahmin Welfare Corporation,REV01
+681,REV54,DMA,AO,AP State Disaster Management Authority,REV01
+682,REV55,TTD,AO,Tirumala Tirupati Devastanam,REV01
+683,REV56,VED,AO,"Vedic University, Tirupati",REV55
+685,REV58,VSD,AO,Sri Swayambhu Varasiddi Vinayaka Swamy Devasthanam,REV01
+686,REV59,SKD,AO,Sri Kalahastheeswara Swamy Devasthanam,REV01
+687,REV60,SSD,AO,Sri Veera Venkata Satyanarayana Swamy Devastanam,REV01
+688,REV61,TAD,AO,Sri Tirupatamma Ammavari Devasthanam,REV01
+689,REV62,SDD,AO,Sri Durgamalleswara Swamy Varla Devatshanam,REV01
+690,REV63,SBD,AO,Sri Bramaramba Mallikarjuna Swamy Devasthanam,REV01
+691,REV64,LND,AO,"Sri Varaha Lakshmi Narasimha Swamy Devasthanam, Simhachalam",REV01
+692,REV65,VDD,AO,Sri Venkateswara Swamy Devasthanam(Dwarakatirumala),REV01
+1784,REV66,SMA,AO,Sri Mavullamma Ammavari Devasthanam,REV01
+1818,REV67,TLD,AO,Sri Talupulamma Ammavari Devasthanam,REV01
+693,RTG51,RTS,AO,RTG Society,RTG01
+694,SEI51,SLD,AO,AP State Skill Development Corporation,SEI01
+695,SEI52,SEE,AO,Society for Employment Generation And Enterprise Development in AP (SEEDAP),SEI01
+696,SEI53,NAC,AO,National Academy of Construction,SEI01
+497,SEI54,OMC,AO,Overseas Manpower Company Andhra Pradesh Limited,SEI01
+697,SOW05,SWR,AO,AP Social Welfare Residential Educational Institutions Society (APSWREIS),SOW01
+699,SOW51,SCF,AO,AP Scheduled Castes Cooperative Finance Corporation (APSCCFC),SOW01
+700,SOW52,STC,AO,AP SC ST Commission,SOW01
+701,SOW53,SDC,AO,AP Study Circle,SOW01
+1810,SOW54,SCS,AO,AP State Commission for Scheduled Castes,SOW01
+698,TBW51,TEI,AO,AP Tribal Welfare Residential Educational Institutions Society Gurukulam,TBW01
+702,TBW52,GIR,AO,Girijan Cooperative Corporation Ltd,TBW01
+703,TBW53,TFC,AO,AP Scheduled Tribes Cooperative Finance Corporation,TBW01
+704,TBW54,TCI,AO,Tribal Cultural Research and Training Mission,TBW01
+1786,TBW55,STC,AO,AP STATE COMMISSION FOR SCHEDULED TRIBES,TBW01
+1805,TBW56,TRIPCO,AO,AP Tribal Power Company Limited,TBW01
+705,TRB51,RTC,AO,AP State Road Transport Corporation (APSRTC),TRB14
+706,TRB52,RDC,AO,AP Road Development Corporation,TRB01
+707,TRB53,TAT,AO,State Transport Appellate Tribunal,TRB01
+708,WDC51,WMC,AO,AP Womens Cooperative Development Corporation,WDC01
+709,WDC52,PHC,AO,"AP Differently Abled, Senior Citizens Corporation",WDC01
+710,WDC53,WOM,AO,AP State Womens Commission,WDC01
+1779,WDC54,PCR,AO,Andhra Pradesh State Commission for Protection of Child Rights,WDC01
+711,YTC51,SAP,AO,Sports Authority of AP,YTC01
+712,YTC52,STP,AO,AP Society For Training And Employment Promotion (APSTEP),YTC01
+713,YTC54,STA,AO,AP State Tourism Authority,YTC01
+714,YTC55,TDC,AO,AP Tourism Development Corporation,YTC01
+715,YTC56,BTC,AO,Bhavani Island Tourism Corporation,YTC01
+716,YTC57,CCC,AO,AP State Creativity and Culture Commission,YTC01
+717,YTC58,KUC,AO,Kuchipudi Natyaramam Corporation,YTC01
+718,YTC59,SIL,AO,AP Silparamam Society,YTC01
+719,YTC60,TCH,AO,AP Tourism Culture Heritage Board,YTC01

@@ -1,0 +1,31 @@
+ID,ORG_CODE,ORG_SHORTNAME,ORG_TYPE,ORG_NAME,REPORT_ORG
+1794,EHE07,NSS,SU,AP STATE NSS CELL,EHE01
+122,GAD56,NDA,SU,Nodal Authority for e-Office and Biometric Attendance,GAD01
+1746,GAD57,SEB,SU,Special Enforcement Bureau,GAD01
+123,HOM09,PIG,SU,Police-Intelligence,HOM02
+124,HOM11,HOG,SU,Police-Home Guards,HOM02
+125,HOM13,GHO,SU,Police-Grey Hounds,HOM02
+126,HOM15,OCT,SU,Police-Organisation of Counter Terrorist Operations (OCTOPUS),HOM02
+720,HOM45,CST,SU,Police-Coastal Security,HOM02
+127,HOM46,RLY,SU,Police-Railways,HOM02
+128,HOM47,CID,SU,Police-Crime Investigation Department,HOM02
+129,HOM48,PCO,SU,Police-Communication Organization,HOM02
+130,HOM49,TRG,SU,Police-Training,HOM02
+131,HOM50,BAT,SU,Police-Battalions,HOM02
+132,ICD06,IRT,SU,Water Resources (E-in-C) Technical,ICD01
+133,ICD08,IMI,SU,Water Resources-Minor Irrigation,ICD01
+134,ICD12,ITG,SU,"Water Resources-NTR Telugu Ganga Project, Tirupati",ICD01
+135,ICD17,CDO,SU,Water Resources-Central Designs Organisation Vijayawada,ICD01
+727,ICD18,ISW,SU,Water Resources-Inter State Water Resources,ICD05
+730,ICD19,WTN,SU,Water Resources-Tenders,ICD05
+136,ICD20,PRK,SU,"Water Resources-Irrigation Projects, Kadapa",ICD01
+137,ICD21,HYD,SU,Water Resources-Hydrology ,ICD01
+138,ICD25,NCV,SU,Water Resources-CE North Coast Visakhapatnam,ICD01
+139,ICD26,CPO,SU,Water Resources-CE Projects Ongole,ICD01
+140,ICD27,IPA,SU,"Water Resources-Irrigation Projects, Ananthapur",ICD01
+141,ICD28,IPP,SU,Water Resources-Polavaram Project,ICD01
+142,ICD32,PRN,SU,"Water Resources-Irrigation Projects, Kurnool",ICD01
+143,ICD34,QCD,SU,Water Resources-Quality Control Wing for Coastal Region,ICD01
+728,ICD36,CWR,SU,Water Resources-Quality Control Wing for Rayalaseema Region,ICD05
+144,ICD43,GDS,SU,"Water Resources-Godavari Delta System, Dowleswaram",ICD01
+729,ICD44,KDS,SU,Water Resources-Krishna Delta System,ICD05

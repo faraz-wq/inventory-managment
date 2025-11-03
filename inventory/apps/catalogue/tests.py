@@ -59,6 +59,7 @@ class CatalogueAPITestCase(TestCase):
 
     def test_retrieve_item_info_with_attributes(self):
         response = self.client.get(f'/api/catalogue/{self.item_info.id}/')
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['item_name'], "Test Item")
         self.assertIn('attributes', response.data)

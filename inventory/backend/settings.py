@@ -203,7 +203,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://violeta-pseudoelectoral-earlene.ngrok-free.dev",
     "https://preview--verimana-admin-77336.lovable.app",
     'http://preview--verimana-admin-77336.lovable.app',
-    "http://localhost:5173",
+    "http://localhost:8080",
 ]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://.*\.lovable\.dev$"  # allow all subdomains
@@ -215,6 +215,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://violeta-pseudoelectoral-earlene.ngrok-free.dev",
     "http://violeta-pseudoelectoral-earlene.ngrok-free.dev",
     'https://preview--verimana-admin-77336.lovable.app',
+    "http://localhost:8080",
 ]
 
 CORS_ALLOW_METHODS = [
@@ -249,7 +250,7 @@ SWAGGER_SETTINGS = {
     },
     'USE_SESSION_AUTH': False,
     'JSON_EDITOR': True,
-    'DEFAULT_API_URL': 'https://violeta-pseudoelectoral-earlene.ngrok-free.dev',  # <-- ADD THIS
+    'DEFAULT_API_URL': 'http://localhost:8000',  # <-- ADD THIS
     'SUPPORTED_SUBMIT_METHODS': [
         'get', 'post', 'put', 'patch', 'delete'
     ],

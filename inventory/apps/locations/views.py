@@ -2,7 +2,7 @@
 Location Views
 """
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 
@@ -24,7 +24,7 @@ class DistrictViewSet(viewsets.ModelViewSet):
     """
     queryset = District.objects.all()
     serializer_class = DistrictSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['is_active', 'district_code_ap']
     search_fields = ['district_name', 'district_code_ap', 'district_code_ind']
@@ -87,7 +87,7 @@ class MandalViewSet(viewsets.ModelViewSet):
     """
     queryset = Mandal.objects.select_related('district').all()
     serializer_class = MandalSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['is_active', 'district', 'mandal_code_ap']
     search_fields = ['mandal_name', 'mandal_code_ap', 'mandal_code_ind']
@@ -149,7 +149,7 @@ class VillageViewSet(viewsets.ModelViewSet):
     ViewSet for managing Villages
     """
     queryset = Village.objects.select_related('district', 'mandal').all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['is_active', 'district', 'mandal', 'village_code_ap']
     search_fields = ['village_name', 'village_code_ap', 'village_code_ind']
