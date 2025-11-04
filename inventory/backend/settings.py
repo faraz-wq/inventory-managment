@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.locations',
     'apps.logs',
     'apps.catalogue',
+    'apps.records',
 ]
 
 MIDDLEWARE = [

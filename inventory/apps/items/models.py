@@ -13,6 +13,7 @@ class Item(models.Model):
         ('pending', 'Pending'),
         ('verified', 'Verified'),
         ('available', 'Available'),
+        ('borrowed', 'Borrowed'),
     ]
 
     photo = models.ImageField(upload_to='items/', blank=True, null=True)
