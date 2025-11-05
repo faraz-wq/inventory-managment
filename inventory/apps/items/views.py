@@ -18,7 +18,7 @@ from .serializers import (
     ItemAttributeValueSerializer,
     ItemVerifySerializer,
 )
-from apps.rbac.permissions import has_permission
+from apps.rbac.permissions import has_permission, require_scope_access
 
 
 class ItemViewSet(viewsets.ModelViewSet):
@@ -41,6 +41,50 @@ class ItemViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         return ItemCreateSerializer if self.action == 'create' else ItemSerializer
 
+    def get_queryset(self):
+        """
+        Filter queryset based on user's district for District Verifiers and Data Entry Operators,
+        and by department for Department Admins
+        """
+        queryset = super().get_queryset()
+
+        # Superusers see everything
+        if self.request.user.is_superuser:
+            return queryset
+
+        # Get user's roles
+        from apps.rbac.permissions import get_user_roles
+        user_roles = get_user_roles(self.request.user)
+
+        # Check if user is a District Verifier or Data Entry Operator
+        district_restricted_roles = ['District Verifier', 'Data Entry Operator']
+        if any(role in district_restricted_roles for role in user_roles):
+            # Get user's district
+            user_district = None
+            if hasattr(self.request.user, 'location') and self.request.user.location:
+                user_district = self.request.user.location.district
+
+            # If user has a district, filter items to only those in the same district
+            if user_district:
+                queryset = queryset.filter(geocode__district=user_district)
+            else:
+                # If user has no district, they see nothing
+                queryset = queryset.none()
+
+        # Check if user is a Department Admin
+        elif 'Department Admin' in user_roles:
+            # Get user's department
+            user_dept = self.request.user.dept if hasattr(self.request.user, 'dept') else None
+
+            # If user has a department, filter items to only those in the same department
+            if user_dept:
+                queryset = queryset.filter(dept=user_dept)
+            else:
+                # If user has no department, they see nothing
+                queryset = queryset.none()
+
+        return queryset
+
     # ------------------------------------------------------------------
     # Standard CRUD
     # ------------------------------------------------------------------
@@ -59,6 +103,11 @@ class ItemViewSet(viewsets.ModelViewSet):
         tags=['Items'],
     )
     @has_permission("create_items")
+    @require_scope_access({
+        'District Verifier': 'district',
+        'Department Admin': 'department',
+        'Super Admin': None,  # No scope restriction for Super Admin
+    })
     def create(self, request, *args, **kwargs):
         return super().create(request, *args, **kwargs)
 
@@ -78,6 +127,11 @@ class ItemViewSet(viewsets.ModelViewSet):
         tags=['Items'],
     )
     @has_permission("update_items")
+    @require_scope_access({
+        'District Verifier': 'district',
+        'Department Admin': 'department',
+        'Super Admin': None,  # No scope restriction for Super Admin
+    })
     def update(self, request, *args, **kwargs):
         return super().update(request, *args, **kwargs)
 
@@ -88,6 +142,11 @@ class ItemViewSet(viewsets.ModelViewSet):
         tags=['Items'],
     )
     @has_permission("update_items")
+    @require_scope_access({
+        'District Verifier': 'district',
+        'Department Admin': 'department',
+        'Super Admin': None,  # No scope restriction for Super Admin
+    })
     def partial_update(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
 
@@ -140,7 +199,7 @@ class ItemViewSet(viewsets.ModelViewSet):
         tags=['Items – Attributes'],
     )
     @action(detail=True, methods=['get', 'post'], url_path='attributes')
-    @has_permission("update_items")
+    @has_permission("view_items")
     def attributes(self, request, pk=None):
         item = self.get_object()
 

@@ -47,9 +47,51 @@ class UserViewSet(viewsets.ModelViewSet):
         return UserSerializer
 
     def get_queryset(self):
+        """
+        Filter queryset based on user's district for District Verifiers and Data Entry Operators,
+        and by department for Department Admins
+        """
         if getattr(self, 'swagger_fake_view', False):
             return User.objects.none()
-        return super().get_queryset()
+
+        queryset = super().get_queryset()
+
+        # Superusers see everything
+        if self.request.user.is_superuser:
+            return queryset
+
+        # Get user's roles
+        from apps.rbac.permissions import get_user_roles
+        user_roles = get_user_roles(self.request.user)
+
+        # Check if user is a District Verifier or Data Entry Operator
+        district_restricted_roles = ['District Verifier', 'Data Entry Operator']
+        if any(role in district_restricted_roles for role in user_roles):
+            # Get user's district
+            user_district = None
+            if hasattr(self.request.user, 'location') and self.request.user.location:
+                user_district = self.request.user.location.district
+
+            # If user has a district, filter users to only those in the same district
+            if user_district:
+                queryset = queryset.filter(location__district=user_district)
+            else:
+                # If user has no district, they see nothing
+                queryset = queryset.none()
+
+        # Check if user is a Department Admin
+        elif 'Department Admin' in user_roles:
+            # Get user's department
+            user_dept = self.request.user.dept if hasattr(self.request.user, 'dept') else None
+
+            # If user has a department, filter users to only those in the same department
+            if user_dept:
+                queryset = queryset.filter(dept=user_dept)
+            else:
+                # If user has no department, they see nothing
+                queryset = queryset.none()
+
+        return queryset
 
     # ------------------------------------------------------------------
     # Standard CRUD - Now RBAC controlled

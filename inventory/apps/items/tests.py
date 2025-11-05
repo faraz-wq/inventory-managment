@@ -98,10 +98,10 @@ class ItemAPITestCase(TestCase):
             description="Verify Items"
         )
 
-        # Create role with permissions
+        # Create role with permissions (using "Super Admin" to bypass scope restrictions in tests)
         self.role = Role.objects.create(
-            name="Item Manager",
-            description="Can manage items"
+            name="Super Admin",
+            description="Can manage items without restrictions"
         )
         for permission in [
             self.view_permission, self.create_permission,
@@ -302,3 +302,293 @@ class ItemAPITestCase(TestCase):
         }
         response = self.client.patch(f'/api/items/{self.item.id}/verify/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class ItemDistrictDepartmentFilteringTestCase(TestCase):
+    """Test cases for district and department based filtering of items"""
+
+    def setUp(self):
+        """Set up test data for filtering tests"""
+        self.client = APIClient()
+
+        # Create two districts
+        self.district1 = District.objects.create(
+            district_name="District 1",
+            district_code_ap="D01"
+        )
+        self.district2 = District.objects.create(
+            district_name="District 2",
+            district_code_ap="D02"
+        )
+
+        # Create mandals for each district
+        self.mandal1 = Mandal.objects.create(
+            mandal_name="Mandal 1",
+            mandal_code_ap="M01",
+            district=self.district1
+        )
+        self.mandal2 = Mandal.objects.create(
+            mandal_name="Mandal 2",
+            mandal_code_ap="M02",
+            district=self.district2
+        )
+
+        # Create villages for each mandal
+        self.village1 = Village.objects.create(
+            village_name="Village 1",
+            village_code_ap="V01",
+            district=self.district1,
+            mandal=self.mandal1
+        )
+        self.village2 = Village.objects.create(
+            village_name="Village 2",
+            village_code_ap="V02",
+            district=self.district2,
+            mandal=self.mandal2
+        )
+
+        # Create two departments
+        self.dept1 = Department.objects.create(
+            org_name="Department 1",
+            org_shortname="D1",
+            org_code="D001",
+            org_type="Government",
+            contact_person_name="Contact 1"
+        )
+        self.dept2 = Department.objects.create(
+            org_name="Department 2",
+            org_shortname="D2",
+            org_code="D002",
+            org_type="Government",
+            contact_person_name="Contact 2"
+        )
+
+        # Create item info
+        self.item_info = ItemInfo.objects.create(
+            item_name="Test Item",
+            item_code="TI001",
+            category="Electronics",
+            resource_type="Hardware",
+            perishability="Non-Perishable"
+        )
+
+        # Create permissions
+        self.view_permission = Permission.objects.create(
+            name="view_items",
+            description="View Items"
+        )
+
+        # Create roles
+        self.district_verifier_role = Role.objects.create(
+            name="District Verifier",
+            description="Can verify items in their district"
+        )
+        self.data_entry_role = Role.objects.create(
+            name="Data Entry Operator",
+            description="Can enter data in their district"
+        )
+        self.dept_admin_role = Role.objects.create(
+            name="Department Admin",
+            description="Can manage items in their department"
+        )
+
+        # Assign view permission to all roles
+        from apps.rbac.models import RolePermission
+        for role in [self.district_verifier_role, self.data_entry_role, self.dept_admin_role]:
+            RolePermission.objects.create(role=role, permission=self.view_permission)
+
+        # Create District Verifier in district 1
+        self.district_verifier1 = User.objects.create_user(
+            email="verifier1@test.com",
+            password="pass123",
+            name="Verifier 1",
+            dept=self.dept1,
+            location=self.village1
+        )
+        UserRole.objects.create(user=self.district_verifier1, role=self.district_verifier_role)
+
+        # Create Data Entry Operator in district 2
+        self.data_entry2 = User.objects.create_user(
+            email="dataentry2@test.com",
+            password="pass123",
+            name="Data Entry 2",
+            dept=self.dept1,
+            location=self.village2
+        )
+        UserRole.objects.create(user=self.data_entry2, role=self.data_entry_role)
+
+        # Create Department Admin in dept 1
+        self.dept_admin1 = User.objects.create_user(
+            email="deptadmin1@test.com",
+            password="pass123",
+            name="Dept Admin 1",
+            dept=self.dept1,
+            location=self.village1
+        )
+        UserRole.objects.create(user=self.dept_admin1, role=self.dept_admin_role)
+
+        # Create Department Admin in dept 2
+        self.dept_admin2 = User.objects.create_user(
+            email="deptadmin2@test.com",
+            password="pass123",
+            name="Dept Admin 2",
+            dept=self.dept2,
+            location=self.village1
+        )
+        UserRole.objects.create(user=self.dept_admin2, role=self.dept_admin_role)
+
+        # Create superuser
+        self.superuser = User.objects.create_superuser(
+            email="super@test.com",
+            password="pass123",
+            name="Super User",
+            dept=self.dept1,
+            location=self.village1
+        )
+
+        # Create items in different districts and departments
+        self.item_d1_dept1 = Item.objects.create(
+            iteminfo=self.item_info,
+            dept=self.dept1,
+            geocode=self.village1,
+            status="pending"
+        )
+        self.item_d1_dept2 = Item.objects.create(
+            iteminfo=self.item_info,
+            dept=self.dept2,
+            geocode=self.village1,
+            status="pending"
+        )
+        self.item_d2_dept1 = Item.objects.create(
+            iteminfo=self.item_info,
+            dept=self.dept1,
+            geocode=self.village2,
+            status="pending"
+        )
+        self.item_d2_dept2 = Item.objects.create(
+            iteminfo=self.item_info,
+            dept=self.dept2,
+            geocode=self.village2,
+            status="pending"
+        )
+
+    def test_district_verifier_sees_only_own_district_items(self):
+        """District Verifier should only see items in their district"""
+        self.client.force_authenticate(user=self.district_verifier1)
+        response = self.client.get('/api/items/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Should see both items in district 1 (regardless of department)
+        self.assertEqual(len(response.data['results']), 2)
+
+        item_ids = [item['id'] for item in response.data['results']]
+        self.assertIn(self.item_d1_dept1.id, item_ids)
+        self.assertIn(self.item_d1_dept2.id, item_ids)
+        self.assertNotIn(self.item_d2_dept1.id, item_ids)
+        self.assertNotIn(self.item_d2_dept2.id, item_ids)
+
+    def test_data_entry_operator_sees_only_own_district_items(self):
+        """Data Entry Operator should only see items in their district"""
+        self.client.force_authenticate(user=self.data_entry2)
+        response = self.client.get('/api/items/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Should see both items in district 2 (regardless of department)
+        self.assertEqual(len(response.data['results']), 2)
+
+        item_ids = [item['id'] for item in response.data['results']]
+        self.assertIn(self.item_d2_dept1.id, item_ids)
+        self.assertIn(self.item_d2_dept2.id, item_ids)
+        self.assertNotIn(self.item_d1_dept1.id, item_ids)
+        self.assertNotIn(self.item_d1_dept2.id, item_ids)
+
+    def test_department_admin_sees_only_own_department_items(self):
+        """Department Admin should only see items in their department"""
+        self.client.force_authenticate(user=self.dept_admin1)
+        response = self.client.get('/api/items/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Should see both items in dept 1 (regardless of district)
+        self.assertEqual(len(response.data['results']), 2)
+
+        item_ids = [item['id'] for item in response.data['results']]
+        self.assertIn(self.item_d1_dept1.id, item_ids)
+        self.assertIn(self.item_d2_dept1.id, item_ids)
+        self.assertNotIn(self.item_d1_dept2.id, item_ids)
+        self.assertNotIn(self.item_d2_dept2.id, item_ids)
+
+    def test_different_dept_admin_sees_different_items(self):
+        """Different Department Admins see different sets of items"""
+        self.client.force_authenticate(user=self.dept_admin2)
+        response = self.client.get('/api/items/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Should see both items in dept 2 (regardless of district)
+        self.assertEqual(len(response.data['results']), 2)
+
+        item_ids = [item['id'] for item in response.data['results']]
+        self.assertIn(self.item_d1_dept2.id, item_ids)
+        self.assertIn(self.item_d2_dept2.id, item_ids)
+        self.assertNotIn(self.item_d1_dept1.id, item_ids)
+        self.assertNotIn(self.item_d2_dept1.id, item_ids)
+
+    def test_superuser_sees_all_items(self):
+        """Superuser should see all items regardless of district or department"""
+        self.client.force_authenticate(user=self.superuser)
+        response = self.client.get('/api/items/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Should see all 4 items
+        self.assertEqual(len(response.data['results']), 4)
+
+    def test_district_verifier_cannot_access_other_district_item(self):
+        """District Verifier cannot retrieve item from another district"""
+        self.client.force_authenticate(user=self.district_verifier1)
+        # Try to access item in district 2
+        response = self.client.get(f'/api/items/{self.item_d2_dept1.id}/')
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_dept_admin_cannot_access_other_dept_item(self):
+        """Department Admin cannot retrieve item from another department"""
+        self.client.force_authenticate(user=self.dept_admin1)
+        # Try to access item in dept 2
+        response = self.client.get(f'/api/items/{self.item_d1_dept2.id}/')
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_user_without_location_sees_no_items(self):
+        """District Verifier without location sees no items"""
+        # Create user with no location
+        user_no_location = User.objects.create_user(
+            email="nolocation@test.com",
+            password="pass123",
+            name="No Location User",
+            dept=self.dept1,
+            location=None
+        )
+        UserRole.objects.create(user=user_no_location, role=self.district_verifier_role)
+
+        self.client.force_authenticate(user=user_no_location)
+        response = self.client.get('/api/items/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 0)
+
+    def test_user_without_department_sees_no_items(self):
+        """Department Admin without department sees no items"""
+        # Create user with no department
+        user_no_dept = User.objects.create_user(
+            email="nodept@test.com",
+            password="pass123",
+            name="No Dept User",
+            dept=None,
+            location=self.village1
+        )
+        UserRole.objects.create(user=user_no_dept, role=self.dept_admin_role)
+
+        self.client.force_authenticate(user=user_no_dept)
+        response = self.client.get('/api/items/')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data['results']), 0)

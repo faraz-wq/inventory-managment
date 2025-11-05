@@ -38,8 +38,11 @@ class ItemAttributeValueSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     attribute_values = ItemAttributeValueSerializer(many=True, read_only=True)
     iteminfo_name = serializers.CharField(source='iteminfo.item_name', read_only=True)
-    dept_name = serializers.CharField(source='dept.org_shortname', read_only=True)
-    geocode_name = serializers.CharField(source='geocode.village_name', read_only=True)
+    dept_name = serializers.CharField(source='dept.org_name', read_only=True)
+    dept_short_name = serializers.CharField(source='dept.org_shortname', read_only=True)
+    geocode_name = serializers.SerializerMethodField(read_only=True)
+    geocode_codes = serializers.SerializerMethodField(read_only=True)
+    pincode = serializers.CharField(source='geocode.village_code_ind', read_only=True)
     created_by_name = serializers.CharField(source='created_by.name', read_only=True)
     verified_by_name = serializers.CharField(source='verified_by.name', read_only=True)
     user_name = serializers.CharField(source='user.name', read_only=True)
@@ -48,8 +51,9 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = [
             'id', 'photo', 'eol_date', 'operational_notes', 'status',
-            'geocode', 'geocode_name', 'iteminfo', 'iteminfo_name',
-            'dept', 'dept_name', 'user', 'user_name',
+            'geocode', 'geocode_name', 'pincode', 'iteminfo', 'iteminfo_name',
+            'geocode_codes',
+            'dept', 'dept_name', 'dept_short_name', 'user', 'user_name',
             'created_by', 'created_by_name', 'verified_by', 'verified_by_name',
             'latitude', 'longitude', 'created_at', 'updated_at', 'attribute_values'
         ]
@@ -65,6 +69,77 @@ class ItemSerializer(serializers.ModelSerializer):
             )
         return data
 
+    def get_geocode_name(self, obj):
+        """Return geocode name as 'village, mandal, district' when available."""
+        geocode = getattr(obj, 'geocode', None)
+        if not geocode:
+            return ''
+
+        parts = []
+        village = getattr(geocode, 'village_name', None)
+        if village:
+            parts.append(village)
+
+        # mandal may be a relation on village
+        mandal = getattr(geocode, 'mandal', None)
+        mandal_name = None
+        if mandal:
+            mandal_name = getattr(mandal, 'mandal_name', None)
+        else:
+            # some models may store mandal_name directly
+            mandal_name = getattr(geocode, 'mandal_name', None)
+        if mandal_name:
+            parts.append(mandal_name)
+
+        district = getattr(geocode, 'district', None)
+        district_name = None
+        if district:
+            district_name = getattr(district, 'district_name', None)
+        else:
+            district_name = getattr(geocode, 'district_name', None)
+        if district_name:
+            parts.append(district_name)
+
+        return ', '.join(parts)
+
+    def get_geocode_codes(self, obj):
+        """Return geocode AP codes as a dictionary.
+        
+        Returns:
+            dict: Contains district_code_ap, mandal_code_ap, and village_code_ap
+        """
+        geocode = getattr(obj, 'geocode', None)
+        if not geocode:
+            return {
+                'district_code_ap': None,
+                'mandal_code_ap': None,
+                'village_code_ap': None
+            }
+
+        # Get district code
+        district = getattr(geocode, 'district', None)
+        district_code = None
+        if district:
+            district_code = getattr(district, 'district_code_ap', None)
+        if not district_code:
+            district_code = getattr(geocode, 'district_code_ap', None)
+
+        # Get mandal code
+        mandal = getattr(geocode, 'mandal', None)
+        mandal_code = None
+        if mandal:
+            mandal_code = getattr(mandal, 'mandal_code_ap', None)
+        if not mandal_code:
+            mandal_code = getattr(geocode, 'mandal_code_ap', None)
+
+        # Get village code
+        village_code = getattr(geocode, 'village_code_ap', None)
+
+        return {
+            'district_code_ap': district_code,
+            'mandal_code_ap': mandal_code,
+            'village_code_ap': village_code
+        }
 
 class ItemCreateSerializer(serializers.ModelSerializer):
     attribute_values = ItemAttributeValueSerializer(many=True, required=False)
