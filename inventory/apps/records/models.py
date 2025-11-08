@@ -21,28 +21,12 @@ class BorrowRecord(models.Model):
         related_name='borrow_records'
     )
 
-    # Borrower personal details
-    borrower_name = models.CharField(max_length=255, help_text="Full name of the borrower")
-    aadhar_card = models.CharField(max_length=12, help_text="12-digit Aadhar card number")
-    phone_number = models.CharField(max_length=15, help_text="Contact phone number")
-    address = models.TextField(help_text="Full address of the borrower")
-
-    # Borrower organizational details (using existing models)
-    department = models.ForeignKey(
-        'departments.Department',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+    # Borrower reference
+    borrower = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
         related_name='borrowed_items',
-        help_text="Department of the borrower"
-    )
-    location = models.ForeignKey(
-        'locations.Village',
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='borrower_locations',
-        help_text="Village/location of the borrower"
+        help_text="User who borrowed the item"
     )
 
     # Borrow tracking
@@ -84,11 +68,11 @@ class BorrowRecord(models.Model):
         indexes = [
             models.Index(fields=['status']),
             models.Index(fields=['borrow_date']),
-            models.Index(fields=['aadhar_card']),
+            models.Index(fields=['borrower']),
         ]
 
     def __str__(self):
-        return f"{self.borrower_name} - {self.item.iteminfo.item_name if self.item and self.item.iteminfo else 'Unknown Item'} ({self.status})"
+        return f"{self.borrower.name if self.borrower else 'Unknown Borrower'} - {self.item.iteminfo.item_name if self.item and self.item.iteminfo else 'Unknown Item'} ({self.status})"
 
     def save(self, *args, **kwargs):
         """

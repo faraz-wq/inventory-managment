@@ -73,6 +73,17 @@ class BorrowRecordAPITestCase(TestCase):
         )
         self.user.save()
 
+        # Create test borrower user
+        self.borrower_user = User.objects.create_user(
+            email="borrower@test.com",
+            password="borrower123",
+            name="John Doe",
+            phone_no="+91-9876543211",
+            dept=self.department,
+            location=self.village
+        )
+        self.borrower_user.save()
+
         # Create permissions
         self.view_permission = Permission.objects.create(
             name="view_borrow_records",
@@ -127,12 +138,7 @@ class BorrowRecordAPITestCase(TestCase):
         # Create test borrow record
         self.borrow_record = BorrowRecord.objects.create(
             item=self.borrowed_item,
-            borrower_name="John Doe",
-            aadhar_card="123456789012",
-            phone_number="+91-9876543211",
-            address="123 Test Street, Test City",
-            department=self.department,
-            location=self.village,
+            borrower=self.borrower_user,
             expected_return_date=date.today() + timedelta(days=7),
             borrow_notes="Test borrow",
             issued_by=self.user,
@@ -152,20 +158,25 @@ class BorrowRecordAPITestCase(TestCase):
         response = self.client.get(f'/api/records/{self.borrow_record.id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], self.borrow_record.id)
+        self.assertEqual(response.data['borrower'], self.borrower_user.staff_id)
         self.assertEqual(response.data['borrower_name'], "John Doe")
-        self.assertEqual(response.data['aadhar_card'], "123456789012")
 
     def test_create_borrow_record(self):
         """Test creating a new borrow record (issuing item)"""
+        # Create another borrower user
+        another_borrower = User.objects.create_user(
+            email="jane@test.com",
+            password="jane123",
+            name="Jane Smith",
+            phone_no="+91-9876543212",
+            dept=self.department,
+            location=self.village
+        )
+
         self.client.force_authenticate(user=self.user)
         data = {
             "item": self.available_item.id,
-            "borrower_name": "Jane Smith",
-            "aadhar_card": "987654321098",
-            "phone_number": "+91-9876543212",
-            "address": "456 Another Street, Test City",
-            "department": self.department.id,
-            "location": self.village.id,
+            "borrower": another_borrower.staff_id,
             "expected_return_date": str(date.today() + timedelta(days=14)),
             "borrow_notes": "Borrowing for project work"
         }
@@ -182,65 +193,47 @@ class BorrowRecordAPITestCase(TestCase):
         self.client.force_authenticate(user=self.user)
         data = {
             "item": self.borrowed_item.id,
-            "borrower_name": "Jane Smith",
-            "aadhar_card": "987654321098",
-            "phone_number": "+91-9876543212",
-            "address": "456 Another Street, Test City",
-            "department": self.department.id,
+            "borrower": self.borrower_user.staff_id,
             "expected_return_date": str(date.today() + timedelta(days=14)),
         }
         response = self.client.post('/api/records/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('already borrowed', str(response.data).lower())
 
-    def test_create_borrow_record_validates_aadhar(self):
-        """Test that Aadhar card validation works"""
+    def test_create_borrow_record_validates_borrower_active(self):
+        """Test that inactive borrowers cannot borrow items"""
         self.client.force_authenticate(user=self.user)
 
-        # Test invalid length
+        # Create an inactive user
+        inactive_user = User.objects.create_user(
+            email="inactive@test.com",
+            password="inactive123",
+            name="Inactive User",
+            phone_no="+91-9999999999",
+            dept=self.department,
+            location=self.village,
+            active=False
+        )
+
         data = {
             "item": self.available_item.id,
-            "borrower_name": "Jane Smith",
-            "aadhar_card": "12345",  # Invalid length
-            "phone_number": "+91-9876543212",
-            "address": "456 Another Street, Test City",
+            "borrower": inactive_user.staff_id,
+            "expected_return_date": str(date.today() + timedelta(days=14)),
         }
         response = self.client.post('/api/records/', data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('12 digits', str(response.data))
-
-        # Test non-numeric
-        data['aadhar_card'] = "12345678901a"
-        response = self.client.post('/api/records/', data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('digits', str(response.data).lower())
-
-    def test_create_borrow_record_validates_phone(self):
-        """Test that phone number validation works"""
-        self.client.force_authenticate(user=self.user)
-        data = {
-            "item": self.available_item.id,
-            "borrower_name": "Jane Smith",
-            "aadhar_card": "987654321098",
-            "phone_number": "123",  # Too short
-            "address": "456 Another Street, Test City",
-        }
-        response = self.client.post('/api/records/', data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('10 digits', str(response.data).lower())
+        self.assertIn('active', str(response.data).lower())
 
     def test_update_borrow_record(self):
         """Test updating a borrow record"""
         self.client.force_authenticate(user=self.user)
         data = {
-            "borrower_name": "John Doe Updated",
-            "phone_number": "+91-9999999999"
+            "borrow_notes": "Updated notes"
         }
         response = self.client.patch(f'/api/records/{self.borrow_record.id}/', data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.borrow_record.refresh_from_db()
-        self.assertEqual(self.borrow_record.borrower_name, "John Doe Updated")
-        self.assertEqual(self.borrow_record.phone_number, "+91-9999999999")
+        self.assertEqual(self.borrow_record.borrow_notes, "Updated notes")
 
     def test_delete_borrow_record(self):
         """Test deleting a borrow record"""
@@ -283,17 +276,23 @@ class BorrowRecordAPITestCase(TestCase):
 
     def test_item_history(self):
         """Test getting borrow history for a specific item"""
+        # Create another borrower user
+        another_borrower = User.objects.create_user(
+            email="another@test.com",
+            password="another123",
+            name="Another Borrower",
+            phone_no="+91-9876543213",
+            dept=self.department,
+            location=self.village
+        )
+
         # Create another borrow record for the same item
         self.borrowed_item.status = 'available'
         self.borrowed_item.save()
 
         BorrowRecord.objects.create(
             item=self.borrowed_item,
-            borrower_name="Another Borrower",
-            aadhar_card="111111111111",
-            phone_number="+91-9876543213",
-            address="789 Third Street",
-            department=self.department,
+            borrower=another_borrower,
             issued_by=self.user,
             status="borrowed"
         )
@@ -317,30 +316,32 @@ class BorrowRecordAPITestCase(TestCase):
 
         BorrowRecord.objects.create(
             item=another_item,
-            borrower_name="John Doe",
-            aadhar_card="123456789012",  # Same as first record
-            phone_number="+91-9876543211",
-            address="123 Test Street, Test City",
-            department=self.department,
+            borrower=self.borrower_user,  # Same borrower
             issued_by=self.user,
             status="borrowed"
         )
 
         self.client.force_authenticate(user=self.user)
-        response = self.client.get('/api/records/borrower/123456789012/')
+        response = self.client.get(f'/api/records/borrower/{self.borrower_user.staff_id}/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 2)
 
     def test_filter_by_status(self):
         """Test filtering borrow records by status"""
+        # Create another borrower for the returned record
+        returned_borrower = User.objects.create_user(
+            email="returned@test.com",
+            password="returned123",
+            name="Returned Borrower",
+            phone_no="+91-9876543214",
+            dept=self.department,
+            location=self.village
+        )
+
         # Create a returned record
         returned_record = BorrowRecord.objects.create(
             item=self.available_item,
-            borrower_name="Returned Borrower",
-            aadhar_card="222222222222",
-            phone_number="+91-9876543214",
-            address="Return Street",
-            department=self.department,
+            borrower=returned_borrower,
             issued_by=self.user,
             status="returned",
             actual_return_date=timezone.now()
@@ -358,10 +359,10 @@ class BorrowRecordAPITestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
 
-    def test_filter_by_department(self):
-        """Test filtering borrow records by department"""
+    def test_filter_by_borrower_department(self):
+        """Test filtering borrow records by borrower's department"""
         self.client.force_authenticate(user=self.user)
-        response = self.client.get(f'/api/records/?department={self.department.id}')
+        response = self.client.get(f'/api/records/?borrower__dept={self.department.id}')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreaterEqual(len(response.data['results']), 1)
 
@@ -373,15 +374,15 @@ class BorrowRecordAPITestCase(TestCase):
         self.assertGreaterEqual(len(response.data['results']), 1)
         self.assertEqual(response.data['results'][0]['borrower_name'], "John Doe")
 
-    def test_search_by_aadhar(self):
-        """Test searching borrow records by Aadhar card"""
+    def test_search_by_email(self):
+        """Test searching borrow records by borrower email"""
         self.client.force_authenticate(user=self.user)
-        response = self.client.get('/api/records/?search=123456789012')
+        response = self.client.get('/api/records/?search=borrower@test.com')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertGreaterEqual(len(response.data['results']), 1)
 
     def test_search_by_phone(self):
-        """Test searching borrow records by phone number"""
+        """Test searching borrow records by borrower phone number"""
         self.client.force_authenticate(user=self.user)
         response = self.client.get('/api/records/?search=9876543211')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -408,33 +409,45 @@ class BorrowRecordAPITestCase(TestCase):
 
     def test_borrow_record_sets_issued_by(self):
         """Test that creating a borrow record automatically sets issued_by"""
+        # Create a new borrower user
+        new_borrower = User.objects.create_user(
+            email="autoissue@test.com",
+            password="autoissue123",
+            name="Auto Issue Test",
+            phone_no="+91-9999999999",
+            dept=self.department,
+            location=self.village
+        )
+
         self.client.force_authenticate(user=self.user)
         data = {
             "item": self.available_item.id,
-            "borrower_name": "Auto Issue Test",
-            "aadhar_card": "999999999999",
-            "phone_number": "+91-9999999999",
-            "address": "Auto Street",
-            "department": self.department.id,
+            "borrower": new_borrower.staff_id,
         }
         response = self.client.post('/api/records/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-        record = BorrowRecord.objects.get(aadhar_card="999999999999")
+        record = BorrowRecord.objects.get(borrower=new_borrower)
         self.assertEqual(record.issued_by, self.user)
 
     def test_ordering_by_borrow_date(self):
         """Test ordering borrow records by borrow date"""
+        # Create a new borrower user
+        new_borrower = User.objects.create_user(
+            email="newborrower@test.com",
+            password="newborrower123",
+            name="New Borrower",
+            phone_no="+91-8888888888",
+            dept=self.department,
+            location=self.village
+        )
+
         self.client.force_authenticate(user=self.user)
 
         # Create another record (will have a later borrow_date)
         BorrowRecord.objects.create(
             item=self.available_item,
-            borrower_name="New Borrower",
-            aadhar_card="888888888888",
-            phone_number="+91-8888888888",
-            address="New Street",
-            department=self.department,
+            borrower=new_borrower,
             issued_by=self.user,
             status="borrowed"
         )

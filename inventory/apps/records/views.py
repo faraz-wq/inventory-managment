@@ -24,18 +24,18 @@ class BorrowRecordViewSet(viewsets.ModelViewSet):
     ViewSet for managing borrow records
     """
     queryset = BorrowRecord.objects.select_related(
-        'item', 'item__iteminfo', 'department', 'location',
+        'item', 'item__iteminfo', 'borrower', 'borrower__dept', 'borrower__location',
         'issued_by', 'received_by'
     ).all()
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = [
-        'status', 'department', 'location', 'item',
+        'status', 'borrower', 'borrower__dept', 'borrower__location', 'item',
         'issued_by', 'received_by', 'borrow_date'
     ]
     search_fields = [
-        'borrower_name', 'aadhar_card', 'phone_number',
-        'item__iteminfo__item_name', 'department__org_name'
+        'borrower__name', 'borrower__email', 'borrower__phone_no',
+        'item__iteminfo__item_name', 'borrower__dept__org_name'
     ]
     ordering_fields = ['id', 'borrow_date', 'expected_return_date', 'actual_return_date', 'created_at']
     ordering = ['-borrow_date']
@@ -160,17 +160,17 @@ class BorrowRecordViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     @swagger_auto_schema(
-        operation_summary='Get all borrow records for a specific borrower (by Aadhar)',
+        operation_summary='Get all borrow records for a specific borrower (by User ID)',
         responses={200: BorrowRecordSerializer(many=True)},
         tags=['Borrow Records – History'],
     )
-    @action(detail=False, methods=['get'], url_path='borrower/(?P<aadhar>[^/.]+)')
+    @action(detail=False, methods=['get'], url_path='borrower/(?P<user_id>[^/.]+)')
     @has_permission("view_borrow_records")
-    def borrower_history(self, request, aadhar=None):
+    def borrower_history(self, request, user_id=None):
         """
-        Get all borrow records for a specific borrower by Aadhar card number
+        Get all borrow records for a specific borrower by User ID
         """
-        records = self.queryset.filter(aadhar_card=aadhar)
+        records = self.queryset.filter(borrower_id=user_id)
         page = self.paginate_queryset(records)
         if page is not None:
             serializer = BorrowRecordSerializer(page, many=True)

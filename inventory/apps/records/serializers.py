@@ -11,20 +11,22 @@ class BorrowRecordSerializer(serializers.ModelSerializer):
     Serializer for reading borrow records with related information
     """
     item_name = serializers.CharField(source='item.iteminfo.item_name', read_only=True)
-    department_name = serializers.CharField(source='department.org_shortname', read_only=True)
-    location_name = serializers.CharField(source='location.village_name', read_only=True)
+    borrower_name = serializers.CharField(source='borrower.name', read_only=True)
+    borrower_email = serializers.CharField(source='borrower.email', read_only=True)
+    borrower_phone = serializers.CharField(source='borrower.phone_no', read_only=True)
+    borrower_department = serializers.CharField(source='borrower.dept.org_shortname', read_only=True)
+    borrower_location = serializers.CharField(source='borrower.location.village_name', read_only=True)
     issued_by_name = serializers.CharField(source='issued_by.name', read_only=True)
     received_by_name = serializers.CharField(source='received_by.name', read_only=True)
 
     class Meta:
         model = BorrowRecord
         fields = [
-            'id', 'item', 'item_name', 'borrower_name', 'aadhar_card',
-            'phone_number', 'address', 'department', 'department_name',
-            'location', 'location_name', 'borrow_date', 'expected_return_date',
-            'actual_return_date', 'status', 'borrow_notes', 'return_notes',
-            'issued_by', 'issued_by_name', 'received_by', 'received_by_name',
-            'created_at', 'updated_at'
+            'id', 'item', 'item_name', 'borrower', 'borrower_name', 'borrower_email',
+            'borrower_phone', 'borrower_department', 'borrower_location',
+            'borrow_date', 'expected_return_date', 'actual_return_date', 'status',
+            'borrow_notes', 'return_notes', 'issued_by', 'issued_by_name',
+            'received_by', 'received_by_name', 'created_at', 'updated_at'
         ]
         read_only_fields = ['created_at', 'updated_at', 'borrow_date', 'issued_by', 'received_by']
         swagger_schema_name = 'BorrowRecord'
@@ -37,9 +39,7 @@ class BorrowRecordCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = BorrowRecord
         fields = [
-            'item', 'borrower_name', 'aadhar_card', 'phone_number',
-            'address', 'department', 'location', 'expected_return_date',
-            'borrow_notes'
+            'item', 'borrower', 'expected_return_date', 'borrow_notes'
         ]
         swagger_schema_name = 'BorrowRecordCreate'
 
@@ -64,30 +64,15 @@ class BorrowRecordCreateSerializer(serializers.ModelSerializer):
 
         return value
 
-    def validate_aadhar_card(self, value):
+    def validate_borrower(self, value):
         """
-        Validate Aadhar card number format
+        Validate that the borrower is an active user
         """
-        if not value.isdigit():
-            raise serializers.ValidationError("Aadhar card must contain only digits")
+        if not value:
+            raise serializers.ValidationError("Borrower is required")
 
-        if len(value) != 12:
-            raise serializers.ValidationError("Aadhar card must be exactly 12 digits")
-
-        return value
-
-    def validate_phone_number(self, value):
-        """
-        Validate phone number format
-        """
-        # Remove any spaces, dashes, and plus signs
-        cleaned = value.replace(' ', '').replace('-', '').replace('+', '')
-
-        if not cleaned.isdigit():
-            raise serializers.ValidationError("Phone number must contain only digits")
-
-        if len(cleaned) < 10:
-            raise serializers.ValidationError("Phone number must be at least 10 digits")
+        if not value.active:
+            raise serializers.ValidationError("Borrower must be an active user")
 
         return value
 

@@ -38,6 +38,8 @@ class ItemAttributeValueSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
     attribute_values = ItemAttributeValueSerializer(many=True, read_only=True)
     iteminfo_name = serializers.CharField(source='iteminfo.item_name', read_only=True)
+    iteminfo_category = serializers.CharField(source='iteminfo.category', read_only=True)
+    iteminfo_activity_name = serializers.CharField(source='iteminfo.activity_name', read_only=True)
     dept_name = serializers.CharField(source='dept.org_name', read_only=True)
     dept_short_name = serializers.CharField(source='dept.org_shortname', read_only=True)
     geocode_name = serializers.SerializerMethodField(read_only=True)
@@ -51,7 +53,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = [
             'id', 'photo', 'eol_date', 'operational_notes', 'status',
-            'geocode', 'geocode_name', 'pincode', 'iteminfo', 'iteminfo_name',
+            'geocode', 'geocode_name', 'pincode', 'iteminfo', 'iteminfo_name', 'iteminfo_category','iteminfo_activity_name',
             'geocode_codes',
             'dept', 'dept_name', 'dept_short_name', 'user', 'user_name',
             'created_by', 'created_by_name', 'verified_by', 'verified_by_name',
